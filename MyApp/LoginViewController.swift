@@ -61,16 +61,23 @@ class LoginViewController: UIViewController {
         
         if result.success {
             print("Successfull login")
+            performSegue(withIdentifier: Constants.SegueIdentifiers.mainScreen, sender: nil)
         } else {
-            print("Failed login")
+            
+            let alert = UIAlertController(title: "Login failed", message: nil, preferredStyle: .alert)
+            
             if let error = result.error {
                 switch error {
-                case .wrongUsernameAndPassword : print("Username and password are wrong")
-                case .wrongUsername : print("Username is wrong")
-                case .wrongPassword : print("Password is wrong")
+                case .wrongUsernameAndPassword : alert.message = "Username and password are wrong"
+                case .wrongUsername : alert.message = "Username is wrong"
+                case .wrongPassword : alert.message = "Password is wrong"
                 
                 }
             }
+            
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            
+            present(alert, animated: true, completion: nil)
         }
         
     }
