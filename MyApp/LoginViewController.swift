@@ -20,14 +20,12 @@ class LoginViewController: UIViewController {
     private let successfullPassword = "123456"
     
     @IBOutlet weak var scrollView: UIScrollView!
-    
     @IBOutlet weak var loginTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     override var preferredStatusBarStyle: UIStatusBarStyle { return  .default }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))        
         scrollView?.addGestureRecognizer(hideKeyboardGesture)
     }
@@ -46,6 +44,9 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func sighInTouchUpInside(_ sender: UIButton) {
+        
+        // uncomment for test
+        //performSegue(withIdentifier: Constants.SegueIdentifiers.mainScreen, sender: nil)
         
         guard let username = loginTextField.text else {
             print("login text field is empty")

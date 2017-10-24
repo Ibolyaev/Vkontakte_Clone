@@ -8,9 +8,9 @@
 
 import UIKit
 
-class UserStroryTableViewController: UITableViewController {
+class FriendsTableViewController: UITableViewController {
 
-    private var stories = ["Some stuff 1", "Some stuff 2", "Some stuff 3", "Some stuff 4", "Some stuff 5"]
+    private var friends = Friend.demoData()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,17 +23,23 @@ class UserStroryTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stories.count
+        return friends.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "storyCell", for: indexPath)
-        cell.textLabel?.text = stories[indexPath.row]
-        return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: FriendTableViewCell.reuseIdentifier, for: indexPath) as? FriendTableViewCell
+        guard let friendCell = cell else { return UITableViewCell() }        
+        
+        let friend = friends[indexPath.row]
+        friendCell.friend = friend
+        
+        return friendCell
     }
- 
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -70,14 +76,17 @@ class UserStroryTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "showFriendPictures",
+            let friend = (sender as? FriendTableViewCell)?.friend,
+        let friendPhotoCollectionView = segue.destination as? FriendPhotoCollectionViewController {
+            friendPhotoCollectionView.friend = friend
+        }
     }
-    */
+    
 
 }
