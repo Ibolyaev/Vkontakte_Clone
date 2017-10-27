@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="roH-7D-Wb8">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="U6e-ga-udq">
+            <objects>
+                <viewController id="roH-7D-Wb8" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rxk-Co-Bk0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vk" translatesAutoresizingMaskIntoConstraints="NO" id="spq-yI-hfN">
+                                <rect key="frame" x="125" y="20" width="125" height="125"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="spq-yI-hfN" secondAttribute="height" multiplier="1:1" id="7C3-RW-lDV"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trying hard to start..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kbc-Os-OEJ">
+                                <rect key="frame" x="107" y="323" width="160.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.1725741029" green="0.21834245320000001" blue="0.44677489999999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="spq-yI-hfN" firstAttribute="width" secondItem="rxk-Co-Bk0" secondAttribute="width" multiplier="1:6" id="ODy-Qf-y0Q"/>
+                            <constraint firstItem="kbc-Os-OEJ" firstAttribute="centerY" secondItem="rxk-Co-Bk0" secondAttribute="centerY" id="OlH-Em-bN2"/>
+                            <constraint firstItem="spq-yI-hfN" firstAttribute="top" secondItem="Gy1-Vs-qzJ" secondAttribute="top" id="WWy-v2-SOx"/>
+                            <constraint firstItem="kbc-Os-OEJ" firstAttribute="centerX" secondItem="rxk-Co-Bk0" secondAttribute="centerX" id="dRK-Yf-O2m"/>
+                            <constraint firstItem="spq-yI-hfN" firstAttribute="width" secondItem="rxk-Co-Bk0" secondAttribute="width" multiplier="1:3" id="e56-P4-gID"/>
+                            <constraint firstItem="spq-yI-hfN" firstAttribute="centerX" secondItem="rxk-Co-Bk0" secondAttribute="centerX" id="jlg-Mj-GKi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Gy1-Vs-qzJ"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="ODy-Qf-y0Q"/>
+                                <exclude reference="e56-P4-gID"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact">
+                            <mask key="constraints">
+                                <include reference="ODy-Qf-y0Q"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular">
+                            <mask key="constraints">
+                                <include reference="e56-P4-gID"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ySk-C8-bXH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="24.637681159420293" y="29.347826086956523"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Vk" width="251" height="200"/>
+    </resources>
+</document>

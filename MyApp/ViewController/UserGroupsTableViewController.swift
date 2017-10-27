@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class UserGroupsTableViewController: UITableViewController {
 
@@ -14,6 +16,9 @@ class UserGroupsTableViewController: UITableViewController {
         return allGroups.filter(){$0.currentUserInGroup}
         }
     }
+    
+    var userToken:String?
+    var userId:String?
     
     // MARK: - TO DO
     // Need to store user groups somewheare
@@ -25,7 +30,45 @@ class UserGroupsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    @IBAction func loadData(_ sender: UIBarButtonItem) {
+        /*let urlString = "https://oauth.vk.com/authorize?client_id=\(Constants.VK.accessToken)&display=mobile&redirect_uri=https://oauth.vk.com/blank.html&response_type=token&v=5.68&state=123456"*/
+        
+        
+        
+        performSegue(withIdentifier: "toAuth", sender: self)
+        
+    }
+    
+    func loadNetworkData() {
+        
+        guard let token  = userToken, let userId = userId else { return }
+        
+        let params = ["user_id":userId,"access_token":token,"extended":"1"] as [String : Any]
+        
+        Alamofire.request(Constants.VK.urlGroups, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON {[weak self] (response) in
+            //print(response.result.value)
+            if response.result.isSuccess {
+                
+                if let value = response.result.value {
+                    let json = JSON(value)
+                    if let result = json.dictionary {
+                        if let users = result["response"]?.array {
+                            self?.allGroups.removeAll()
+                            for jsonGroup in users {
+                                self?.allGroups.append(Group(json:jsonGroup))
+                            }
+                            self?.tableView.reloadData()
+                        }
+                    }
+                }
+                
+            } else {
+                print(response.result.error)
+            }
+            
+        }
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -43,8 +86,21 @@ class UserGroupsTableViewController: UITableViewController {
         guard let userGroupCell = cell else {
             return UITableViewCell()
         }
+        let group = userGroups[indexPath.row]
+        userGroupCell.group = group
         
-        userGroupCell.group = userGroups[indexPath.row]
+        Alamofire.request(group.photoURL).responseData {[weak userGroupCell] (response) in
+            if response.result.isSuccess {
+                
+                if let data = response.result.value {
+                    if let image = UIImage(data: data) {
+                        if userGroupCell?.group?.photoURL == response.request?.url?.absoluteString {
+                            userGroupCell?.groupImageView?.image = image
+                        }
+                    }
+                }
+            }
+        }
 
         return userGroupCell
     }
@@ -65,6 +121,14 @@ class UserGroupsTableViewController: UITableViewController {
             
             tableView.reloadData()
         }
+        
+        if let authVC = sender.source as? AuthWebViewController {
+            userToken = authVC.token
+            userId = authVC.userId
+            loadNetworkData()
+        }
+        
+        
     }
     
     
@@ -117,6 +181,7 @@ class UserGroupsTableViewController: UITableViewController {
             //GroupsTableViewController
             if let groupsVC = segue.destination as? GroupsTableViewController {
                 groupsVC.groups = allGroups.filter(){!$0.currentUserInGroup}
+                groupsVC.token = userToken
             }
         }
     }

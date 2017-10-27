@@ -11,6 +11,7 @@ import UIKit
 class FriendCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "friendCollectionCell"
+    var friend:Friend?
     @IBOutlet weak var friendImageView: UIImageView!
     
 }

@@ -20,8 +20,16 @@ class LoginViewController: UIViewController {
     private let successfullPassword = "123456"
     
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var loginTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var loginTextField: UITextField! {
+        didSet {
+            loginTextField?.text = succesfullLoginName
+        }
+    }
+    @IBOutlet weak var passwordTextField: UITextField! {
+        didSet {
+            passwordTextField?.text = successfullPassword
+        }
+    }
     override var preferredStatusBarStyle: UIStatusBarStyle { return  .default }
     
     override func viewDidLoad() {

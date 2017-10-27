@@ -6,12 +6,31 @@
 //  Copyright © 2017 Ronin. All rights reserved.
 //
 
+/*"last_name" : "Inozemtsev",
+"first_name" : "Igor",
+"uid" : 137173972*/
+
 import UIKit
+import SwiftyJSON
 struct Friend {
-    let name: String
-    let profilePicture:UIImage?
+    var name: String {
+        get {
+            return firstName + " " + lastName
+        }
+    }
+    let lastName: String
+    let firstName: String
+    let uid:String
+    let photoURL:String
     
-    static func demoData() -> [Friend] {
+    init(json:JSON) {
+        lastName = json["last_name"].stringValue
+        firstName = json["first_name"].stringValue
+        uid = json["uid"].stringValue
+        photoURL = json["photo_100"].stringValue
+    }
+    
+    /*static func demoData() -> [Friend] {
         
         var friends = [Friend]()
     
@@ -21,6 +40,6 @@ struct Friend {
         friends.append(Friend(name: "Leonardo da Vinchi", profilePicture: UIImage(named:"Leo")))
         
         return friends
-    }
+    }*/
     
 }

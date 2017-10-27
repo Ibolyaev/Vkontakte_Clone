@@ -13,7 +13,10 @@ class FriendTableViewCell: UITableViewCell {
     var friend:Friend? {
         didSet {            
             nameLabel?.text = friend?.name
-            profileImageView?.image = friend?.profilePicture
+            //profileImageView?.image = friend?.profilePicture
+            //guard let profileURL = friend?.photoURL else { return }
+            
+            
         }
     }
     
