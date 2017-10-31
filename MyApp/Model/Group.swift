@@ -22,7 +22,7 @@ import SwiftyJSON
  "description":
  */
 
-struct Group:Equatable {
+class Group:Equatable {
     static func ==(lhs: Group, rhs: Group) -> Bool {
         return lhs.name == rhs.name
     }
@@ -33,38 +33,17 @@ struct Group:Equatable {
     let usersCount:Int
     let image:UIImage?
     var currentUserInGroup:Bool
-    let photoURL:String
+    let photo:Photo
     
     init(json:JSON) {
         name = json["name"].stringValue
         screenName = json["screenName"].stringValue
-        id = json["id"].stringValue
+        id = json["gid"].stringValue
         // MARK : TODO
         usersCount = 0 // How to get ?
-        photoURL = json["photo_medium"].stringValue
+        photo = Photo(url:json["photo_medium"].stringValue)
         currentUserInGroup = true
         image = nil
     }
-    // Demo only
-    init(name: String, usersCount: Int, image: UIImage?, currentUserInGroup: Bool) {
-        self.name = name
-        self.usersCount = usersCount
-        self.image = image
-        self.currentUserInGroup = currentUserInGroup
-        screenName = name
-        photoURL = ""
-        id = "demo"
-    }
     
-    static func demoData() -> [Group] {
-        
-        var userGroups = [Group]()
-        
-        userGroups.append(Group(name: "Microsoft guys", usersCount: 1000, image: UIImage(named:"Microsoft"), currentUserInGroup: false))
-        userGroups.append(Group(name: "Apple guys", usersCount: 2000, image: UIImage(named:"Apple"), currentUserInGroup: true))
-        userGroups.append(Group(name: "Fishing lovers", usersCount: 2000, image: UIImage(named:"Fishing"), currentUserInGroup: false))
-        userGroups.append(Group(name: "1C", usersCount: 2000, image: UIImage(named:"One"), currentUserInGroup: true))
-        
-        return userGroups
-    }
 }

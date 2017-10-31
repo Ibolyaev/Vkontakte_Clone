@@ -16,57 +16,34 @@ class UserGroupsTableViewController: UITableViewController {
         return allGroups.filter(){$0.currentUserInGroup}
         }
     }
-    
+    let VKClient = VKontakteAPI()
     var userToken:String?
     var userId:String?
     
     // MARK: - TO DO
     // Need to store user groups somewheare
     
-    var allGroups: [Group] = {
-        return Group.demoData()
-    }()
+    var allGroups = [Group]()
  
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     @IBAction func loadData(_ sender: UIBarButtonItem) {
-        /*let urlString = "https://oauth.vk.com/authorize?client_id=\(Constants.VK.accessToken)&display=mobile&redirect_uri=https://oauth.vk.com/blank.html&response_type=token&v=5.68&state=123456"*/
-        
-        
-        
-        performSegue(withIdentifier: "toAuth", sender: self)
-        
+        performSegue(withIdentifier: "toAuth", sender: self)        
     }
     
     func loadNetworkData() {
         
         guard let token  = userToken, let userId = userId else { return }
         
-        let params = ["user_id":userId,"access_token":token,"extended":"1"] as [String : Any]
-        
-        Alamofire.request(Constants.VK.urlGroups, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON {[weak self] (response) in
-            //print(response.result.value)
-            if response.result.isSuccess {
-                
-                if let value = response.result.value {
-                    let json = JSON(value)
-                    if let result = json.dictionary {
-                        if let users = result["response"]?.array {
-                            self?.allGroups.removeAll()
-                            for jsonGroup in users {
-                                self?.allGroups.append(Group(json:jsonGroup))
-                            }
-                            self?.tableView.reloadData()
-                        }
-                    }
+        VKClient.getUserGroups(userId, userToken: token) {[weak self] (groups, error) in
+            if error == nil {
+                if let loadedGroups = groups {
+                    self?.allGroups = loadedGroups
+                    self?.tableView.reloadData()
                 }
-                
-            } else {
-                print(response.result.error)
             }
-            
-        }
+        }        
     }
     
     // MARK: - Table view data source
@@ -89,13 +66,14 @@ class UserGroupsTableViewController: UITableViewController {
         let group = userGroups[indexPath.row]
         userGroupCell.group = group
         
-        Alamofire.request(group.photoURL).responseData {[weak userGroupCell] (response) in
+        Alamofire.request(group.photo.url).responseData {[weak userGroupCell] (response) in
             if response.result.isSuccess {
                 
                 if let data = response.result.value {
                     if let image = UIImage(data: data) {
-                        if userGroupCell?.group?.photoURL == response.request?.url?.absoluteString {
+                        if userGroupCell?.group?.photo.url == response.request?.url?.absoluteString {
                             userGroupCell?.groupImageView?.image = image
+                            userGroupCell?.group?.photo.image = image
                         }
                     }
                 }

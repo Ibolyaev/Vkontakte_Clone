@@ -16,6 +16,7 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
     var filteredGroups: [Group] = [Group]()
     var token:String?
     var selectedGroup:Group?
+    let VKClient = VKontakteAPI()
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -40,38 +41,15 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
         
         guard let token = token, searchText != "" else { return }
         
-        let params = ["q":searchText,"access_token":token]
-        
-        Alamofire.request(Constants.VK.urlGroupsSearch, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON {[weak self] (response) in
-            //print(response.result.value)
-            if response.result.isSuccess {
-                
-                if let value = response.result.value {
-                    let json = JSON(value)
-                    if let result = json.dictionary {
-                        if let users = result["response"]?.array {
-                            self?.filteredGroups.removeAll()
-                            for jsonGroup in users {
-                                self?.filteredGroups.append(Group(json:jsonGroup))
-                            }
-                        self?.tableView.reloadData()
-                        } else {
-                           print(response.result.error)
-                        }
-                    }
+        VKClient.getGroups(searchText, userToken: token) {[weak self] (groups, error) in
+            if error == nil {
+                if let loadedGroups = groups {
+                    self?.filteredGroups = loadedGroups
+                    self?.tableView.reloadData()
                 }
-                
-            } else {
-                print(response.result.error)
             }
-            
         }
         
-        /*filteredGroups = groups.filter({( group : Group) -> Bool in
-            return group.name.lowercased().contains(searchText.lowercased())
-        })*/
-        
-        tableView.reloadData()
     }
     
     func isFiltering() -> Bool {
@@ -107,18 +85,30 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
             group = groups[indexPath.row]
         }
         groupCell.group = group
-        Alamofire.request(group.photoURL).responseData {[weak groupCell] (response) in
+        Alamofire.request(group.photo.url).responseData {[weak groupCell] (response) in
             if response.result.isSuccess {
                 
                 if let data = response.result.value {
                     if let image = UIImage(data: data) {
-                        if groupCell?.group?.photoURL == response.request?.url?.absoluteString {
+                        if groupCell?.group?.photo.url == response.request?.url?.absoluteString {
                             groupCell?.groupImageView?.image = image
+                            groupCell?.group?.photo.image = image
                         }
                     }
                 }
             }
         }
+        
+        if let userToken = token {
+            VKClient.getGroupMembers(groupId: group.id, userToken: userToken, completionHandler: {[weak groupCell] (membersCount, groupId, error) in
+                if groupCell?.group?.id == groupId {
+                    groupCell?.userCountLabel.text = "\(membersCount) people"
+                }
+            })
+        }
+        
+        
+        
         return groupCell
     }
     

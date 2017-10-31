@@ -17,7 +17,7 @@ class FriendPhotoCollectionViewController: UICollectionViewController {
     var friend: Friend? {
         didSet {
             if friend != nil {
-                photosURLs.append(friend!.photoURL)
+                photosURLs.append(friend!.photo.url)
             }
         }        
     }
@@ -88,7 +88,7 @@ class FriendPhotoCollectionViewController: UICollectionViewController {
                 
                 if let data = response.result.value {
                     if let image = UIImage(data: data) {
-                        if friendPhotoCell?.friend?.photoURL == response.request?.url?.absoluteString {
+                        if friendPhotoCell?.friend?.photo.url == response.request?.url?.absoluteString {
                             friendPhotoCell?.friendImageView?.image = image
                         }
                     }

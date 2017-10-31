@@ -12,7 +12,9 @@
 
 import UIKit
 import SwiftyJSON
-struct Friend {
+
+class Friend {
+    
     var name: String {
         get {
             return firstName + " " + lastName
@@ -21,25 +23,13 @@ struct Friend {
     let lastName: String
     let firstName: String
     let uid:String
-    let photoURL:String
+    let photo:Photo
     
     init(json:JSON) {
         lastName = json["last_name"].stringValue
         firstName = json["first_name"].stringValue
         uid = json["uid"].stringValue
-        photoURL = json["photo_100"].stringValue
+        photo = Photo(url:json["photo_100"].stringValue)
     }
-    
-    /*static func demoData() -> [Friend] {
-        
-        var friends = [Friend]()
-    
-        friends.append(Friend(name: "Bill Gates", profilePicture: UIImage(named:"Bill")))
-        friends.append(Friend(name: "Steve Jobs", profilePicture: UIImage(named:"Steve")))
-        friends.append(Friend(name: "Barak Obama", profilePicture: UIImage(named:"Barak")))
-        friends.append(Friend(name: "Leonardo da Vinchi", profilePicture: UIImage(named:"Leo")))
-        
-        return friends
-    }*/
     
 }
