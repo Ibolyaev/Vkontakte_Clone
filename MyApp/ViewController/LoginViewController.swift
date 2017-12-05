@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 enum LoginError:Error {
     case wrongUsername
@@ -18,6 +19,7 @@ class LoginViewController: UIViewController {
     
     private let succesfullLoginName = "Ibo"
     private let successfullPassword = "123456"
+    let authService = AuthService()
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var loginTextField: UITextField! {
@@ -55,6 +57,14 @@ class LoginViewController: UIViewController {
         
         // uncomment for test
         //performSegue(withIdentifier: Constants.SegueIdentifiers.mainScreen, sender: nil)
+        
+        //Present safari view
+        /*let url = URL(string: "https://oauth.vk.com/authorize?revoke=1&response_type=token&display=mobile&scope=email,offline,nohttps&v=5.40&redirect_uri=vk6263153://authorize&sdk_version=1.4.6&client_id=6263153")*/
+        let url = VKontakteAPI.authRequest()
+        authService.currentViewController = self
+        authService.showSafari(url: url)
+        
+        return
         
         guard let username = loginTextField.text else {
             print("login text field is empty")

@@ -107,8 +107,6 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
             })
         }
         
-        
-        
         return groupCell
     }
     

@@ -26,7 +26,7 @@ class AuthWebViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let urlString = "https://oauth.vk.com/authorize?client_id=\(Constants.VK.accessToken)&display=mobile&redirect_uri=https://oauth.vk.com/blank.html&response_type=token&v=5.68&state=123456"
+        let urlString = "https://oauth.vk.com/authorize?client_id=\(VK.accessToken)&display=mobile&redirect_uri=https://oauth.vk.com/blank.html&response_type=token&v=5.68&state=123456"
         activityIndicator = UIActivityIndicatorView(frame: view.bounds)
         activityIndicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         activityIndicator.color = .black

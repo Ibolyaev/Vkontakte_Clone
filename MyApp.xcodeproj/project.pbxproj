@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30113CE31FD6DF0F00309742 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30113CE21FD6DF0F00309742 /* User.swift */; };
+		30113CE51FD6E39100309742 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30113CE41FD6E39100309742 /* AuthService.swift */; };
 		301C4EED1FA849CB00E54F47 /* VKontakteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301C4EEC1FA849CB00E54F47 /* VKontakteAPI.swift */; };
 		301C4EEF1FA85C7300E54F47 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301C4EEE1FA85C7300E54F47 /* Photo.swift */; };
 		304458361F97794700D694BA /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304458351F97794700D694BA /* FriendsTableViewController.swift */; };
@@ -31,6 +33,8 @@
 
 /* Begin PBXFileReference section */
 		00A959F99CCDF6A5D5A1B7AC /* Pods_MyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		30113CE21FD6DF0F00309742 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		30113CE41FD6E39100309742 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		301C4EEC1FA849CB00E54F47 /* VKontakteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKontakteAPI.swift; sourceTree = "<group>"; };
 		301C4EEE1FA85C7300E54F47 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		304458351F97794700D694BA /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				301C4EEC1FA849CB00E54F47 /* VKontakteAPI.swift */,
+				30113CE41FD6E39100309742 /* AuthService.swift */,
+				30113CE21FD6DF0F00309742 /* User.swift */,
 				301C4EEE1FA85C7300E54F47 /* Photo.swift */,
 				304458371F977A4C00D694BA /* Constants.swift */,
 				30FFAD191F9F37110026FFF9 /* Group.swift */,
@@ -300,10 +306,12 @@
 				301C4EEF1FA85C7300E54F47 /* Photo.swift in Sources */,
 				304458361F97794700D694BA /* FriendsTableViewController.swift in Sources */,
 				30E8D7AC1F949AD300B57F00 /* LoginViewController.swift in Sources */,
+				30113CE51FD6E39100309742 /* AuthService.swift in Sources */,
 				30CAFB281F9F4E00002D0BB1 /* GroupsTableViewController.swift in Sources */,
 				30CAFB201F9F49A8002D0BB1 /* UserGroupsTableViewController.swift in Sources */,
 				30CAFB261F9F4C25002D0BB1 /* GroupTableViewCell.swift in Sources */,
 				30CAFB241F9F4C13002D0BB1 /* UserGroupTableViewCell.swift in Sources */,
+				30113CE31FD6DF0F00309742 /* User.swift in Sources */,
 				30FFAD141F9F23B80026FFF9 /* Friend.swift in Sources */,
 				30E920211FA210FF00849495 /* AuthWebViewController.swift in Sources */,
 				30FFAD1A1F9F37110026FFF9 /* Group.swift in Sources */,
