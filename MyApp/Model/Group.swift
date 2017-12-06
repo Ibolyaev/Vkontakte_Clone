@@ -39,8 +39,7 @@ class Group:Equatable {
         name = json["name"].stringValue
         screenName = json["screenName"].stringValue
         id = json["gid"].stringValue
-        // MARK : TODO
-        usersCount = 0 // How to get ?
+        usersCount = 0
         photo = Photo(url:json["photo_medium"].stringValue)
         currentUserInGroup = true
         image = nil

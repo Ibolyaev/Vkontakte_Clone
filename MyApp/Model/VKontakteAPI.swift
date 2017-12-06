@@ -24,6 +24,7 @@ struct VK {
 }
 
 class VKontakteAPI {
+    // TODO: Оптимизировать вызов методов, сделать только один метод, в который получаем парсер (ожидаемый тип), параметры и URL
     let appToken = VK.accessToken
     let parameters = ["":""]
     
@@ -46,7 +47,6 @@ class VKontakteAPI {
       return urlComponents.url!
         
     }
-    
     
     static func getUser(userToken:String, completionHandler:@escaping  (_ user:User?, _ error:Error?)->()) {
         let params = ["access_token":userToken, "fields":"photo_100"]
@@ -77,14 +77,11 @@ class VKontakteAPI {
         let params = ["group_id":groupId,"access_token":userToken]
         
         Alamofire.request(VK.urlGroupMembers, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON {[groupId] (response) in
-            
             if response.result.isSuccess {
-                
                 if let value = response.result.value {
                     let json = JSON(value)
                     if let result = json.dictionary {
                         if let response = result["response"]?.dictionary {
-                            
                             if let membersCount = response["count"]?.int {
                                 completionHandler(membersCount,groupId,nil)
                             }
@@ -99,11 +96,9 @@ class VKontakteAPI {
     }
     
     func getGroups(_ searchText:String,userToken:String, completionHandler:@escaping (_ groups:[Group]?,_ error:Error?)->() ) {
-        
         let params = ["q":searchText,"access_token":userToken]
         
         Alamofire.request(VK.urlGroupsSearch, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON {(response) in
-            
             if response.result.isSuccess {
                 var groups = [Group]()
                 if let value = response.result.value {
@@ -117,19 +112,16 @@ class VKontakteAPI {
                         }
                     }
                 }
-                
             } else {
                 completionHandler(nil,response.result.error)
             }            
         }
-        
     }
     
     func getUserGroups(_ userToken:String, completionHandler:@escaping (_ groups:[Group]?,_ error:Error?)->() ) {
         let params = ["access_token":userToken,"extended":"1"] as [String : Any]
         
         Alamofire.request(VK.urlGroups, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON {(response) in
-            
             if response.result.isSuccess {
                 var groups = [Group]()
                 if let value = response.result.value {
@@ -143,20 +135,16 @@ class VKontakteAPI {
                         }
                     }
                 }
-                
             } else {
                 completionHandler(nil,response.result.error)
             }
-            
         }
     }
     
-    func getUserFriends(userId:String, completionHandler: @escaping (_ friends:[Friend]?,_ error:Error?)->() ) {
-        
-        let params = ["user_id":userId,"access_token":appToken]
+    func getUserFriends(userToken:String, completionHandler: @escaping (_ friends:[Friend]?,_ error:Error?)->() ) {
+        let params = ["access_token":userToken]
         
         Alamofire.request(VK.urlFriends, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON {[weak self] (response) in
-            
             if response.result.isSuccess {
                 
                 if let value = response.result.value {
@@ -172,19 +160,16 @@ class VKontakteAPI {
                         }
                     }
                 }
-                
             } else {
                 completionHandler(nil, response.result.error)
             }
-            
         }
     }
     
     func loadFriendsWithIds(userIds:[String], completionHandler: @escaping (_ friends:[Friend]?,_ error:Error?)->() ) {
         let params = ["user_ids":userIds,"access_token":appToken, "fields":["photo_100"]] as [String : Any]
         
-        Alamofire.request(VK.urlUsers, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON {[weak self] (response) in
-            
+        Alamofire.request(VK.urlUsers, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON {(response) in
             if response.result.isSuccess {
                 var friends = [Friend]()
                 if let value = response.result.value {
@@ -198,13 +183,9 @@ class VKontakteAPI {
                         }
                     }
                 }
-                
             } else {
                 completionHandler(nil, response.result.error)
             }
-            
         }
     }
-    
-    
 }

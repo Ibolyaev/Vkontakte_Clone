@@ -153,11 +153,11 @@
                             <size key="itemSize" width="130" height="108"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="sectionInset" minX="10" minY="10" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="friendCollectionCell" id="asD-kq-QyA" customClass="FriendCollectionViewCell" customModule="MyApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="130" height="108"/>
+                                <rect key="frame" x="10" y="10" width="130" height="108"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="130" height="108"/>
@@ -265,32 +265,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <segue destination="EMl-zZ-7xY" kind="show" identifier="toAuth" id="Fou-gI-Fn1"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QFB-DX-p7x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2649.375" y="401.40845070422534"/>
-        </scene>
-        <!--Auth Web View Controller-->
-        <scene sceneID="Qzd-WA-u6f">
-            <objects>
-                <viewController id="EMl-zZ-7xY" customClass="AuthWebViewController" customModule="MyApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="GgC-3J-slp">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <viewLayoutGuide key="safeArea" id="v2u-XI-i67"/>
-                    </view>
-                    <connections>
-                        <segue destination="eKD-Yz-fCF" kind="unwind" identifier="unwindToUserGroup" unwindAction="unwindToThisViewWithSender:" id="amG-1a-A7B"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3a0-u9-7be" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="eKD-Yz-fCF" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="2649" y="1232"/>
         </scene>
         <!--Groups-->
         <scene sceneID="TNX-mw-Cur">

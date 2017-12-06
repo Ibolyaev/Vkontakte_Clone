@@ -21,7 +21,6 @@ class AuthService {
     }
     
     func parseURLParameters(from: URL) -> [String:String]? {
-        
         var params: [String: String] = [:]
         let components = URLComponents(url: from, resolvingAgainstBaseURL: false)
         
@@ -63,23 +62,10 @@ class AuthService {
             }
             
         }
-        
-        /*Server.standard.request(authRequest) { user, error in
-            guard let loginCompletion = self.loginCompletion else { return }
-            SVProgressHUD.dismiss(completion: {
-                UIApplication.shared.endIgnoringInteractionEvents()
-            })
-            
-            if let error = error {
-                loginCompletion(nil, error)
-            } else {
-                loginCompletion(user, nil)
-            }
-        }*/
     }
     
     func showSafari(url: URL) {
-        safari = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+        safari = SFSafariViewController(url: url)
         currentViewController?.present(safari!, animated: true, completion: nil)
     }
     

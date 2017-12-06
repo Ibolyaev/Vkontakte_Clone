@@ -48,7 +48,6 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
     
     
     func searchBarIsEmpty() -> Bool {
-        // Returns true if the text is empty or nil
         return searchController.searchBar.text?.isEmpty ?? true
     }
     

@@ -25,36 +25,6 @@ class FriendPhotoCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Need to have token
-        /*let params = ["owner_id":friend?.uid,"access_token":Constants.VK.accessToken] as [String : Any]
-        
-        Alamofire.request(Constants.VK.urlPhotosAll, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON {[weak self] (response) in
-            //print(response.result.value)
-            if response.result.isSuccess {
-                self?.photosURLs.removeAll()
-                if let value = response.result.value {
-                    let json = JSON(value)
-                    if let result = json.dictionary {
-                        if let result = result["response"]?.dictionary {
-                            if let items = result["items"]?.array {
-                                for item in items {
-                                    self?.photosURLs.append(item["photo_130"].stringValue)
-                                }
-                                self?.collectionView?.reloadData()
-                            }
-                            
-                            
-                        } else if let errorJson = result["error"]?.dictionary {
-                            print(errorJson)
-                        }
-                    }
-                }
-                
-            } else {
-                print(response.result.error)
-            }
-            
-        }*/
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -98,36 +68,4 @@ class FriendPhotoCollectionViewController: UICollectionViewController {
     
         return friendPhotoCell
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
-
 }
