@@ -9,5 +9,6 @@
 import Foundation
 struct User {
     let name:String
-    let email:String?
+    let photoURL:String?
+    let token: String
 }

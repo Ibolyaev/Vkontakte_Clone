@@ -37,7 +37,7 @@ class VKontakteAPI {
             URLQueryItem(name: "revoke", value:"1"),
             URLQueryItem(name: "response_type", value:"token"),
             URLQueryItem(name: "display", value:"mobile"),
-            URLQueryItem(name: "scope", value:"email,offline,nohttps"),
+            URLQueryItem(name: "scope", value:"email,offline"),
             URLQueryItem(name: "redirect_uri", value:"vk\(VK.appId)://authorize"),
             URLQueryItem(name: "client_id", value:VK.appId),
             URLQueryItem(name: "sdk_version", value:"1.4.6")
@@ -47,6 +47,31 @@ class VKontakteAPI {
         
     }
     
+    
+    static func getUser(userToken:String, completionHandler:@escaping  (_ user:User?, _ error:Error?)->()) {
+        let params = ["access_token":userToken, "fields":"photo_100"]
+        
+        Alamofire.request(VK.urlUsers, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON {[userToken] (response) in
+            if response.result.isSuccess {
+                if let value = response.result.value {
+                    let json = JSON(value)
+                    if let result = json.dictionary {
+                        if let response = result["response"]?.array,
+                            let userJSON = response[0].dictionary {
+                            let name = userJSON["first_name"]?.stringValue ?? ""
+                            let user = User(name: name, photoURL: userJSON["photo_100"]?.string, token: userToken)
+                            AppState.shared.user = user
+                            completionHandler(user, nil)
+                        } else {
+                            completionHandler(nil, response.result.error)
+                        }
+                    }
+                }
+            } else {
+                completionHandler(nil, response.result.error)
+            }
+        }
+    }
     
     func getGroupMembers(groupId:String, userToken:String, completionHandler:@escaping (_ membersCount:Int,_ groupId:String,_ error:Error?)->()) {
         let params = ["group_id":groupId,"access_token":userToken]
@@ -100,8 +125,8 @@ class VKontakteAPI {
         
     }
     
-    func getUserGroups(_ userId: String, userToken:String, completionHandler:@escaping (_ groups:[Group]?,_ error:Error?)->() ) {
-        let params = ["user_id":userId,"access_token":userToken,"extended":"1"] as [String : Any]
+    func getUserGroups(_ userToken:String, completionHandler:@escaping (_ groups:[Group]?,_ error:Error?)->() ) {
+        let params = ["access_token":userToken,"extended":"1"] as [String : Any]
         
         Alamofire.request(VK.urlGroups, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON {(response) in
             

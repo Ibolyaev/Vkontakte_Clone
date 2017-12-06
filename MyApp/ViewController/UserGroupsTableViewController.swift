@@ -12,34 +12,29 @@ import SwiftyJSON
 
 class UserGroupsTableViewController: UITableViewController {
 
-    var userGroups: [Group] { get {
-        return allGroups.filter(){$0.currentUserInGroup}
-        }
-    }
+    var userGroups = [Group]()
     let VKClient = VKontakteAPI()
     var userToken:String?
     var userId:String?
-    
-    // MARK: - TO DO
-    // Need to store user groups somewheare
-    
-    var allGroups = [Group]()
  
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadNetworkData()
     }
-    @IBAction func loadData(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "toAuth", sender: self)        
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
     
     func loadNetworkData() {
         
-        guard let token  = userToken, let userId = userId else { return }
+        guard let token  = AppState.shared.user?.token else { return }
         
-        VKClient.getUserGroups(userId, userToken: token) {[weak self] (groups, error) in
+        VKClient.getUserGroups(token) {[weak self] (groups, error) in
             if error == nil {
                 if let loadedGroups = groups {
-                    self?.allGroups = loadedGroups
+                    self?.userGroups = loadedGroups
                     self?.tableView.reloadData()
                 }
             }
@@ -88,81 +83,25 @@ class UserGroupsTableViewController: UITableViewController {
     }
 
     @IBAction func unwindToThisView(sender: UIStoryboardSegue) {
+        
         if let sourceViewController = sender.source as? GroupsTableViewController {
-            guard var selectedGroup = sourceViewController.selectedGroup else { return }
+            guard let selectedGroup = sourceViewController.selectedGroup else { return }
             
-            guard let indexOfSeleceted = allGroups.index(of: selectedGroup) else { return }
-            
-            allGroups.remove(at: indexOfSeleceted)
             selectedGroup.currentUserInGroup = true
-            allGroups.append(selectedGroup)
-            
+            userGroups.append(selectedGroup)
+            // TODO: Реализовать подписку на группу
             tableView.reloadData()
         }
-        
-        if let authVC = sender.source as? AuthWebViewController {
-            userToken = authVC.token
-            userId = authVC.userId
-            loadNetworkData()
-        }
-        
-        
     }
     
-    
-    // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
  
 
-    
-    // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            var selectedGroup = userGroups[indexPath.row]
-            guard let indexOfSeleceted = allGroups.index(of: selectedGroup) else { return }
-            allGroups.remove(at: indexOfSeleceted)
-            selectedGroup.currentUserInGroup = false
-            allGroups.append(selectedGroup)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
- 
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showGroups" {
-            //GroupsTableViewController
-            if let groupsVC = segue.destination as? GroupsTableViewController {
-                groupsVC.groups = allGroups.filter(){!$0.currentUserInGroup}
-                groupsVC.token = userToken
-            }
+            // TODO: Реализовать отписку от группы
         }
     }
- 
-
 }

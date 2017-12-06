@@ -12,7 +12,7 @@ import SafariServices
 class AuthService {
     var safari: SFSafariViewController?
     weak var currentViewController: UIViewController?
-    var loginCompletion: ((User, Error?) -> Void)?
+    var loginCompletion: ((User?, Error?) -> Void)?
     init() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(AuthService.loggedIn(_:)),
@@ -36,10 +36,9 @@ class AuthService {
         }
         
         guard
-            let token = params["access_token"],
-            let secret = params["secret"]
+            let token = params["access_token"]
             else { return [:] }
-        return ["token": token, "secret": secret]
+        return ["token": token]
         
     }
     
@@ -47,16 +46,23 @@ class AuthService {
         hideSafari()
         guard
             let notification = notification,
-            let url = notification.object as? URL
+            let url = notification.object as? URL,
+            let loginCompletion = loginCompletion
             else { return }
         
         let parameters = parseURLParameters(from: url)
         guard
-            let token = parameters?["token"],
-            let secret = parameters?["secret"]
+            let token = parameters?["token"]
             else { return }
         
-        print(token)
+        VKontakteAPI.getUser(userToken: token) { (user, error) in
+            if let error = error {
+                loginCompletion(nil, error)
+            } else {
+                loginCompletion(user, error)
+            }
+            
+        }
         
         /*Server.standard.request(authRequest) { user, error in
             guard let loginCompletion = self.loginCompletion else { return }

@@ -17,21 +17,10 @@ enum LoginError:Error {
 
 class LoginViewController: UIViewController {
     
-    private let succesfullLoginName = "Ibo"
-    private let successfullPassword = "123456"
     let authService = AuthService()
     
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var loginTextField: UITextField! {
-        didSet {
-            loginTextField?.text = succesfullLoginName
-        }
-    }
-    @IBOutlet weak var passwordTextField: UITextField! {
-        didSet {
-            passwordTextField?.text = successfullPassword
-        }
-    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle { return  .default }
     
     override func viewDidLoad() {
@@ -53,6 +42,11 @@ class LoginViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
+    func loginCompletion(user:User?, error:Error?) {
+        print(user?.name)
+        performSegue(withIdentifier: Constants.SegueIdentifiers.mainScreen, sender: nil)
+    }
+    
     @IBAction func sighInTouchUpInside(_ sender: UIButton) {
         
         // uncomment for test
@@ -62,42 +56,8 @@ class LoginViewController: UIViewController {
         /*let url = URL(string: "https://oauth.vk.com/authorize?revoke=1&response_type=token&display=mobile&scope=email,offline,nohttps&v=5.40&redirect_uri=vk6263153://authorize&sdk_version=1.4.6&client_id=6263153")*/
         let url = VKontakteAPI.authRequest()
         authService.currentViewController = self
+        authService.loginCompletion = loginCompletion
         authService.showSafari(url: url)
-        
-        return
-        
-        guard let username = loginTextField.text else {
-            print("login text field is empty")
-            return
-        }
-        
-        guard let password = passwordTextField.text else {
-            print("Password text field is empty")
-            return
-        }
-        
-        let result = loginWith(username: username, password: password)
-        
-        if result.success {
-            print("Successfull login")
-            performSegue(withIdentifier: Constants.SegueIdentifiers.mainScreen, sender: nil)
-        } else {
-            
-            let alert = UIAlertController(title: "Login failed", message: nil, preferredStyle: .alert)
-            
-            if let error = result.error {
-                switch error {
-                case .wrongUsernameAndPassword : alert.message = "Username and password are wrong"
-                case .wrongUsername : alert.message = "Username is wrong"
-                case .wrongPassword : alert.message = "Password is wrong"
-                
-                }
-            }
-            
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            
-            present(alert, animated: true, completion: nil)
-        }
         
     }
     
@@ -120,24 +80,6 @@ class LoginViewController: UIViewController {
         let contentInset = UIEdgeInsets.zero
         scrollView?.contentInset = contentInset
         scrollView?.scrollIndicatorInsets = contentInset
-        
-    }
-    
-    private func loginWith(username: String, password: String) -> (success: Bool,error: LoginError?)  {
-        
-        if username == succesfullLoginName && password == successfullPassword {
-            return (true,nil)
-        }
-        
-        if username == succesfullLoginName {
-            return(false,.wrongPassword)
-        }
-        
-        if password == successfullPassword {
-            return (false,.wrongUsername)
-        }
-        
-        return (false, .wrongUsernameAndPassword)
         
     }
     

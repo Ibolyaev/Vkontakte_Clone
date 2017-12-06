@@ -14,7 +14,6 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
 
     var groups: [Group] = [Group]()
     var filteredGroups: [Group] = [Group]()
-    var token:String?
     var selectedGroup:Group?
     let VKClient = VKontakteAPI()
     
@@ -27,8 +26,24 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
         searchController.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search for groups"
+        
         navigationItem.searchController = searchController
         definesPresentationContext = true
+        guard let token = AppState.shared.user?.token else { return }
+        
+        VKClient.getGroups(" ", userToken: token) {[weak self] (groups, error) in
+            if error == nil {
+                if let loadedGroups = groups {
+                    self?.filteredGroups = loadedGroups
+                    self?.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     
@@ -39,12 +54,13 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         
-        guard let token = token, searchText != "" else { return }
+        guard let token = AppState.shared.user?.token, searchText != "" else { return }
         
         VKClient.getGroups(searchText, userToken: token) {[weak self] (groups, error) in
             if error == nil {
                 if let loadedGroups = groups {
                     self?.filteredGroups = loadedGroups
+                    self?.groups = loadedGroups
                     self?.tableView.reloadData()
                 }
             }
@@ -99,7 +115,7 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
             }
         }
         
-        if let userToken = token {
+        if let userToken = AppState.shared.user?.token {
             VKClient.getGroupMembers(groupId: group.id, userToken: userToken, completionHandler: {[weak groupCell] (membersCount, groupId, error) in
                 if groupCell?.group?.id == groupId {
                     groupCell?.userCountLabel.text = "\(membersCount) people"
@@ -123,7 +139,6 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
             performSegue(withIdentifier: "unwindToUserGroup", sender: self)
         }
         searchController.isActive = false
-        
     }
     
 }
