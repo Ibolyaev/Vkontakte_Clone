@@ -29,7 +29,7 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
         
         navigationItem.searchController = searchController
         definesPresentationContext = true
-        guard let token = AppState.shared.user?.token else { return }
+        guard let token = AppState.shared.token else { return }
         
         VKClient.getGroups(" ", userToken: token) {[weak self] (groups, error) in
             if error == nil {
@@ -53,7 +53,7 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         
-        guard let token = AppState.shared.user?.token, searchText != "" else { return }
+        guard let token = AppState.shared.token, searchText != "" else { return }
         
         VKClient.getGroups(searchText, userToken: token) {[weak self] (groups, error) in
             if error == nil {
@@ -107,14 +107,13 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
                     if let image = UIImage(data: data) {
                         if groupCell?.group?.photo.url == response.request?.url?.absoluteString {
                             groupCell?.groupImageView?.image = image
-                            groupCell?.group?.photo.image = image
                         }
                     }
                 }
             }
         }
         
-        if let userToken = AppState.shared.user?.token {
+        if let userToken = AppState.shared.token {
             VKClient.getGroupMembers(groupId: group.id, userToken: userToken, completionHandler: {[weak groupCell] (membersCount, groupId, error) in
                 if groupCell?.group?.id == groupId {
                     groupCell?.userCountLabel.text = "\(membersCount) people"

@@ -17,13 +17,13 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="MyApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="LoginViewController" customModule="MyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="Ka2-Zp-7dn">
-                                <rect key="frame" x="128.5" y="166" width="62" height="32"/>
+                                <rect key="frame" x="128.5" y="165.5" width="62" height="32"/>
                                 <color key="backgroundColor" red="0.27058823529411763" green="0.40000000000000002" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                 <state key="normal" title="Войти">
@@ -56,18 +56,19 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="2t4-US-16C"/>
                     <connections>
                         <segue destination="OAH-TW-zgb" kind="show" identifier="mainScreen" id="wG2-j9-UCw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="24.375" y="28.52112676056338"/>
+            <point key="canvasLocation" x="443" y="21"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Lw1-KC-bfO">
             <objects>
-                <tabBarController id="OAH-TW-zgb" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OAH-TW-zgb" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AnE-sz-GP6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -80,7 +81,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SOa-f4-1iH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="812" y="29"/>
+            <point key="canvasLocation" x="1209" y="21"/>
         </scene>
         <!--Friends-->
         <scene sceneID="poo-KV-7YV">
@@ -135,11 +136,17 @@
                             <outlet property="delegate" destination="n6b-mT-6Uh" id="U5d-YR-Gbh"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Friends" id="RcR-b1-jaE"/>
+                    <navigationItem key="navigationItem" title="Friends" id="RcR-b1-jaE">
+                        <barButtonItem key="leftBarButtonItem" title="Выйти" id="ZK6-7W-tTE">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="presentation" id="WNB-Sq-95k"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fU3-T1-UVn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2649.375" y="-300"/>
+            <point key="canvasLocation" x="3046.875" y="-300"/>
         </scene>
         <!--Friend Photo Collection View Controller-->
         <scene sceneID="8ep-CB-wnM">
@@ -187,7 +194,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jeM-7C-Ime" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3466.875" y="-300"/>
+            <point key="canvasLocation" x="3864.375" y="-300"/>
         </scene>
         <!--Friends-->
         <scene sceneID="zGO-a6-t8v">
@@ -204,7 +211,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nOa-3U-NOF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1637" y="-300"/>
+            <point key="canvasLocation" x="2034.375" y="-300"/>
         </scene>
         <!--User groups-->
         <scene sceneID="Ulc-rc-sYP">
@@ -259,6 +266,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="User groups" id="FZR-PG-fTD">
+                        <barButtonItem key="leftBarButtonItem" title="Выйти" id="Xtn-mX-lS9">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="presentation" id="fk2-Vy-fjO"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="tee-l7-KOD">
                             <connections>
                                 <segue destination="cKt-zf-YD3" kind="show" identifier="showGroups" id="3iF-GD-WCf"/>
@@ -268,7 +280,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QFB-DX-p7x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2649.375" y="401.40845070422534"/>
+            <point key="canvasLocation" x="3046.875" y="401.40845070422534"/>
         </scene>
         <!--Groups-->
         <scene sceneID="TNX-mw-Cur">
@@ -337,7 +349,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tgI-HT-kbq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ZfE-kS-p9l" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3437" y="401"/>
+            <point key="canvasLocation" x="3834.375" y="400.35211267605632"/>
         </scene>
         <!--Groups-->
         <scene sceneID="vYo-3p-N4H">
@@ -354,10 +366,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8BP-PD-tXP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1639" y="402"/>
+            <point key="canvasLocation" x="2036.25" y="401.40845070422534"/>
         </scene>
     </scenes>
     <resources>
         <image name="Vk" width="251" height="200"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="wG2-j9-UCw"/>
+        <segue reference="fk2-Vy-fjO"/>
+    </inferredMetricsTieBreakers>
 </document>

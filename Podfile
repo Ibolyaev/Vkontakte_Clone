@@ -9,5 +9,5 @@ target 'MyApp' do
 pod 'Alamofire', '~> 4.5'
 pod 'SwiftyJSON'
 pod 'RealmSwift', '~> 3.0'
-
+pod 'SwiftKeychainWrapper'
 end

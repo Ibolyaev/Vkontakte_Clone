@@ -10,13 +10,9 @@ import UIKit
 
 class FriendTableViewCell: UITableViewCell {
     static let reuseIdentifier = "friendCell"
-    var friend:Friend? {
+    var friend:User? {
         didSet {            
-            nameLabel?.text = friend?.name
-            //profileImageView?.image = friend?.profilePicture
-            //guard let profileURL = friend?.photoURL else { return }
-            
-            
+            nameLabel?.text = friend?.name  
         }
     }
     

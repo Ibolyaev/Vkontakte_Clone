@@ -16,7 +16,6 @@ class GroupTableViewCell: UITableViewCell {
         didSet {
             nameLabel?.text = group?.name
             userCountLabel?.text = "\(group?.usersCount ?? 0) people"
-            groupImageView?.image = group?.image
         }
     }
     

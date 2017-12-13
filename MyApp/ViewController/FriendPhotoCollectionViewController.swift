@@ -14,7 +14,7 @@ private let reuseIdentifier = FriendCollectionViewCell.reuseIdentifier
 
 class FriendPhotoCollectionViewController: UICollectionViewController {
 
-    var friend: Friend? {
+    var friend: User? {
         didSet {
             if friend != nil {
                 photosURLs.append(friend!.photo.url)

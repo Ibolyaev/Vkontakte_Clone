@@ -7,10 +7,25 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 
 class AppState {
-    var user:User?
+    var token: String? {
+        didSet {
+            if let token = token {
+               KeychainWrapper.standard.set(token, forKey: "token")
+            }
+            
+        }
+    }
+    var userLoggedIn: Bool {
+        didSet {
+            UserDefaults.standard.set(userLoggedIn, forKey: "userLoggedIn")
+        }
+    }
     static let shared = AppState()
     private init() {
+        userLoggedIn = UserDefaults.standard.bool(forKey: "userLoggedIn")
+        token = KeychainWrapper.standard.string(forKey: "token") ?? nil
     }
 }

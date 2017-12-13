@@ -8,12 +8,13 @@
 
 import Foundation
 import UIKit
+import Realm
 
-class Photo {
-    let url:String
-    var image:UIImage?
-
-    init(url:String) {
+class Photo:RLMObject {
+    
+    @objc dynamic var url:String = ""
+    convenience init(url:String) {
+        self.init()
         self.url = url
     }
 

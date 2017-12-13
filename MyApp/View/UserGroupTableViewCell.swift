@@ -14,8 +14,7 @@ class UserGroupTableViewCell: UITableViewCell {
     
     var group:Group? {
         didSet {
-            nameLabel?.text = group?.name
-            groupImageView?.image = group?.image
+            nameLabel?.text = group?.name            
         }
     }
     

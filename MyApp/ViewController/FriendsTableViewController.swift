@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class FriendsTableViewController: UITableViewController {
 
-    private var friends = [Friend]()
+    private var friends = [User]()
     let VKClient = VKontakteAPI()
     
     override func viewDidLoad() {
@@ -26,7 +26,7 @@ class FriendsTableViewController: UITableViewController {
     }
     
     func updateList() {
-        guard let token = AppState.shared.user?.token else { return }
+        guard let token = AppState.shared.token else { return }
         
         VKClient.getUserFriends(userToken: token) {[weak self] (friends, error) in
             if let loadedFriends = friends {
@@ -64,7 +64,6 @@ class FriendsTableViewController: UITableViewController {
                     if let image = UIImage(data: data) {
                         if friendCell?.friend?.photo.url == response.request?.url?.absoluteString {
                             friendCell?.profileImageView?.image = image
-                            friendCell?.friend?.photo.image = image
                         }
                     }
                 }

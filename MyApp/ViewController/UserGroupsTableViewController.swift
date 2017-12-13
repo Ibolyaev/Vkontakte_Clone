@@ -29,7 +29,7 @@ class UserGroupsTableViewController: UITableViewController {
     
     func loadNetworkData() {
         
-        guard let token  = AppState.shared.user?.token else { return }
+        guard let token  = AppState.shared.token else { return }
         
         VKClient.getUserGroups(token) {[weak self] (groups, error) in
             if error == nil {
@@ -68,7 +68,6 @@ class UserGroupsTableViewController: UITableViewController {
                     if let image = UIImage(data: data) {
                         if userGroupCell?.group?.photo.url == response.request?.url?.absoluteString {
                             userGroupCell?.groupImageView?.image = image
-                            userGroupCell?.group?.photo.image = image
                         }
                     }
                 }

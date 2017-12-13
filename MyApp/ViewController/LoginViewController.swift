@@ -13,13 +13,18 @@ class LoginViewController: UIViewController {
     let authService = AuthService()
     override var preferredStatusBarStyle: UIStatusBarStyle { return  .default }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        AppState.shared.userLoggedIn = false
+        AppState.shared.token = nil
+    }
+    
     func loginCompletion(user:User?, error:Error?) {
         if user != nil {
             performSegue(withIdentifier: Constants.SegueIdentifiers.mainScreen, sender: nil)
         } else {
             print(error ?? "Login error")
         }
-        
     }
     
     @IBAction func sighInTouchUpInside(_ sender: UIButton) {
