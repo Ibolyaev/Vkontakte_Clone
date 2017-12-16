@@ -9,6 +9,28 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+struct TestUser:Codable {
+    
+    let name:String
+    
+    enum CodingKeys: String, CodingKey {
+        case name = "last_name"
+    }
+    
+}
+
+struct VKResponse<T:Decodable>:Decodable {
+    let response:[T]
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        response = try values.decode([T].self, forKey: .response)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case response
+    }
+}
 
 struct VK {
     static let url = "https://api.vk.com"
@@ -51,22 +73,31 @@ class VKontakteAPI {
     static func getUser(userToken:String, completionHandler:@escaping  (_ user:User?, _ error:Error?)->()) {
         let params = ["access_token":userToken, "fields":"photo_100"]
         
-        Alamofire.request(VK.urlUsers, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON {[userToken] (response) in
+        
+        
+        Alamofire.request(VK.urlUsers, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData {[userToken] (response) in
             
-            if response.result.isSuccess,
-                let value = response.result.value,
-                let result = JSON(value).dictionary,
-                let response = result["response"]?.array {
-                let user = User(json: response[0])
-                AppState.shared.token = userToken
-                AppState.shared.userLoggedIn = true
-                completionHandler(user, nil)
-            }
-            else {
+            if response.result.isSuccess, let data = response.data {
+                var result:VKResponse<User>?
+                do {
+                    result = try JSONDecoder().decode(VKResponse<User>.self, from: data)
+                } catch let error {
+                    completionHandler(nil, error)
+                }
+                
+                if let users = result?.response as? [User] {
+                    AppState.shared.token = userToken
+                    AppState.shared.userLoggedIn = true
+                    completionHandler(users[0], nil)
+                }
+                
+            } else {
                 completionHandler(nil, response.result.error)
             }
         }
     }
+    
+
     
     func getGroupMembers(groupId:String, userToken:String, completionHandler:@escaping (_ membersCount:Int,_ groupId:String,_ error:Error?)->()) {
         let params = ["group_id":groupId,"access_token":userToken]
@@ -93,8 +124,26 @@ class VKontakteAPI {
     func getGroups(_ searchText:String,userToken:String, completionHandler:@escaping (_ groups:[Group]?,_ error:Error?)->() ) {
         let params = ["q":searchText,"access_token":userToken]
         
-        Alamofire.request(VK.urlGroupsSearch, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON {(response) in
-            if response.result.isSuccess {
+        Alamofire.request(VK.urlGroupsSearch, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData {(response) in
+           
+            if response.result.isSuccess, let data = response.data {
+                typealias responseType = Group
+                var result:VKResponse<responseType>?
+                do {
+                    result = try JSONDecoder().decode(VKResponse<responseType>.self, from: data)
+                } catch let error {
+                    print(error.localizedDescription)
+                    completionHandler(nil, error)
+                }
+                if let users = result?.response as? [responseType] {
+                    completionHandler(users, nil)
+                }
+                
+            } else {
+                completionHandler(nil, response.result.error)
+            }
+            
+            /*if response.result.isSuccess {
                 var groups = [Group]()
                 if let value = response.result.value {
                     let json = JSON(value)
@@ -109,29 +158,32 @@ class VKontakteAPI {
                 }
             } else {
                 completionHandler(nil,response.result.error)
-            }            
+            }*/
         }
     }
     
     func getUserGroups(_ userToken:String, completionHandler:@escaping (_ groups:[Group]?,_ error:Error?)->() ) {
         let params = ["access_token":userToken,"extended":"1"] as [String : Any]
+        getVKResourse(VK.urlGroups, params: params, completionHandler: completionHandler)
+    }
+    
+    func getVKResourse<T:Decodable>(_ url:String , params:[String : Any], completionHandler: @escaping (_ objects:[T]?,_ error:Error?)->() ) {
         
-        Alamofire.request(VK.urlGroups, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON {(response) in
-            if response.result.isSuccess {
-                var groups = [Group]()
-                if let value = response.result.value {
-                    let json = JSON(value)
-                    if let result = json.dictionary {
-                        if let users = result["response"]?.array {
-                            for jsonGroup in users {
-                                groups.append(Group(json:jsonGroup))
-                            }
-                            completionHandler(groups,nil)
-                        }
-                    }
+        Alamofire.request(url, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData {(response) in
+            
+            if response.result.isSuccess, let data = response.data {
+                var result:VKResponse<T>?
+                do {
+                    result = try JSONDecoder().decode(VKResponse<T>.self, from: data)
+                } catch let error {
+                    completionHandler(nil, error)
                 }
+                if let objects = result?.response {
+                    completionHandler(objects, nil)
+                }
+                
             } else {
-                completionHandler(nil,response.result.error)
+                completionHandler(nil, response.result.error)
             }
         }
     }
@@ -139,48 +191,53 @@ class VKontakteAPI {
     func getUserFriends(userToken:String, completionHandler: @escaping (_ friends:[User]?,_ error:Error?)->() ) {
         let params = ["access_token":userToken]
         
-        Alamofire.request(VK.urlFriends, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON {[weak self] (response) in
-            if response.result.isSuccess {
-                
-                if let value = response.result.value {
-                    let json = JSON(value)
-                    if let result = json.dictionary {
-                        if let responseResult = result["response"]?.array {
-                            let usersIds = responseResult.flatMap({ (json) -> String? in
-                                json.stringValue
-                            })
-                            self?.loadFriendsWithIds(userIds: usersIds, completionHandler: { (friends, error) in
-                                completionHandler(friends, error)
-                            })
-                        }
-                    }
+        Alamofire.request(VK.urlFriends, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData {[weak self] (response) in
+            
+            if response.result.isSuccess, let data = response.data {
+                typealias responseType = Int
+                var result:VKResponse<responseType>?
+                do {
+                    result = try JSONDecoder().decode(VKResponse<responseType>.self, from: data)
+                } catch let error {
+                    print(error.localizedDescription)
+                    completionHandler(nil, error)
                 }
+                if let users = result?.response as? [responseType] {
+                    self?.loadFriendsWithIds(userIds: users, completionHandler: { (friends, error) in
+                        completionHandler(friends, error)
+                    })
+                }
+                
             } else {
                 completionHandler(nil, response.result.error)
             }
         }
+            
     }
     
-    func loadFriendsWithIds(userIds:[String], completionHandler: @escaping (_ friends:[User]?,_ error:Error?)->() ) {
+    func loadFriendsWithIds(userIds:[Int], completionHandler: @escaping (_ friends:[User]?,_ error:Error?)->() ) {
         let params = ["user_ids":userIds,"access_token":appToken, "fields":["photo_100"]] as [String : Any]
-        
-        Alamofire.request(VK.urlUsers, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON {(response) in
-            if response.result.isSuccess {
-                var friends = [User]()
-                if let value = response.result.value {
-                    let json = JSON(value)
-                    if let result = json.dictionary {
-                        if let users = result["response"]?.array {
-                            for userJson in users {
-                                friends.append(User(json:userJson))
-                            }
-                            completionHandler(friends, nil)
-                        }
-                    }
+        getVKResourse(VK.urlUsers, params: params, completionHandler: completionHandler)
+        /*Alamofire.request(VK.urlUsers, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData {(response) in
+            
+            if response.result.isSuccess, let data = response.data {
+                typealias responseType = User
+                var result:VKResponse<responseType>?
+                do {
+                    result = try JSONDecoder().decode(VKResponse<responseType>.self, from: data)
+                } catch let error {
+                    print(error.localizedDescription)
+                    completionHandler(nil, error)
                 }
+                if let users = result?.response as? [responseType] {
+                    completionHandler(users, nil)
+                }
+                
             } else {
                 completionHandler(nil, response.result.error)
             }
-        }
+            
+        }*/
     }
-}
+    }
+

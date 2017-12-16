@@ -57,18 +57,22 @@ class FriendsTableViewController: UITableViewController {
         let friend = friends[indexPath.row]
         friendCell.friend = friend
         
-        Alamofire.request(friend.photo.url).responseData {[weak friendCell] (response) in
-            if response.result.isSuccess {
-                
-                if let data = response.result.value {
-                    if let image = UIImage(data: data) {
-                        if friendCell?.friend?.photo.url == response.request?.url?.absoluteString {
-                            friendCell?.profileImageView?.image = image
+        if let url = friend.photo?.url {
+            Alamofire.request(url).responseData {[weak friendCell] (response) in
+                if response.result.isSuccess {
+                    
+                    if let data = response.result.value {
+                        if let image = UIImage(data: data) {
+                            if friendCell?.friend?.photo?.url == response.request?.url?.absoluteString {
+                                friendCell?.profileImageView?.image = image
+                            }
                         }
                     }
                 }
             }
         }
+        
+        
         
         return friendCell
     }

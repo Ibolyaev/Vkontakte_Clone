@@ -100,7 +100,7 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
             group = groups[indexPath.row]
         }
         groupCell.group = group
-        Alamofire.request(group.photo.url).responseData {[weak groupCell] (response) in
+        /*Alamofire.request(group.photo.url).responseData {[weak groupCell] (response) in
             if response.result.isSuccess {
                 
                 if let data = response.result.value {
@@ -111,11 +111,11 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
                     }
                 }
             }
-        }
+        }*/
         
         if let userToken = AppState.shared.token {
-            VKClient.getGroupMembers(groupId: group.id, userToken: userToken, completionHandler: {[weak groupCell] (membersCount, groupId, error) in
-                if groupCell?.group?.id == groupId {
+            VKClient.getGroupMembers(groupId: group.gid, userToken: userToken, completionHandler: {[weak groupCell] (membersCount, groupId, error) in
+                if groupCell?.group?.gid == groupId {
                     groupCell?.userCountLabel.text = "\(membersCount) people"
                 }
             })

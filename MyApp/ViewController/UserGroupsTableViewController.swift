@@ -37,6 +37,8 @@ class UserGroupsTableViewController: UITableViewController {
                     self?.userGroups = loadedGroups
                     self?.tableView.reloadData()
                 }
+            } else {
+                print(error?.localizedDescription)
             }
         }        
     }
@@ -54,19 +56,20 @@ class UserGroupsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UserGroupTableViewCell.reuseIdentifier, for: indexPath) as? UserGroupTableViewCell
+        let group = userGroups[indexPath.row]
         
-        guard let userGroupCell = cell else {
+        guard let userGroupCell = cell, let url = group.photo?.url else {
             return UITableViewCell()
         }
-        let group = userGroups[indexPath.row]
+        
         userGroupCell.group = group
         
-        Alamofire.request(group.photo.url).responseData {[weak userGroupCell] (response) in
+        Alamofire.request(url).responseData {[weak userGroupCell] (response) in
             if response.result.isSuccess {
                 
                 if let data = response.result.value {
                     if let image = UIImage(data: data) {
-                        if userGroupCell?.group?.photo.url == response.request?.url?.absoluteString {
+                        if userGroupCell?.group?.photo?.url == response.request?.url?.absoluteString {
                             userGroupCell?.groupImageView?.image = image
                         }
                     }

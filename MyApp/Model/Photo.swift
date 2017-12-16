@@ -8,14 +8,13 @@
 
 import Foundation
 import UIKit
-import Realm
+import RealmSwift
 
-class Photo:RLMObject {
+final class Photo:Object, Decodable {
     
     @objc dynamic var url:String = ""
-    convenience init(url:String) {
+    convenience init(from decoder: Decoder) throws {
         self.init()
-        self.url = url
+        url = try decoder.singleValueContainer().decode(String.self)
     }
-
 }
