@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import SwiftyJSON
 
 class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
 
@@ -100,18 +99,6 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
             group = groups[indexPath.row]
         }
         groupCell.group = group
-        /*Alamofire.request(group.photo.url).responseData {[weak groupCell] (response) in
-            if response.result.isSuccess {
-                
-                if let data = response.result.value {
-                    if let image = UIImage(data: data) {
-                        if groupCell?.group?.photo.url == response.request?.url?.absoluteString {
-                            groupCell?.groupImageView?.image = image
-                        }
-                    }
-                }
-            }
-        }*/
         
         if let userToken = AppState.shared.token {
             VKClient.getGroupMembers(groupId: group.gid, userToken: userToken, completionHandler: {[weak groupCell] (membersCount, groupId, error) in

@@ -8,34 +8,72 @@
 
 import UIKit
 import Alamofire
-import SwiftyJSON
+import RealmSwift
 
 class UserGroupsTableViewController: UITableViewController {
 
-    var userGroups = [Group]()
+    var userGroups:Results<Group>!
     let VKClient = VKontakteAPI()
     var userToken:String?
     var userId:String?
+    var notificationToken: NotificationToken? = nil
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadNetworkData()
+        loadLocalData()
+        // Observe Results Notifications
+        notificationToken = userGroups.observe { [weak self] (changes: RealmCollectionChange) in
+            guard let tableView = self?.tableView else { return }
+            switch changes {
+            case .initial:
+                // Results are now populated and can be accessed without blocking the UI
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                // Query results have changed, so apply them to the UITableView
+                tableView.beginUpdates()
+                tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
+                                     with: .automatic)
+                tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.endUpdates()
+            case .error(let error):
+                // An error occurred while opening the Realm file on the background worker thread
+                fatalError("\(error)")
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        loadNetworkData()
+    }
+    
+    func loadLocalData() {
+        do {
+            let realm = try Realm()
+            userGroups = realm.objects(Group.self).sorted(byKeyPath: "gid", ascending: true)
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
     
     func loadNetworkData() {
         
         guard let token  = AppState.shared.token else { return }
         
-        VKClient.getUserGroups(token) {[weak self] (groups, error) in
+        VKClient.getUserGroups(token) {(groups, error) in
             if error == nil {
-                if let loadedGroups = groups {
-                    self?.userGroups = loadedGroups
-                    self?.tableView.reloadData()
+                if let loadedGroups = groups?.filter({$0.gid != 0}) {
+                    do {
+                        let realm = try Realm()
+                        try realm.write {
+                            realm.add(loadedGroups, update: true)
+                        }
+                    } catch let error {
+                        print(error.localizedDescription)
+                    }
                 }
             } else {
                 print(error?.localizedDescription)
@@ -66,17 +104,14 @@ class UserGroupsTableViewController: UITableViewController {
         
         Alamofire.request(url).responseData {[weak userGroupCell] (response) in
             if response.result.isSuccess {
-                
-                if let data = response.result.value {
-                    if let image = UIImage(data: data) {
-                        if userGroupCell?.group?.photo?.url == response.request?.url?.absoluteString {
-                            userGroupCell?.groupImageView?.image = image
-                        }
+                if let data = response.result.value,
+                    let image = UIImage(data: data) {
+                    if userGroupCell?.group?.photo?.url == response.request?.url?.absoluteString {
+                        userGroupCell?.groupImageView?.image = image
                     }
                 }
             }
         }
-
         return userGroupCell
     }
  
@@ -85,14 +120,8 @@ class UserGroupsTableViewController: UITableViewController {
     }
 
     @IBAction func unwindToThisView(sender: UIStoryboardSegue) {
-        
-        if let sourceViewController = sender.source as? GroupsTableViewController {
-            guard let selectedGroup = sourceViewController.selectedGroup else { return }
-            
-            selectedGroup.currentUserInGroup = true
-            userGroups.append(selectedGroup)
-            // TODO: Реализовать подписку на группу
-            tableView.reloadData()
+        if sender.source is GroupsTableViewController {
+           loadNetworkData()
         }
     }
     

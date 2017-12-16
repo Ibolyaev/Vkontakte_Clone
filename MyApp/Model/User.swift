@@ -30,8 +30,7 @@ class ExercisesJSON: Codable {
     }
 }*/
 
-import UIKit
-import SwiftyJSON
+import Foundation
 import RealmSwift
 
 final class User:Object, Decodable {
@@ -46,14 +45,9 @@ final class User:Object, Decodable {
     @objc dynamic var uid:Int = 0
     @objc dynamic var photo:Photo?
     
-    /*convenience init(from decoder: Decoder) throws {
-        self.init()
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        lastName = try values.decode(String.self, forKey: .lastName)
-        firstName = try values.decode(String.self, forKey: .firstName)
-        uid = try values.decode(Int.self, forKey: .uid)
-        photo = try values.decode(Photo.self, forKey: .photo)
-    }*/
+    override static func primaryKey() -> String? {
+        return "uid"
+    }
     
     public enum CodingKeys: String, CodingKey {
         case lastName = "last_name"

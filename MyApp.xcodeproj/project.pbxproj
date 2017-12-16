@@ -28,6 +28,7 @@
 		30FFAD1A1F9F37110026FFF9 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FFAD191F9F37110026FFF9 /* Group.swift */; };
 		6ADE517EAB70770D3430778B /* Pods_MyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00A959F99CCDF6A5D5A1B7AC /* Pods_MyApp.framework */; };
 		BD1AF5281FD8579A00C83EBE /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1AF5271FD8579A00C83EBE /* AppState.swift */; };
+		BD2A4E911FE5AE300067CFAE /* AlbumPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A4E901FE5AE300067CFAE /* AlbumPhoto.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		30FFAD191F9F37110026FFF9 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		A4C2CC9912F16CF570D3672D /* Pods-MyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyApp/Pods-MyApp.release.xcconfig"; sourceTree = "<group>"; };
 		BD1AF5271FD8579A00C83EBE /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		BD2A4E901FE5AE300067CFAE /* AlbumPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPhoto.swift; sourceTree = "<group>"; };
 		D071CC447F63337086E7CD3B /* Pods-MyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyApp/Pods-MyApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +100,7 @@
 			children = (
 				BD1AF5271FD8579A00C83EBE /* AppState.swift */,
 				301C4EEC1FA849CB00E54F47 /* VKontakteAPI.swift */,
+				BD2A4E901FE5AE300067CFAE /* AlbumPhoto.swift */,
 				30113CE41FD6E39100309742 /* AuthService.swift */,
 				301C4EEE1FA85C7300E54F47 /* Photo.swift */,
 				304458371F977A4C00D694BA /* Constants.swift */,
@@ -312,6 +315,7 @@
 				30FFAD141F9F23B80026FFF9 /* User.swift in Sources */,
 				30FFAD1A1F9F37110026FFF9 /* Group.swift in Sources */,
 				30CAFB1E1F9F3F68002D0BB1 /* FriendPhotoCollectionViewController.swift in Sources */,
+				BD2A4E911FE5AE300067CFAE /* AlbumPhoto.swift in Sources */,
 				30FFAD181F9F29750026FFF9 /* FriendCollectionViewCell.swift in Sources */,
 				30FFAD161F9F29550026FFF9 /* FriendTableViewCell.swift in Sources */,
 				301C4EED1FA849CB00E54F47 /* VKontakteAPI.swift in Sources */,

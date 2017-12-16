@@ -8,35 +8,75 @@
 
 import UIKit
 import Alamofire
-import SwiftyJSON
+import RealmSwift
 
 class FriendsTableViewController: UITableViewController {
 
-    private var friends = [User]()
+    private var friends:Results<User>!
     let VKClient = VKontakteAPI()
+    var notificationToken: NotificationToken? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        if friends.count == 0 {
-           updateList()
+        loadLocalData()
+        // Observe Results Notifications
+        notificationToken = friends.observe { [weak self] (changes: RealmCollectionChange) in
+            guard let tableView = self?.tableView else { return }
+            switch changes {
+            case .initial:
+                // Results are now populated and can be accessed without blocking the UI
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                // Query results have changed, so apply them to the UITableView
+                tableView.beginUpdates()
+                tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
+                                     with: .automatic)
+                tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.endUpdates()
+            case .error(let error):
+                // An error occurred while opening the Realm file on the background worker thread
+                fatalError("\(error)")
+            }
         }
     }
     
-    func updateList() {
+    deinit {
+        notificationToken?.invalidate()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadNetworkData()
+    }
+    
+    func loadLocalData() {
+        do {
+            let realm = try Realm()
+            friends = realm.objects(User.self).sorted(byKeyPath: "uid", ascending: true)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func loadNetworkData() {
         guard let token = AppState.shared.token else { return }
         
-        VKClient.getUserFriends(userToken: token) {[weak self] (friends, error) in
+        VKClient.getUserFriends(userToken: token) {(friends, error) in
             if let loadedFriends = friends {
-                self?.friends = loadedFriends
-                self?.tableView.reloadData()
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        realm.add(loadedFriends, update: true)
+                    }
+                } catch let error {
+                    print(error.localizedDescription)
+                }
             } else {
                 print(error ?? "Failed to load data")
             }
         }
-        
     }
     
     // MARK: - Table view data source
@@ -59,21 +99,15 @@ class FriendsTableViewController: UITableViewController {
         
         if let url = friend.photo?.url {
             Alamofire.request(url).responseData {[weak friendCell] (response) in
-                if response.result.isSuccess {
-                    
-                    if let data = response.result.value {
-                        if let image = UIImage(data: data) {
-                            if friendCell?.friend?.photo?.url == response.request?.url?.absoluteString {
-                                friendCell?.profileImageView?.image = image
-                            }
-                        }
+                if response.result.isSuccess,
+                    let data = response.result.value,
+                    let image = UIImage(data: data) {
+                    if friendCell?.friend?.photo?.url == response.request?.url?.absoluteString {
+                        friendCell?.profileImageView?.image = image
                     }
                 }
             }
         }
-        
-        
-        
         return friendCell
     }
     
@@ -90,6 +124,4 @@ class FriendsTableViewController: UITableViewController {
             friendPhotoCollectionView.friend = friend
         }
     }
-    
-
 }

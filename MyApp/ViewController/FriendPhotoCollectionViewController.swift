@@ -8,29 +8,34 @@
 
 import UIKit
 import Alamofire
-import SwiftyJSON
 
 private let reuseIdentifier = FriendCollectionViewCell.reuseIdentifier
 
 class FriendPhotoCollectionViewController: UICollectionViewController {
-
-    var friend: User? {
-        didSet {
-            if friend != nil {
-                //photosURLs.append(friend!.photo.url)
-            }
-        }        
-    }
-    var photosURLs = [String]()
     
+    var photos = [AlbumPhoto]()
+    var friend: User?
+    let VKClient = VKontakteAPI()
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        loadNetworkData()
+    }
+    
+    func loadNetworkData() {
+        guard let token = AppState.shared.token, let ownerId = friend?.uid else { return }
         
-        
+        VKClient.getPhotos(token,ownerId: ownerId) {[weak self] (photos, error) in
+            if let photos = photos {
+                self?.photos = photos
+                self?.collectionView?.reloadData()
+            } else {
+                print(error ?? "Failed to load data")
+            }
+        }
     }
     
     // MARK: UICollectionViewDataSource
@@ -41,31 +46,29 @@ class FriendPhotoCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photosURLs.count
+        return photos.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? FriendCollectionViewCell
         
         guard let friendPhotoCell = cell else { return UICollectionViewCell() }
-        guard let friend = self.friend else { return UICollectionViewCell() }
-        friendPhotoCell.friend = friend
+        let photo = photos[indexPath.row]
         
-        let photoURL = photosURLs[indexPath.row]
+        friendPhotoCell.photo = photo
         
-        Alamofire.request(photoURL).responseData {[weak friendPhotoCell] (response) in
+        Alamofire.request(photo.URL).responseData {[weak friendPhotoCell] (response) in
             if response.result.isSuccess {
                 
-                if let data = response.result.value {
-                    if let image = UIImage(data: data) {
-                        if friendPhotoCell?.friend?.photo?.url == response.request?.url?.absoluteString {
-                            friendPhotoCell?.friendImageView?.image = image
-                        }
+                if let data = response.result.value,
+                    let image = UIImage(data: data) {
+                    if friendPhotoCell?.photo?.URL == response.request?.url {
+                        friendPhotoCell?.friendImageView?.image = image
                     }
                 }
             }
         }
-    
+        
         return friendPhotoCell
     }
 }
