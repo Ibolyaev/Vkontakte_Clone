@@ -16,4 +16,7 @@ final class Photo:Object, Decodable {
         self.init()
         url = try decoder.singleValueContainer().decode(String.self)
     }
+    override static func primaryKey() -> String? {
+        return "url"
+    }
 }

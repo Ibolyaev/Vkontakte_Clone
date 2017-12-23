@@ -5,31 +5,6 @@
 //  Created by Ronin on 24/10/2017.
 //  Copyright © 2017 Ronin. All rights reserved.
 //
-
-
-/*let decoded = try JSONDecoder().decode(MainJSON.self, from: data)
-
-class MainJSON {
-    var main:SolutionJSON?
-}
-
-class SolutionJSON {
-    var exercises:[ExercisesJSON]?
-}
-
-class ExercisesJSON: Codable {
-    var bookTitle: String?
-    var releaseDate: String?
-    var price: Double?
-    ... etc
-    
-    enum CodingKeys: String, CodingKey {
-        case bookTitle = "book_title"
-        case releaseDate = "release_date"
-        case price = "price"
-    }
-}*/
-
 import Foundation
 import RealmSwift
 
@@ -55,5 +30,4 @@ final class User:Object, Decodable {
         case uid
         case photo = "photo_100"
     }
-    
 }

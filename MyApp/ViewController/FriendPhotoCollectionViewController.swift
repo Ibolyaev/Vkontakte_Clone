@@ -33,7 +33,7 @@ class FriendPhotoCollectionViewController: UICollectionViewController {
                 self?.photos = photos
                 self?.collectionView?.reloadData()
             } else {
-                print(error ?? "Failed to load data")
+                AppState.shared.showError(title: "Failed to load photos", with: error?.localizedDescription, viewController: self)
             }
         }
     }

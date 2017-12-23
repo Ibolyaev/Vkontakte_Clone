@@ -12,7 +12,7 @@ import RealmSwift
 
 class UserGroupsTableViewController: UITableViewController {
 
-    var userGroups:Results<Group>!
+    var userGroups:Results<Group>?
     let VKClient = VKontakteAPI()
     var userToken:String?
     var userId:String?
@@ -21,6 +21,7 @@ class UserGroupsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadLocalData()
+        guard let userGroups = userGroups else { return }
         // Observe Results Notifications
         notificationToken = userGroups.observe { [weak self] (changes: RealmCollectionChange) in
             guard let tableView = self?.tableView else { return }
@@ -55,7 +56,7 @@ class UserGroupsTableViewController: UITableViewController {
             let realm = try Realm()
             userGroups = realm.objects(Group.self).sorted(byKeyPath: "gid", ascending: true)
         } catch let error {
-            print(error.localizedDescription)
+            AppState.shared.showError(with:error.localizedDescription, viewController:self)
         }
     }
     
@@ -72,11 +73,11 @@ class UserGroupsTableViewController: UITableViewController {
                             realm.add(loadedGroups, update: true)
                         }
                     } catch let error {
-                        print(error.localizedDescription)
+                        AppState.shared.showError(with:error.localizedDescription, viewController:self)
                     }
                 }
             } else {
-                print(error?.localizedDescription)
+                AppState.shared.showError(with:error?.localizedDescription, viewController: self)
             }
         }        
     }
@@ -88,12 +89,15 @@ class UserGroupsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userGroups.count
+        return userGroups?.count ?? 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UserGroupTableViewCell.reuseIdentifier, for: indexPath) as? UserGroupTableViewCell
+        
+        guard let userGroups = userGroups else { return UITableViewCell() }
+        
         let group = userGroups[indexPath.row]
         
         guard let userGroupCell = cell, let url = group.photo?.url else {

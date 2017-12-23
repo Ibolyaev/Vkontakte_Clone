@@ -12,13 +12,16 @@ import RealmSwift
 
 class FriendsTableViewController: UITableViewController {
 
-    private var friends:Results<User>!
+    private var friends:Results<User>?
     let VKClient = VKontakteAPI()
     var notificationToken: NotificationToken? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadLocalData()
+        guard let friends = friends else {
+            return
+        }
         // Observe Results Notifications
         notificationToken = friends.observe { [weak self] (changes: RealmCollectionChange) in
             guard let tableView = self?.tableView else { return }
@@ -56,7 +59,7 @@ class FriendsTableViewController: UITableViewController {
             let realm = try Realm()
             friends = realm.objects(User.self).sorted(byKeyPath: "uid", ascending: true)
         } catch let error {
-            print(error.localizedDescription)
+            AppState.shared.showError(with: error.localizedDescription, viewController: self)
         }
     }
     
@@ -71,10 +74,10 @@ class FriendsTableViewController: UITableViewController {
                         realm.add(loadedFriends, update: true)
                     }
                 } catch let error {
-                    print(error.localizedDescription)
+                    AppState.shared.showError(with: error.localizedDescription, viewController: self)
                 }
             } else {
-                print(error ?? "Failed to load data")
+                AppState.shared.showError(with: error?.localizedDescription, viewController: self)
             }
         }
     }
@@ -86,13 +89,13 @@ class FriendsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friends.count
+        return friends?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendTableViewCell.reuseIdentifier, for: indexPath) as? FriendTableViewCell
-        guard let friendCell = cell else { return UITableViewCell() }        
+        guard let friendCell = cell, let friends = friends else { return UITableViewCell() }
         
         let friend = friends[indexPath.row]
         friendCell.friend = friend

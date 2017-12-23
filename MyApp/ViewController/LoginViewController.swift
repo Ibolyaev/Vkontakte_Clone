@@ -23,7 +23,7 @@ class LoginViewController: UIViewController {
         if user != nil {
             performSegue(withIdentifier: Constants.SegueIdentifiers.mainScreen, sender: nil)
         } else {
-            print(error ?? "Login error")
+            AppState.shared.showError(title: "Login error", with: error?.localizedDescription, viewController: self)
         }
     }
     
