@@ -12,20 +12,29 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 */
 
 import Foundation
-struct Comments : Codable {
-	let count : Int?
-	let can_post : Int?
+struct NewsResponse : Decodable {
+	let items : [News]?
+	let profiles : [Profiles]?
+	let groups : [NewsGroups]?
+	let new_offset : Int?
+	let new_from : String?
 
 	enum CodingKeys: String, CodingKey {
 
-		case count = "count"
-		case can_post = "can_post"
+		case items = "items"
+		case profiles = "profiles"
+		case groups = "groups"
+		case new_offset = "new_offset"
+		case new_from = "new_from"
 	}
 
 	init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
-		count = try values.decodeIfPresent(Int.self, forKey: .count)
-		can_post = try values.decodeIfPresent(Int.self, forKey: .can_post)
+		items = try values.decodeIfPresent([News].self, forKey: .items)
+		profiles = try values.decodeIfPresent([Profiles].self, forKey: .profiles)
+		groups = try values.decodeIfPresent([NewsGroups].self, forKey: .groups)
+		new_offset = try values.decodeIfPresent(Int.self, forKey: .new_offset)
+		new_from = try values.decodeIfPresent(String.self, forKey: .new_from)
 	}
 
 }

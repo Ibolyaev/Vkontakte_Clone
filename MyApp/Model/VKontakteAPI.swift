@@ -139,25 +139,25 @@ class VKontakteAPI {
     func getUserNewsFeed(_ userToken:String, completionHandler:@escaping (_ groups:[News]?,_ error:Error?)->()) {
         
         let params = ["access_token":userToken,
-                      "count":2] as [String : Any]
+                      "count":10] as [String : Any]
         Alamofire.request(VK.newsFeed, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData {(response) in
             
             if response.result.isSuccess, let data = response.data {
-                let test = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String:Any]
+                /*let test = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String:Any]
                 let response = test["response"] as! [String:Any]
                 let items = response["items"] as! [Any]
                 let element = items[0] as! [String:Any]
                 let likes = element["likes"] as! [String:Any]
-                print(likes["count"])
+                //print(likes["count"])*/
             
-                var result:VKResponse<NewsFeed>?
+                var result:NewsResource?
                 do {
-                    result = try JSONDecoder().decode(VKResponse<NewsFeed>.self, from: data)
+                    result = try JSONDecoder().decode(NewsResource.self, from: data)
                 } catch let error {
                     completionHandler(nil, error)
                 }
-                if let objects = result?.response {
-                    completionHandler(objects.items, nil)
+                if let objects = result?.response?.items {
+                    completionHandler(objects, nil)
                 }
                 
             } else {

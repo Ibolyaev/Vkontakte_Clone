@@ -28,7 +28,6 @@ struct Likes : Codable {
 
 	init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
-        //let test = try! values.decode(Int.self, forKey: .count)
 		count = try values.decodeIfPresent(Int.self, forKey: .count)
 		user_likes = try values.decodeIfPresent(Int.self, forKey: .user_likes)
 		can_like = try values.decodeIfPresent(Int.self, forKey: .can_like)

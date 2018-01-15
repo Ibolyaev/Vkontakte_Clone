@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Baseline standard spacing" minToolsVersion="9.0"/>
@@ -42,17 +42,22 @@
                         </subviews>
                     </stackView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2zM-54-KBY" userLabel="Middle stack view">
-                        <rect key="frame" x="20" y="58.5" width="449" height="346"/>
+                        <rect key="frame" x="20" y="58.5" width="449" height="348.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New awesome news" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2t-mv-9pq">
-                                <rect key="frame" x="0.0" y="0.0" width="449" height="28.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="449" height="18.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vk" translatesAutoresizingMaskIntoConstraints="NO" id="BjA-xT-MkO">
-                                <rect key="frame" x="0.0" y="36.5" width="449" height="309.5"/>
-                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="beU-zl-lsD">
+                                <rect key="frame" x="0.0" y="26.5" width="449" height="322"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
+                            </textView>
                         </subviews>
                     </stackView>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uyB-n7-vQx" userLabel="Bottom stack view">
@@ -93,21 +98,26 @@
                     <constraint firstItem="2zM-54-KBY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="UML-ME-le9"/>
                     <constraint firstAttribute="trailingMargin" secondItem="2zM-54-KBY" secondAttribute="trailing" id="kAJ-wA-sNa"/>
                     <constraint firstItem="7O6-Z9-mvw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="m9V-En-Qe0"/>
-                    <constraint firstItem="2zM-54-KBY" firstAttribute="firstBaseline" secondItem="7O6-Z9-mvw" secondAttribute="baseline" constant="20" symbolType="layoutAnchor" id="nmf-Zu-Pn4"/>
+                    <constraint firstItem="2zM-54-KBY" firstAttribute="firstBaseline" secondItem="7O6-Z9-mvw" secondAttribute="baseline" constant="22" symbolType="layoutAnchor" id="nmf-Zu-Pn4"/>
                     <constraint firstItem="uyB-n7-vQx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="s5z-kF-397"/>
                     <constraint firstAttribute="trailingMargin" secondItem="uyB-n7-vQx" secondAttribute="trailing" id="tPv-G3-bO0"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="commentsLabel" destination="5Gx-ta-0rZ" id="pJ7-T9-VEz"/>
+                <outlet property="likesLabel" destination="G4z-Hz-fyX" id="mXN-n8-uqX"/>
+                <outlet property="mainTextLabel" destination="Z2t-mv-9pq" id="tSZ-Xn-ZX0"/>
                 <outlet property="profileImageView" destination="gOq-ZB-dO1" id="05e-cz-kW9"/>
                 <outlet property="profileName" destination="p0Q-b5-gkB" id="FOe-hS-eOl"/>
+                <outlet property="repostsLabel" destination="Fsg-Xg-4Jo" id="P5B-j8-AX5"/>
+                <outlet property="textView" destination="beU-zl-lsD" id="ncm-kU-BFD"/>
+                <outlet property="viewedLabel" destination="Fay-PQ-0W4" id="Dr6-mc-cxa"/>
             </connections>
             <point key="canvasLocation" x="89.5" y="248.5"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="Group" width="25" height="25"/>
-        <image name="Vk" width="251" height="200"/>
     </resources>
 </document>

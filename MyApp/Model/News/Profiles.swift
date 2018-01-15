@@ -12,20 +12,38 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 */
 
 import Foundation
-struct Comments : Codable {
-	let count : Int?
-	let can_post : Int?
+struct Profiles : Codable {
+	let uid : Int?
+	let first_name : String?
+	let last_name : String?
+	let sex : Int?
+	let screen_name : String?
+	let photo : String?
+	let photo_medium_rec : String?
+	let online : Int?
 
 	enum CodingKeys: String, CodingKey {
 
-		case count = "count"
-		case can_post = "can_post"
+		case uid = "uid"
+		case first_name = "first_name"
+		case last_name = "last_name"
+		case sex = "sex"
+		case screen_name = "screen_name"
+		case photo = "photo"
+		case photo_medium_rec = "photo_medium_rec"
+		case online = "online"
 	}
 
 	init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
-		count = try values.decodeIfPresent(Int.self, forKey: .count)
-		can_post = try values.decodeIfPresent(Int.self, forKey: .can_post)
+		uid = try values.decodeIfPresent(Int.self, forKey: .uid)
+		first_name = try values.decodeIfPresent(String.self, forKey: .first_name)
+		last_name = try values.decodeIfPresent(String.self, forKey: .last_name)
+		sex = try values.decodeIfPresent(Int.self, forKey: .sex)
+		screen_name = try values.decodeIfPresent(String.self, forKey: .screen_name)
+		photo = try values.decodeIfPresent(String.self, forKey: .photo)
+		photo_medium_rec = try values.decodeIfPresent(String.self, forKey: .photo_medium_rec)
+		online = try values.decodeIfPresent(Int.self, forKey: .online)
 	}
 
 }

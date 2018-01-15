@@ -14,7 +14,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 import Foundation
 struct Attachments : Decodable {
 	let type : String?
-	let photo : PhotoNews?
+	let photo : NewsPhoto?
 
 	enum CodingKeys: String, CodingKey {
 
@@ -25,7 +25,7 @@ struct Attachments : Decodable {
 	init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		type = try values.decodeIfPresent(String.self, forKey: .type)
-		photo = try PhotoNews(from: decoder)
+		photo = try NewsPhoto(from: decoder)
 	}
 
 }

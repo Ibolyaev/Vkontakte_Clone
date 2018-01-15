@@ -20,12 +20,12 @@ struct News : Decodable {
 	let post_type : String?
 	let text : String?
 	let marked_as_ads : Int?
+	let attachment : Attachment?
 	let attachments : [Attachments]?
 	let post_source : Post_source?
 	let comments : Comments?
 	let likes : Likes?
 	let reposts : Reposts?
-	let views : Views?
 
 	enum CodingKeys: String, CodingKey {
 
@@ -36,12 +36,12 @@ struct News : Decodable {
 		case post_type = "post_type"
 		case text = "text"
 		case marked_as_ads = "marked_as_ads"
+		case attachment
 		case attachments = "attachments"
 		case post_source
 		case comments
 		case likes
 		case reposts
-		case views
 	}
 
 	init(from decoder: Decoder) throws {
@@ -53,12 +53,12 @@ struct News : Decodable {
 		post_type = try values.decodeIfPresent(String.self, forKey: .post_type)
 		text = try values.decodeIfPresent(String.self, forKey: .text)
 		marked_as_ads = try values.decodeIfPresent(Int.self, forKey: .marked_as_ads)
+		attachment = try Attachment(from: decoder)
 		attachments = try values.decodeIfPresent([Attachments].self, forKey: .attachments)
 		post_source = try Post_source(from: decoder)
 		comments = try Comments(from: decoder)
 		likes = try Likes(from: decoder)
 		reposts = try Reposts(from: decoder)
-		views = try Views(from: decoder)
 	}
 
 }

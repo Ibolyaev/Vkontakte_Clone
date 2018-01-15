@@ -12,57 +12,54 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 */
 
 import Foundation
-struct PhotoNews : Decodable {
-	let id : Int?
-	let album_id : Int?
+struct NewsPhoto : Decodable {
+	let pid : Int?
+	let aid : Int?
 	let owner_id : Int?
 	let user_id : Int?
-	let photo_75 : String?
-	let photo_130 : String?
-	let photo_604 : String?
-	let photo_807 : String?
-	let photo_1280 : String?
+	let src : String?
+	let src_big : String?
+	let src_small : String?
+	let src_xbig : String?
 	let width : Int?
 	let height : Int?
 	let text : String?
-	let date : Int?
+	let created : Int?
 	let post_id : Int?
 	let access_key : String?
 
 	enum CodingKeys: String, CodingKey {
 
-		case id = "id"
-		case album_id = "album_id"
+		case pid = "pid"
+		case aid = "aid"
 		case owner_id = "owner_id"
 		case user_id = "user_id"
-		case photo_75 = "photo_75"
-		case photo_130 = "photo_130"
-		case photo_604 = "photo_604"
-		case photo_807 = "photo_807"
-		case photo_1280 = "photo_1280"
+		case src = "src"
+		case src_big = "src_big"
+		case src_small = "src_small"
+		case src_xbig = "src_xbig"
 		case width = "width"
 		case height = "height"
 		case text = "text"
-		case date = "date"
+		case created = "created"
 		case post_id = "post_id"
 		case access_key = "access_key"
 	}
 
 	init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
-		id = try values.decodeIfPresent(Int.self, forKey: .id)
-		album_id = try values.decodeIfPresent(Int.self, forKey: .album_id)
+		pid = try values.decodeIfPresent(Int.self, forKey: .pid)
+		aid = try values.decodeIfPresent(Int.self, forKey: .aid)
 		owner_id = try values.decodeIfPresent(Int.self, forKey: .owner_id)
 		user_id = try values.decodeIfPresent(Int.self, forKey: .user_id)
-		photo_75 = try values.decodeIfPresent(String.self, forKey: .photo_75)
-		photo_130 = try values.decodeIfPresent(String.self, forKey: .photo_130)
-		photo_604 = try values.decodeIfPresent(String.self, forKey: .photo_604)
-		photo_807 = try values.decodeIfPresent(String.self, forKey: .photo_807)
-		photo_1280 = try values.decodeIfPresent(String.self, forKey: .photo_1280)
+		src = try values.decodeIfPresent(String.self, forKey: .src)
+		src_big = try values.decodeIfPresent(String.self, forKey: .src_big)
+		src_small = try values.decodeIfPresent(String.self, forKey: .src_small)
+		src_xbig = try values.decodeIfPresent(String.self, forKey: .src_xbig)
 		width = try values.decodeIfPresent(Int.self, forKey: .width)
 		height = try values.decodeIfPresent(Int.self, forKey: .height)
 		text = try values.decodeIfPresent(String.self, forKey: .text)
-		date = try values.decodeIfPresent(Int.self, forKey: .date)
+		created = try values.decodeIfPresent(Int.self, forKey: .created)
 		post_id = try values.decodeIfPresent(Int.self, forKey: .post_id)
 		access_key = try values.decodeIfPresent(String.self, forKey: .access_key)
 	}

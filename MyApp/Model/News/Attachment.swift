@@ -12,17 +12,20 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 */
 
 import Foundation
-struct Views : Codable {
-	let count : Int?
+struct Attachment : Decodable {
+	let type : String?
+	let photo : NewsPhoto?
 
 	enum CodingKeys: String, CodingKey {
 
-		case count = "count"
+		case type = "type"
+		case photo
 	}
 
 	init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
-		count = try values.decodeIfPresent(Int.self, forKey: .count)
+		type = try values.decodeIfPresent(String.self, forKey: .type)
+		photo = try NewsPhoto(from: decoder)
 	}
 
 }

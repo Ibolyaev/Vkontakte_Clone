@@ -12,20 +12,17 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 */
 
 import Foundation
-struct Comments : Codable {
-	let count : Int?
-	let can_post : Int?
+struct NewsResource : Decodable {
+	let response : NewsResponse?
 
 	enum CodingKeys: String, CodingKey {
 
-		case count = "count"
-		case can_post = "can_post"
+		case response
 	}
 
-	init(from decoder: Decoder) throws {
+	/*init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
-		count = try values.decodeIfPresent(Int.self, forKey: .count)
-		can_post = try values.decodeIfPresent(Int.self, forKey: .can_post)
-	}
+		response = try NewsResponse(from: decoder)
+	}*/
 
 }

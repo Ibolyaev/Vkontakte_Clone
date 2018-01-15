@@ -12,20 +12,38 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 */
 
 import Foundation
-struct Comments : Codable {
-	let count : Int?
-	let can_post : Int?
+struct NewsGroups : Codable {
+	let gid : Int?
+	let name : String?
+	let screen_name : String?
+	let is_closed : Int?
+	let type : String?
+	let photo : String?
+	let photo_medium : String?
+	let photo_big : String?
 
 	enum CodingKeys: String, CodingKey {
 
-		case count = "count"
-		case can_post = "can_post"
+		case gid = "gid"
+		case name = "name"
+		case screen_name = "screen_name"
+		case is_closed = "is_closed"
+		case type = "type"
+		case photo = "photo"
+		case photo_medium = "photo_medium"
+		case photo_big = "photo_big"
 	}
 
 	init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
-		count = try values.decodeIfPresent(Int.self, forKey: .count)
-		can_post = try values.decodeIfPresent(Int.self, forKey: .can_post)
+		gid = try values.decodeIfPresent(Int.self, forKey: .gid)
+		name = try values.decodeIfPresent(String.self, forKey: .name)
+		screen_name = try values.decodeIfPresent(String.self, forKey: .screen_name)
+		is_closed = try values.decodeIfPresent(Int.self, forKey: .is_closed)
+		type = try values.decodeIfPresent(String.self, forKey: .type)
+		photo = try values.decodeIfPresent(String.self, forKey: .photo)
+		photo_medium = try values.decodeIfPresent(String.self, forKey: .photo_medium)
+		photo_big = try values.decodeIfPresent(String.self, forKey: .photo_big)
 	}
 
 }
