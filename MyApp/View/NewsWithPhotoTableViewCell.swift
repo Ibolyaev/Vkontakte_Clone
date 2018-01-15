@@ -14,10 +14,10 @@ class NewsWithPhotoTableViewCell: UITableViewCell, NewsCell {
     var news:News? {
         didSet {
             //commentsButton?.setTitle("\(news?.comments.count ?? 0)", for: UIControlState.normal)
-            //viewedLabel?.text = "\(news?.viewed ?? 0)"
-            //likesLabel?.text = "\(news?.likes.count ?? 0)"
-            //repostsLabel?.text = "\(news?.reposts.count ?? 0)"
-            profileName?.text = "News with photo"
+            viewedLabel?.text = "\(news?.views?.count ?? 0)"
+            likesLabel?.text = "\(news?.likes?.count ?? 0)"
+            repostsLabel?.text = "\(news?.reposts?.count ?? 0)"
+            profileName?.text = news?.text
             //profileImageView?.image = UIImage(named: "comments")
         }
     }

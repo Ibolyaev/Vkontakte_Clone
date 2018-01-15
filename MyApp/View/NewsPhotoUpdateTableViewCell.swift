@@ -13,7 +13,7 @@ class NewsPhotoUpdateTableViewCell: UITableViewCell, NewsCell {
     static let reuseIdentifier = "newsPhotoUpdate"
     var news:News? {
         didSet {
-            commentsButton?.setTitle("\(news?.comments.count ?? 0)", for: UIControlState.normal)
+            //commentsButton?.setTitle("\(news?.comments.count ?? 0)", for: UIControlState.normal)
             //viewedLabel?.text = "\(news?.viewed ?? 0)"
             //likesLabel?.text = "\(news?.likes.count ?? 0)"
             //repostsLabel?.text = "\(news?.reposts.count ?? 0)"

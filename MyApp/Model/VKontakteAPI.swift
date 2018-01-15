@@ -19,6 +19,19 @@ struct Groups:Decodable {
     let items: [Group]
 }
 
+struct NewsFeed: Decodable {
+    let items: [News] 
+    //let profiles: []
+    //let groups: []
+    enum CodingKeys: String, CodingKey {
+        case items
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        items = try values.decode([News].self, forKey: .items)
+    }
+}
 
 struct VKResponse<T:Decodable>:Decodable {
     let response:T
@@ -43,6 +56,7 @@ struct VK {
     static let groupsSearch = "https://api.vk.com/method/groups.search"
     static let groupMembers = "https://api.vk.com/method/groups.getMembers"
     static let photosURL = "https://api.vk.com/method/photos.get"
+    static let newsFeed = "https://api.vk.com/method/newsfeed.get"
 }
 
 class VKontakteAPI {
@@ -59,7 +73,7 @@ class VKontakteAPI {
             URLQueryItem(name: "revoke", value:"1"),
             URLQueryItem(name: "response_type", value:"token"),
             URLQueryItem(name: "display", value:"mobile"),
-            URLQueryItem(name: "scope", value:"email,offline"),
+            URLQueryItem(name: "scope", value:"email,offline,friends,wall"),
             URLQueryItem(name: "redirect_uri", value:"vk\(VK.appId)://authorize"),
             URLQueryItem(name: "client_id", value:VK.appId),
             URLQueryItem(name: "sdk_version", value:"1.4.6")
@@ -122,6 +136,35 @@ class VKontakteAPI {
         getVKResourse(VK.photosURL, params: params, type: [AlbumPhoto].self, completionHandler: completionHandler)
     }
     
+    func getUserNewsFeed(_ userToken:String, completionHandler:@escaping (_ groups:[News]?,_ error:Error?)->()) {
+        
+        let params = ["access_token":userToken,
+                      "count":2] as [String : Any]
+        Alamofire.request(VK.newsFeed, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData {(response) in
+            
+            if response.result.isSuccess, let data = response.data {
+                let test = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String:Any]
+                let response = test["response"] as! [String:Any]
+                let items = response["items"] as! [Any]
+                let element = items[0] as! [String:Any]
+                let likes = element["likes"] as! [String:Any]
+                print(likes["count"])
+            
+                var result:VKResponse<NewsFeed>?
+                do {
+                    result = try JSONDecoder().decode(VKResponse<NewsFeed>.self, from: data)
+                } catch let error {
+                    completionHandler(nil, error)
+                }
+                if let objects = result?.response {
+                    completionHandler(objects.items, nil)
+                }
+                
+            } else {
+                completionHandler(nil, response.result.error)
+            }
+        }
+    }
     private func getVKResourse<T:Decodable>(_ url:String , params:[String : Any], type:T.Type, completionHandler: @escaping (_ objects:T?,_ error:Error?)->() ) {
         
         Alamofire.request(url, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData {(response) in

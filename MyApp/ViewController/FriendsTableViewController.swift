@@ -13,7 +13,7 @@ import RealmSwift
 class FriendsTableViewController: UITableViewController {
 
     private var friends:Results<User>?
-    let VKClient = VKontakteAPI()
+    let clientVK = VKontakteAPI()
     var notificationToken: NotificationToken? = nil
     
     override func viewDidLoad() {
@@ -66,7 +66,7 @@ class FriendsTableViewController: UITableViewController {
     func loadNetworkData() {
         guard let token = AppState.shared.token else { return }
         
-        VKClient.getUserFriends(userToken: token) {(friends, error) in
+        clientVK.getUserFriends(userToken: token) {(friends, error) in
             if let loadedFriends = friends {
                 do {
                     let realm = try Realm()

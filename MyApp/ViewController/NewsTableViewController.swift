@@ -12,61 +12,55 @@ import RealmSwift
 
 class NewsTableViewController: UITableViewController {
     
-    var demoData = [News]()
+    var realData = [News]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    var clientVK = VKontakteAPI()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 90
-        loadDemoData()
+        loadNews() 
         tableView.register(UINib(nibName: "NewsWithPhotoTableViewCell", bundle: nil), forCellReuseIdentifier: NewsWithPhotoTableViewCell.reuseIdentifier)
         //tableView.register(UINib(nibName: "NewsPhotoUpdateTableViewCell", bundle: nil), forCellReuseIdentifier: NewsPhotoUpdateTableViewCell.reuseIdentifier)
     }
     
-    private func loadDemoData() {
-        let news1 = News()
-        news1.text = "News 1"
-        news1.viewed = 10
+    private func loadNews() {
+        guard let token = AppState.shared.token else { return }
         
-        let news2 = News()
-        news2.text = "News 2"
-        news2.viewed = 20
-        
-        let news3 = News()
-        news3.text = "News 3"
-        news3.viewed = 30
-        
-        let news4 = News()
-        news4.text = "News 4"
-        news4.viewed = 40
-        
-        let newsPhotoUpdate = News()
-        newsPhotoUpdate.text = "News 4"
-        newsPhotoUpdate.viewed = 40
-        //newsPhotoUpdate.type = "photoUpdate"
-        
-        demoData = [news1, news2, news3, news4, newsPhotoUpdate]
+        clientVK.getUserNewsFeed(token) {[weak self](news, error) in
+            if let loadedNews = news {
+                self?.realData = loadedNews
+                /*do {
+                    let realm = try Realm()
+                    try realm.write {
+                        realm.add(loadedFriends, update: true)
+                    }
+                } catch let error {
+                    AppState.shared.showError(with: error.localizedDescription, viewController: self)
+                }*/
+            } else {
+                AppState.shared.showError(with: error?.localizedDescription, viewController: self)
+            }
+        }
     }
-    
+   
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return demoData.count
+        return realData.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = demoData[indexPath.row]
+        let item = realData[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: NewsWithPhotoTableViewCell.reuseIdentifier, for: indexPath) as? NewsWithPhotoTableViewCell
         
-        switch item.type {
-        case "photoUpdate":
-            let cell = tableView.dequeueReusableCell(withIdentifier: NewsPhotoUpdateTableViewCell.reuseIdentifier, for: indexPath) as? NewsPhotoUpdateTableViewCell
-            cell?.confugurateCell(news:item)
-            
-            return cell ?? UITableViewCell()
-        default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: NewsWithPhotoTableViewCell.reuseIdentifier, for: indexPath) as? NewsWithPhotoTableViewCell
-            cell?.confugurateCell(news:item)
-            
-            return cell ?? UITableViewCell()
-        }
+        guard let newsCell = cell else { return UITableViewCell()}
+        
+        newsCell.confugurateCell(news: item)
+        
+        return newsCell
         
     }
     
