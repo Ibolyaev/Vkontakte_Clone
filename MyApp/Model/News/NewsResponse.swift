@@ -28,13 +28,13 @@ struct NewsResponse : Decodable {
 		case new_from = "new_from"
 	}
 
-	init(from decoder: Decoder) throws {
+	/*init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		items = try values.decodeIfPresent([News].self, forKey: .items)
 		profiles = try values.decodeIfPresent([Profiles].self, forKey: .profiles)
 		groups = try values.decodeIfPresent([NewsGroups].self, forKey: .groups)
 		new_offset = try values.decodeIfPresent(Int.self, forKey: .new_offset)
 		new_from = try values.decodeIfPresent(String.self, forKey: .new_from)
-	}
+	}*/
 
 }

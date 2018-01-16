@@ -22,10 +22,10 @@ struct Attachment : Decodable {
 		case photo
 	}
 
-	init(from decoder: Decoder) throws {
+	/*init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		type = try values.decodeIfPresent(String.self, forKey: .type)
 		photo = try NewsPhoto(from: decoder)
-	}
+	}*/
 
 }

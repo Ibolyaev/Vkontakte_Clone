@@ -27,6 +27,7 @@ struct NewsPhoto : Decodable {
 	let created : Int?
 	let post_id : Int?
 	let access_key : String?
+    let numberOfPhotos : Int?
 
 	enum CodingKeys: String, CodingKey {
 
@@ -47,21 +48,41 @@ struct NewsPhoto : Decodable {
 	}
 
 	init(from decoder: Decoder) throws {
-		let values = try decoder.container(keyedBy: CodingKeys.self)
-		pid = try values.decodeIfPresent(Int.self, forKey: .pid)
-		aid = try values.decodeIfPresent(Int.self, forKey: .aid)
-		owner_id = try values.decodeIfPresent(Int.self, forKey: .owner_id)
-		user_id = try values.decodeIfPresent(Int.self, forKey: .user_id)
-		src = try values.decodeIfPresent(String.self, forKey: .src)
-		src_big = try values.decodeIfPresent(String.self, forKey: .src_big)
-		src_small = try values.decodeIfPresent(String.self, forKey: .src_small)
-		src_xbig = try values.decodeIfPresent(String.self, forKey: .src_xbig)
-		width = try values.decodeIfPresent(Int.self, forKey: .width)
-		height = try values.decodeIfPresent(Int.self, forKey: .height)
-		text = try values.decodeIfPresent(String.self, forKey: .text)
-		created = try values.decodeIfPresent(Int.self, forKey: .created)
-		post_id = try values.decodeIfPresent(Int.self, forKey: .post_id)
-		access_key = try values.decodeIfPresent(String.self, forKey: .access_key)
+        // ВКонтакте передает массив групп в ответе, но первый элемент массива, это количество групп,
+        // пытаемся распарсить группу, если не получилось, значит это первый элемент с количеством групп
+        if let values = try? decoder.container(keyedBy: CodingKeys.self) {
+            pid = try values.decodeIfPresent(Int.self, forKey: .pid)
+            aid = try values.decodeIfPresent(Int.self, forKey: .aid)
+            owner_id = try values.decodeIfPresent(Int.self, forKey: .owner_id)
+            user_id = try values.decodeIfPresent(Int.self, forKey: .user_id)
+            src = try values.decodeIfPresent(String.self, forKey: .src)
+            src_big = try values.decodeIfPresent(String.self, forKey: .src_big)
+            src_small = try values.decodeIfPresent(String.self, forKey: .src_small)
+            src_xbig = try values.decodeIfPresent(String.self, forKey: .src_xbig)
+            width = try values.decodeIfPresent(Int.self, forKey: .width)
+            height = try values.decodeIfPresent(Int.self, forKey: .height)
+            text = try values.decodeIfPresent(String.self, forKey: .text)
+            created = try values.decodeIfPresent(Int.self, forKey: .created)
+            post_id = try values.decodeIfPresent(Int.self, forKey: .post_id)
+            access_key = try values.decodeIfPresent(String.self, forKey: .access_key)
+            numberOfPhotos = nil
+        } else {
+            numberOfPhotos = try decoder.singleValueContainer().decode(Int.self)
+            pid = nil
+            aid = nil
+            owner_id = nil
+            user_id = nil
+            src = nil
+            src_big = nil
+            src_small = nil
+            src_xbig = nil
+            width = nil
+            height = nil
+            text = nil
+            created = nil
+            post_id = nil
+            access_key = nil
+        }
 	}
 
 }

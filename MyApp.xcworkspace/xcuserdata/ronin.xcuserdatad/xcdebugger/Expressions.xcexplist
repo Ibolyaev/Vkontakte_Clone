@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "NewsWithPhotoTableViewCell.news.didset:NewsWithPhotoTableViewCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "news">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in FriendsTableViewController.tableView(_:cellForRowAt:):FriendsTableViewController.swift">
          <PersistentStrings>
             <PersistentString

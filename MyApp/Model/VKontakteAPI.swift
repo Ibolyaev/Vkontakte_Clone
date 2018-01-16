@@ -136,19 +136,22 @@ class VKontakteAPI {
         getVKResourse(VK.photosURL, params: params, type: [AlbumPhoto].self, completionHandler: completionHandler)
     }
     
-    func getUserNewsFeed(_ userToken:String, completionHandler:@escaping (_ groups:[News]?,_ error:Error?)->()) {
+    func getUserNewsFeed(_ userToken:String, completionHandler:@escaping (_ response:NewsResponse?,_ error:Error?)->()) {
         
         let params = ["access_token":userToken,
                       "count":10] as [String : Any]
         Alamofire.request(VK.newsFeed, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData {(response) in
             
             if response.result.isSuccess, let data = response.data {
-                /*let test = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String:Any]
+                let test = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String:Any]
                 let response = test["response"] as! [String:Any]
                 let items = response["items"] as! [Any]
-                let element = items[0] as! [String:Any]
-                let likes = element["likes"] as! [String:Any]
-                //print(likes["count"])*/
+                for el in items {
+                    if let element = el as? [String:Any] {
+                        print(element["source_id"] as! Int)
+                    }
+                }
+                //print(likes["count"])
             
                 var result:NewsResource?
                 do {
@@ -156,8 +159,8 @@ class VKontakteAPI {
                 } catch let error {
                     completionHandler(nil, error)
                 }
-                if let objects = result?.response?.items {
-                    completionHandler(objects, nil)
+                if let response = result?.response {
+                    completionHandler(response, nil)
                 }
                 
             } else {

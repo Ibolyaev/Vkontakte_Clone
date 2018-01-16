@@ -12,17 +12,25 @@ import RealmSwift
 
 class NewsTableViewController: UITableViewController {
     
-    var realData = [News]() {
+    var newsResponse:NewsResponse? {
+        didSet {
+            items = newsResponse?.items?.filter({ (news) -> Bool in
+                return news.type != "wall_photo"
+            })
+        }
+    }
+    
+    var items:[News]? {
         didSet {
             tableView.reloadData()
         }
     }
-    var clientVK = VKontakteAPI()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 90
+        tableView.estimatedRowHeight = 500
         
         tableView.register(UINib(nibName: "NewsWithPhotoTableViewCell", bundle: nil), forCellReuseIdentifier: NewsWithPhotoTableViewCell.reuseIdentifier)
         //tableView.register(UINib(nibName: "NewsPhotoUpdateTableViewCell", bundle: nil), forCellReuseIdentifier: NewsPhotoUpdateTableViewCell.reuseIdentifier)
@@ -35,34 +43,47 @@ class NewsTableViewController: UITableViewController {
     
     private func loadNews() {
         guard let token = AppState.shared.token else { return }
-        
-        clientVK.getUserNewsFeed(token) {[weak self](news, error) in
-            if let loadedNews = news {
-                self?.realData = loadedNews
-                /*do {
-                    let realm = try Realm()
-                    try realm.write {
-                        realm.add(loadedFriends, update: true)
+        DispatchQueue.global(qos: .userInitiated).async {
+            let clientVK = VKontakteAPI()
+            clientVK.getUserNewsFeed(token) {[weak self](news, error) in
+                if let loadedNews = news {
+                    DispatchQueue.main.async {
+                        self?.newsResponse = loadedNews
                     }
-                } catch let error {
-                    AppState.shared.showError(with: error.localizedDescription, viewController: self)
-                }*/
-            } else {
-                AppState.shared.showError(with: error?.localizedDescription, viewController: self)
+                } else {
+                    DispatchQueue.main.async {
+                        AppState.shared.showError(with: error?.localizedDescription, viewController: self)
+                    }
+                }
             }
         }
+        
     }
    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return realData.count
+        return items?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = realData[indexPath.row]
+        
+        guard let items = items else { return UITableViewCell() }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: NewsWithPhotoTableViewCell.reuseIdentifier, for: indexPath) as? NewsWithPhotoTableViewCell
         
         guard let newsCell = cell else { return UITableViewCell()}
-        
+        let item = items[indexPath.row]
+        print(item.source_id)
+        if item.source_id < 0 {
+            let sourceProfile = newsResponse?.groups?.first(where: { (group) -> Bool in
+                group.gid == (-item.source_id)
+            })
+            newsCell.group = sourceProfile
+        } else {
+            let sourceProfile = newsResponse?.profiles?.first(where: { (group) -> Bool in
+                group.uid == item.source_id
+            })
+            newsCell.profile = sourceProfile
+        }
         newsCell.confugurateCell(news: item)
         
         return newsCell

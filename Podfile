@@ -9,4 +9,5 @@ target 'MyApp' do
 pod 'Alamofire', '~> 4.5'
 pod 'RealmSwift', '~> 3.0'
 pod 'SwiftKeychainWrapper'
+pod 'SDWebImage', '~> 4.0'
 end

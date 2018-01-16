@@ -14,7 +14,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 import Foundation
 struct News : Decodable {
 	let type : String?
-	let source_id : Int?
+	let source_id : Int
 	let date : Int?
 	let post_id : Int?
 	let post_type : String?
@@ -26,6 +26,7 @@ struct News : Decodable {
 	let comments : Comments?
 	let likes : Likes?
 	let reposts : Reposts?
+    let photos : [NewsPhoto]?
 
 	enum CodingKeys: String, CodingKey {
 
@@ -42,9 +43,10 @@ struct News : Decodable {
 		case comments
 		case likes
 		case reposts
+        case photos
 	}
 
-	init(from decoder: Decoder) throws {
+	/*init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		type = try values.decodeIfPresent(String.self, forKey: .type)
 		source_id = try values.decodeIfPresent(Int.self, forKey: .source_id)
@@ -59,6 +61,6 @@ struct News : Decodable {
 		comments = try Comments(from: decoder)
 		likes = try Likes(from: decoder)
 		reposts = try Reposts(from: decoder)
-	}
+	}*/
 
 }
