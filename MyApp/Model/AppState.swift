@@ -15,7 +15,6 @@ class AppState {
             if let token = token {
                KeychainWrapper.standard.set(token, forKey: "token")
             }
-            
         }
     }
     var userLoggedIn: Bool {
@@ -27,13 +26,5 @@ class AppState {
     private init() {
         userLoggedIn = UserDefaults.standard.bool(forKey: "userLoggedIn")
         token = KeychainWrapper.standard.string(forKey: "token") ?? nil
-    }
-    
-    func showError(title:String = "We got a problem", with message:String?, viewController:UIViewController?) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        DispatchQueue.main.async {[weak viewController] in
-            viewController?.present(alert, animated: true, completion: nil)
-        }
     }
 }

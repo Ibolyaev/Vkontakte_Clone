@@ -18,31 +18,16 @@ struct Groups:Decodable {
     let count:Int
     let items: [Group]
 }
-
-struct NewsFeed: Decodable {
-    let items: [News] 
-    //let profiles: []
-    //let groups: []
-    enum CodingKeys: String, CodingKey {
-        case items
-    }
-    
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        items = try values.decode([News].self, forKey: .items)
-    }
-}
-
 struct VKResponse<T:Decodable>:Decodable {
     let response:T
     
-    init(from decoder: Decoder) throws {
+    /*init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         response = try values.decode(T.self, forKey: .response)
     }
     enum CodingKeys: String, CodingKey {
         case response
-    }
+    }*/
 }
 
 struct VK {
@@ -84,9 +69,9 @@ class VKontakteAPI {
     }
     
     static func getUser(userToken:String, completionHandler:@escaping  (_ user:User?, _ error:Error?)->()) {
-        let params = ["access_token":userToken,
+        let parameters = ["access_token":userToken,
                       "fields":"photo_100"]
-        Alamofire.request(VK.users, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData {[userToken] (response) in
+        Alamofire.request(VK.users, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseData(queue:DispatchQueue.global(qos: .userInitiated)) {[userToken] (response) in
             
             if response.result.isSuccess, let data = response.data {
                 var result:VKResponse<[User]>?
@@ -106,10 +91,9 @@ class VKontakteAPI {
         }
     }
     
-    func getGroupMembers(groupId:Int, userToken:String, completionHandler:@escaping (_ membersCount:Int,_ groupId:Int,_ error:Error?)->()) {
-        let params = ["group_id":groupId,
-                      "access_token":userToken] as [String : Any]
-        getVKResourse(VK.groupMembers, params: params, type: GroupMembers.self) {(groupMembers, error) in
+    func getGroupMembers(groupId:Int, completionHandler:@escaping (_ membersCount:Int,_ groupId:Int,_ error:Error?)->()) {
+        let parameters = ["group_id":groupId] as [String : Any]
+        getResourse(VK.groupMembers, parameters: parameters, type: GroupMembers.self) {(groupMembers, error) in
             if let groupMembers = groupMembers {
                 completionHandler(groupMembers.count,groupId,nil)
             } else {
@@ -119,58 +103,36 @@ class VKontakteAPI {
     }
     
     func getGroups(_ searchText:String,userToken:String, completionHandler:@escaping (_ groups:[Group]?,_ error:Error?)->() ) {
-        let params = ["q":searchText,
-                      "access_token":userToken]
-        getVKResourse(VK.groupsSearch, params: params, type: [Group].self, completionHandler: completionHandler)
+        let parameters = ["q":searchText]
+        getResourse(VK.groupsSearch, parameters: parameters, type: [Group].self, completionHandler: completionHandler)
     }
     
-    func getUserGroups(_ userToken:String, completionHandler:@escaping (_ groups:[Group]?,_ error:Error?)->() ) {
-        let params = ["access_token":userToken,"extended":"1"] as [String : Any]
-        getVKResourse(VK.groups, params: params, type: [Group].self, completionHandler: completionHandler)
+    func getUserGroups(_ completionHandler:@escaping (_ groups:[Group]?,_ error:Error?)->() ) {
+        let parameters = ["extended":"1"] as [String : Any]
+        getResourse(VK.groups, parameters: parameters, type: [Group].self, completionHandler: completionHandler)
     }
     
-    func getPhotos(_ userToken:String, ownerId:Int, completionHandler:@escaping (_ groups:[AlbumPhoto]?,_ error:Error?)->()) {
-        let params = ["access_token":userToken,
-                      "album_id":"profile",
+    func getPhotos(ownerId:Int, completionHandler:@escaping (_ groups:[AlbumPhoto]?,_ error:Error?)->()) {
+        let parameters = ["album_id":"profile",
                       "owner_id":ownerId] as [String : Any]
-        getVKResourse(VK.photosURL, params: params, type: [AlbumPhoto].self, completionHandler: completionHandler)
+        getResourse(VK.photosURL, parameters: parameters, type: [AlbumPhoto].self, completionHandler: completionHandler)
     }
     
-    func getUserNewsFeed(_ userToken:String, completionHandler:@escaping (_ response:NewsResponse?,_ error:Error?)->()) {
+    func getUserNewsFeed(_ completionHandler:@escaping (_ response:NewsResponse?,_ error:Error?)->()) {
         
-        let params = ["access_token":userToken,
-                      "count":10] as [String : Any]
-        Alamofire.request(VK.newsFeed, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData {(response) in
-            
-            if response.result.isSuccess, let data = response.data {
-                let test = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String:Any]
-                let response = test["response"] as! [String:Any]
-                let items = response["items"] as! [Any]
-                for el in items {
-                    if let element = el as? [String:Any] {
-                        print(element["source_id"] as! Int)
-                    }
-                }
-                //print(likes["count"])
-            
-                var result:NewsResource?
-                do {
-                    result = try JSONDecoder().decode(NewsResource.self, from: data)
-                } catch let error {
-                    completionHandler(nil, error)
-                }
-                if let response = result?.response {
-                    completionHandler(response, nil)
-                }
-                
-            } else {
-                completionHandler(nil, response.result.error)
-            }
-        }
+        let parameters = ["count":50] as [String : Any]
+        getResourse(VK.newsFeed, parameters: parameters, type: NewsResponse.self, completionHandler: completionHandler)
     }
-    private func getVKResourse<T:Decodable>(_ url:String , params:[String : Any], type:T.Type, completionHandler: @escaping (_ objects:T?,_ error:Error?)->() ) {
+    private func getResourse<T:Decodable>(_ url:String , parameters:[String : Any], type:T.Type, completionHandler: @escaping (_ objects:T?,_ error:Error?)->() ) {
+        guard let token = AppState.shared.token else {
+            return // return error
+        }
+        var finalParameters = parameters
+        if finalParameters["access_token"] == nil {
+           finalParameters.updateValue(token, forKey: "access_token")
+        }
         
-        Alamofire.request(url, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData {(response) in
+        Alamofire.request(url, method: .get, parameters: finalParameters, encoding: URLEncoding.default, headers: nil).responseData(queue:DispatchQueue.global(qos: .userInitiated)) {(response) in
             
             if response.result.isSuccess, let data = response.data {
                 var result:VKResponse<T>?
@@ -189,9 +151,9 @@ class VKontakteAPI {
         }
     }
     
-    func getUserFriends(userToken:String, completionHandler: @escaping (_ friends:[User]?,_ error:Error?)->() ) {
-        let params = ["access_token":userToken] as [String:Any]
-        getVKResourse(VK.friends, params: params, type: [Int].self) {[weak self] (userIds, error) in
+    func getUserFriends(_ completionHandler: @escaping (_ friends:[User]?,_ error:Error?)->() ) {
+        let parameters = [String:Any]()
+        getResourse(VK.friends, parameters: parameters, type: [Int].self) {[weak self] (userIds, error) in
             
             if let userIds = userIds {
                 self?.loadFriendsWithIds(userIds: userIds, completionHandler: completionHandler)
@@ -202,10 +164,10 @@ class VKontakteAPI {
     }
     
     func loadFriendsWithIds(userIds:[Int], completionHandler: @escaping (_ friends:[User]?,_ error:Error?)->() ) {
-        let params = ["user_ids":userIds,
+        let parameters = ["user_ids":userIds,
                       "access_token":appToken,
                       "fields":["photo_100"]] as [String : Any]
-        getVKResourse(VK.users, params: params, type: [User].self, completionHandler: completionHandler)
+        getResourse(VK.users, parameters: parameters, type: [User].self, completionHandler: completionHandler)
     }
 }
 

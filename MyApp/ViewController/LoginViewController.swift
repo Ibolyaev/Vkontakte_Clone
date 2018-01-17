@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, AlertShower {
     
     let authService = AuthService()
     override var preferredStatusBarStyle: UIStatusBarStyle { return  .default }
@@ -23,8 +23,11 @@ class LoginViewController: UIViewController {
         if user != nil {
             performSegue(withIdentifier: Constants.SegueIdentifiers.mainScreen, sender: nil)
         } else {
-            AppState.shared.showError(title: "Login error", with: error?.localizedDescription, viewController: self)
+            showError(title: "Login error", with: error?.localizedDescription)
         }
+    }
+    @IBAction func unwindToLogin(segue:UIStoryboardSegue) {
+        
     }
     
     @IBAction func sighInTouchUpInside(_ sender: UIButton) {

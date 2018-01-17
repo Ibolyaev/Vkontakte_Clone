@@ -10,10 +10,9 @@ import UIKit
 import Alamofire
 import RealmSwift
 
-class UserGroupsTableViewController: UITableViewController {
+class UserGroupsTableViewController: UITableViewController, AlertShower {
 
     var userGroups:Results<Group>?
-    let VKClient = VKontakteAPI()
     var userToken:String?
     var userId:String?
     var notificationToken: NotificationToken? = nil
@@ -56,15 +55,12 @@ class UserGroupsTableViewController: UITableViewController {
             let realm = try Realm()
             userGroups = realm.objects(Group.self).sorted(byKeyPath: "gid", ascending: true)
         } catch let error {
-            AppState.shared.showError(with:error.localizedDescription, viewController:self)
+            showError(with:error.localizedDescription)
         }
     }
     
     func loadNetworkData() {
-        
-        guard let token  = AppState.shared.token else { return }
-        
-        VKClient.getUserGroups(token) {(groups, error) in
+        VKontakteAPI().getUserGroups() {[weak self](groups, error) in
             if error == nil {
                 if let loadedGroups = groups?.filter({$0.gid != 0}) {
                     do {
@@ -73,11 +69,11 @@ class UserGroupsTableViewController: UITableViewController {
                             realm.add(loadedGroups, update: true)
                         }
                     } catch let error {
-                        AppState.shared.showError(with:error.localizedDescription, viewController:self)
+                        self?.showError(with:error.localizedDescription)
                     }
                 }
             } else {
-                AppState.shared.showError(with:error?.localizedDescription, viewController: self)
+                self?.showError(with:error?.localizedDescription)
             }
         }        
     }

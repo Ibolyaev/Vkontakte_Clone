@@ -10,73 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyApp/Model/VKontakteAPI.swift"
-            timestampString = "537801694.910666"
+            timestampString = "537873340.918901"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MyApp/Model/VKontakteAPI.swift"
-            timestampString = "537801694.911332"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MyApp/View/NewsWithPhotoTableViewCell.swift"
-            timestampString = "537801694.9117661"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "news"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MyApp.NewsWithPhotoTableViewCell.news.didset : Swift.Optional&lt;MyApp.News&gt;"
-                  moduleName = "MyApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ronin/Yandex.Disk.localized/XCODE/GeekBrains/MyApp/MyApp/View/NewsWithPhotoTableViewCell.swift"
-                  timestampString = "537801695.271615"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "20030">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "implicit closure #3 : @autoclosure () throws -&gt; Swift.String in MyApp.NewsWithPhotoTableViewCell.news.didset : Swift.Optional&lt;MyApp.News&gt;"
-                  moduleName = "MyApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ronin/Yandex.Disk.localized/XCODE/GeekBrains/MyApp/MyApp/View/NewsWithPhotoTableViewCell.swift"
-                  timestampString = "537801695.281154"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "4">
-               </Location>
-            </Locations>
+            startingLineNumber = "174"
+            endingLineNumber = "174">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

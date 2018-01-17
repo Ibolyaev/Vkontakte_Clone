@@ -11,11 +11,10 @@ import Alamofire
 
 private let reuseIdentifier = FriendCollectionViewCell.reuseIdentifier
 
-class FriendPhotoCollectionViewController: UICollectionViewController {
+class FriendPhotoCollectionViewController: UICollectionViewController, AlertShower {
     
     var photos = [AlbumPhoto]()
     var friend: User?
-    let VKClient = VKontakteAPI()
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -26,14 +25,14 @@ class FriendPhotoCollectionViewController: UICollectionViewController {
     }
     
     func loadNetworkData() {
-        guard let token = AppState.shared.token, let ownerId = friend?.uid else { return }
-        
-        VKClient.getPhotos(token,ownerId: ownerId) {[weak self] (photos, error) in
-            if let photos = photos {
-                self?.photos = photos
-                self?.collectionView?.reloadData()
-            } else {
-                AppState.shared.showError(title: "Failed to load photos", with: error?.localizedDescription, viewController: self)
+        if let ownerId = friend?.uid {
+            VKontakteAPI().getPhotos(ownerId: ownerId) {[weak self] (photos, error) in
+                if let photos = photos {
+                    self?.photos = photos
+                    self?.collectionView?.reloadData()
+                } else {
+                    self?.showError(title: "Failed to load photos", with: error?.localizedDescription)
+                }
             }
         }
     }

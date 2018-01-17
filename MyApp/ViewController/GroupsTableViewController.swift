@@ -14,7 +14,6 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
     var groups: [Group] = [Group]()
     var filteredGroups: [Group] = [Group]()
     var selectedGroup:Group?
-    let VKClient = VKontakteAPI()
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -30,7 +29,7 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
         definesPresentationContext = true
         guard let token = AppState.shared.token else { return }
         
-        VKClient.getGroups(" ", userToken: token) {[weak self] (groups, error) in
+        VKontakteAPI().getGroups(" ", userToken: token) {[weak self] (groups, error) in
             if error == nil {
                 if let loadedGroups = groups {
                     self?.filteredGroups = loadedGroups
@@ -54,7 +53,7 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
         
         guard let token = AppState.shared.token, searchText != "" else { return }
         
-        VKClient.getGroups(searchText, userToken: token) {[weak self] (groups, error) in
+        VKontakteAPI().getGroups(searchText, userToken: token) {[weak self] (groups, error) in
             if error == nil {
                 if let loadedGroups = groups {
                     self?.filteredGroups = loadedGroups
@@ -100,13 +99,11 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
         }
         groupCell.group = group
         
-        if let userToken = AppState.shared.token {
-            VKClient.getGroupMembers(groupId: group.gid, userToken: userToken, completionHandler: {[weak groupCell] (membersCount, groupId, error) in
-                if groupCell?.group?.gid == groupId {
-                    groupCell?.userCountLabel.text = "\(membersCount) people"
-                }
-            })
-        }
+        VKontakteAPI().getGroupMembers(groupId: group.gid, completionHandler: {[weak groupCell] (membersCount, groupId, error) in
+            if groupCell?.group?.gid == groupId {
+                groupCell?.userCountLabel.text = "\(membersCount) people"
+            }
+        })
         
         return groupCell
     }

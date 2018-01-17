@@ -10,6 +10,7 @@
 		30113CE51FD6E39100309742 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30113CE41FD6E39100309742 /* AuthService.swift */; };
 		301C4EED1FA849CB00E54F47 /* VKontakteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301C4EEC1FA849CB00E54F47 /* VKontakteAPI.swift */; };
 		301C4EEF1FA85C7300E54F47 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301C4EEE1FA85C7300E54F47 /* Photo.swift */; };
+		303A7CAE200F3ADC00F34E2B /* AlertShower.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303A7CAD200F3ADC00F34E2B /* AlertShower.swift */; };
 		304458361F97794700D694BA /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304458351F97794700D694BA /* FriendsTableViewController.swift */; };
 		304458381F977A4C00D694BA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304458371F977A4C00D694BA /* Constants.swift */; };
 		3099BC662003A78100511A5E /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3099BC652003A78100511A5E /* NewsTableViewController.swift */; };
@@ -45,7 +46,6 @@
 		BD2A4EB8200D516F0067CFAE /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A4EAE200D516E0067CFAE /* Comments.swift */; };
 		BD2A4EB9200D516F0067CFAE /* NewsPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A4EAF200D516F0067CFAE /* NewsPhoto.swift */; };
 		BD2A4EBB200D52810067CFAE /* NewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A4EBA200D52810067CFAE /* NewsResponse.swift */; };
-		BD2A4EBD200D56E90067CFAE /* NewsResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A4EBC200D56E90067CFAE /* NewsResource.swift */; };
 		BD2A4EBF200D5C370067CFAE /* Profiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A4EBE200D5C370067CFAE /* Profiles.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +54,7 @@
 		30113CE41FD6E39100309742 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		301C4EEC1FA849CB00E54F47 /* VKontakteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKontakteAPI.swift; sourceTree = "<group>"; };
 		301C4EEE1FA85C7300E54F47 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		303A7CAD200F3ADC00F34E2B /* AlertShower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertShower.swift; sourceTree = "<group>"; };
 		304458351F97794700D694BA /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		304458371F977A4C00D694BA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3099BC652003A78100511A5E /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
@@ -91,7 +92,6 @@
 		BD2A4EAE200D516E0067CFAE /* Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		BD2A4EAF200D516F0067CFAE /* NewsPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsPhoto.swift; sourceTree = "<group>"; };
 		BD2A4EBA200D52810067CFAE /* NewsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsResponse.swift; sourceTree = "<group>"; };
-		BD2A4EBC200D56E90067CFAE /* NewsResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsResource.swift; sourceTree = "<group>"; };
 		BD2A4EBE200D5C370067CFAE /* Profiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profiles.swift; sourceTree = "<group>"; };
 		D071CC447F63337086E7CD3B /* Pods-MyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyApp/Pods-MyApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,7 +117,6 @@
 				BD2A4EA6200D516C0067CFAE /* Groups.swift */,
 				BD2A4EAC200D516E0067CFAE /* News.swift */,
 				BD2A4EA9200D516D0067CFAE /* Likes.swift */,
-				BD2A4EBC200D56E90067CFAE /* NewsResource.swift */,
 				BD2A4EBE200D5C370067CFAE /* Profiles.swift */,
 				BD2A4EAF200D516F0067CFAE /* NewsPhoto.swift */,
 				BD2A4EA7200D516C0067CFAE /* Post_source.swift */,
@@ -164,6 +163,7 @@
 				301C4EEC1FA849CB00E54F47 /* VKontakteAPI.swift */,
 				BD2A4E901FE5AE300067CFAE /* AlbumPhoto.swift */,
 				30113CE41FD6E39100309742 /* AuthService.swift */,
+				303A7CAD200F3ADC00F34E2B /* AlertShower.swift */,
 				301C4EEE1FA85C7300E54F47 /* Photo.swift */,
 				304458371F977A4C00D694BA /* Constants.swift */,
 				30FFAD191F9F37110026FFF9 /* Group.swift */,
@@ -369,6 +369,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				303A7CAE200F3ADC00F34E2B /* AlertShower.swift in Sources */,
 				BD2A4EB0200D516F0067CFAE /* Groups.swift in Sources */,
 				301C4EEF1FA85C7300E54F47 /* Photo.swift in Sources */,
 				BD2A4EB6200D516F0067CFAE /* News.swift in Sources */,
@@ -396,7 +397,6 @@
 				30FFAD181F9F29750026FFF9 /* FriendCollectionViewCell.swift in Sources */,
 				BD2A4EBB200D52810067CFAE /* NewsResponse.swift in Sources */,
 				BD2A4EB7200D516F0067CFAE /* Attachments.swift in Sources */,
-				BD2A4EBD200D56E90067CFAE /* NewsResource.swift in Sources */,
 				BD2A4EB1200D516F0067CFAE /* Post_source.swift in Sources */,
 				30FFAD161F9F29550026FFF9 /* FriendTableViewCell.swift in Sources */,
 				3099BC6D2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift in Sources */,

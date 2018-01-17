@@ -10,10 +10,9 @@ import UIKit
 import Alamofire
 import RealmSwift
 
-class FriendsTableViewController: UITableViewController {
+class FriendsTableViewController: UITableViewController, AlertShower {
 
     private var friends:Results<User>?
-    let clientVK = VKontakteAPI()
     var notificationToken: NotificationToken? = nil
     
     override func viewDidLoad() {
@@ -40,14 +39,14 @@ class FriendsTableViewController: UITableViewController {
                                      with: .automatic)
                 tableView.endUpdates()
             case .error(let error):
-                // An error occurred while opening the Realm file on the background worker thread
-                fatalError("\(error)")
+                self?.showError(with: error.localizedDescription)
             }
         }
     }
     
     deinit {
         notificationToken?.invalidate()
+        print("deinit FriendsTableViewController")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,14 +58,12 @@ class FriendsTableViewController: UITableViewController {
             let realm = try Realm()
             friends = realm.objects(User.self).sorted(byKeyPath: "uid", ascending: true)
         } catch let error {
-            AppState.shared.showError(with: error.localizedDescription, viewController: self)
+            showError(with: error.localizedDescription)
         }
     }
     
     func loadNetworkData() {
-        guard let token = AppState.shared.token else { return }
-        
-        clientVK.getUserFriends(userToken: token) {(friends, error) in
+        VKontakteAPI().getUserFriends() {[weak self](friends, error) in
             if let loadedFriends = friends {
                 do {
                     let realm = try Realm()
@@ -74,10 +71,10 @@ class FriendsTableViewController: UITableViewController {
                         realm.add(loadedFriends, update: true)
                     }
                 } catch let error {
-                    AppState.shared.showError(with: error.localizedDescription, viewController: self)
+                    self?.showError(with: error.localizedDescription)
                 }
             } else {
-                AppState.shared.showError(with: error?.localizedDescription, viewController: self)
+                self?.showError(with: error?.localizedDescription)
             }
         }
     }

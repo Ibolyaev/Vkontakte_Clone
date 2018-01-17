@@ -21,7 +21,7 @@ class AuthService {
     }
     
     func parseURLParameters(from: URL) -> [String:String]? {
-        var params: [String: String] = [:]
+        var parameters: [String: String] = [:]
         let components = URLComponents(url: from, resolvingAgainstBaseURL: false)
         
         guard let fragment = components?.fragment else { return nil }
@@ -31,11 +31,11 @@ class AuthService {
             let formant = element.components(separatedBy: "=")
             guard formant.count > 1 else { return }
             
-            params[formant[0]] = formant[1]
+            parameters[formant[0]] = formant[1]
         }
         
         guard
-            let token = params["access_token"]
+            let token = parameters["access_token"]
             else { return [:] }
         return ["token": token]
         
@@ -55,12 +55,13 @@ class AuthService {
             else { return }
         
         VKontakteAPI.getUser(userToken: token) { (user, error) in
-            if let error = error {
-                loginCompletion(nil, error)
-            } else {
-                loginCompletion(user, error)
-            }
-            
+            DispatchQueue.main.async {
+                if let error = error {
+                    loginCompletion(nil, error)
+                } else {
+                    loginCompletion(user, error)
+                }
+            }  
         }
     }
     

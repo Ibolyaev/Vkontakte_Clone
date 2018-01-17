@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import RealmSwift
 
-class NewsTableViewController: UITableViewController {
+class NewsTableViewController: UITableViewController, AlertShower {
     
     var newsResponse:NewsResponse? {
         didSet {
@@ -25,7 +25,6 @@ class NewsTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,22 +41,15 @@ class NewsTableViewController: UITableViewController {
     }
     
     private func loadNews() {
-        guard let token = AppState.shared.token else { return }
-        DispatchQueue.global(qos: .userInitiated).async {
-            let clientVK = VKontakteAPI()
-            clientVK.getUserNewsFeed(token) {[weak self](news, error) in
-                if let loadedNews = news {
-                    DispatchQueue.main.async {
-                        self?.newsResponse = loadedNews
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        AppState.shared.showError(with: error?.localizedDescription, viewController: self)
-                    }
+        VKontakteAPI().getUserNewsFeed() {[weak self](news, error) in
+            if let loadedNews = news {
+                DispatchQueue.main.async {
+                    self?.newsResponse = loadedNews
                 }
+            } else {
+                self?.showError(with: error?.localizedDescription) 
             }
         }
-        
     }
    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -66,28 +58,21 @@ class NewsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let items = items else { return UITableViewCell() }
+        guard let items = items,
+            let newsCell = tableView.dequeueReusableCell(withIdentifier: NewsWithPhotoTableViewCell.reuseIdentifier, for: indexPath) as? NewsWithPhotoTableViewCell else {
+            return UITableViewCell()
+        }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: NewsWithPhotoTableViewCell.reuseIdentifier, for: indexPath) as? NewsWithPhotoTableViewCell
-        
-        guard let newsCell = cell else { return UITableViewCell()}
         let item = items[indexPath.row]
-        print(item.source_id)
         if item.source_id < 0 {
-            let sourceProfile = newsResponse?.groups?.first(where: { (group) -> Bool in
-                group.gid == (-item.source_id)
-            })
+            let sourceProfile = newsResponse?.groups?.first() {$0.gid == (-item.source_id)}
             newsCell.group = sourceProfile
         } else {
-            let sourceProfile = newsResponse?.profiles?.first(where: { (group) -> Bool in
-                group.uid == item.source_id
-            })
+            let sourceProfile = newsResponse?.profiles?.first() {$0.uid == item.source_id}
             newsCell.profile = sourceProfile
         }
         newsCell.confugurateCell(news: item)
         
         return newsCell
-        
     }
-    
 }
