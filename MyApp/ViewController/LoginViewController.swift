@@ -27,7 +27,7 @@ class LoginViewController: UIViewController, AlertShower {
         }
     }
     @IBAction func unwindToLogin(segue:UIStoryboardSegue) {
-        
+        let a = 1
     }
     
     @IBAction func sighInTouchUpInside(_ sender: UIButton) {

@@ -10,5 +10,7 @@ import UIKit
 
 protocol NewsCell where Self:UITableViewCell {
     func confugurateCell(news:News)
+    var group:NewsGroups? { get set }
+    var profile:Profiles? { get set }
 }
 

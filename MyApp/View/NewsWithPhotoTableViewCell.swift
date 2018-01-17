@@ -31,37 +31,35 @@ class NewsWithPhotoTableViewCell: UITableViewCell, NewsCell {
         }
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.needsUpdateConstraints()
-    }
-    
     func loadImage(_ url:URL, imageView:UIImageView) {
         imageView.sd_setImage(with: url, placeholderImage: nil, options: SDWebImageOptions.highPriority, completed: nil)
     }
     
-    func confugurateCell(news:News) {
-        self.news = news
-        var text = news.text ?? ""
-        text = text.replacingOccurrences(of: "<br>", with: "")
-        textView.text = text
+    private func loadImagesFrom(_ news:News) {
         mainNewsPicture?.image = nil
-        
         var urlString:String?
-        switch news.type {
-        case "wall_photo"?:
-            urlString = news.photos?.first(where: { (photo) -> Bool in
-                return photo.numberOfPhotos == nil
-            })?.src_big
-        default:
-            urlString = news.attachments?.first?.photo?.src_big
-        }
-        
+        urlString = news.attachments?.first?.photo?.src_big
         if let url = URL(string:urlString ?? "")  {
             mainNewsPicture?.sd_setImage(with: url, placeholderImage: nil, options: SDWebImageOptions.highPriority, completed: nil)
         } else {
             print("No picture")
         }
+    }
+    private func loadFooterFrom(_ news:News) {
+        likesLabel?.text = "\(news.likes?.count ?? 0)"
+        commentsLabel?.text = "\(news.comments?.count ?? 0)"
+        repostsLabel.text = "\(news.reposts?.count ?? 0)"
+    }
+    private func loadTextFrom(_ news:News) {
+        let text = news.text ?? ""
+        textView?.text = text.replacingOccurrences(of: "<br>", with: "")
+    }
+    
+    func confugurateCell(news:News) {
+        self.news = news
+        loadTextFrom(news)
+        loadFooterFrom(news)
+        loadImagesFrom(news)
     }
     @IBOutlet var textView: UITextView!
     @IBOutlet var profileImageView: UIImageView!

@@ -32,7 +32,7 @@ class NewsTableViewController: UITableViewController, AlertShower {
         tableView.estimatedRowHeight = 500
         
         tableView.register(UINib(nibName: "NewsWithPhotoTableViewCell", bundle: nil), forCellReuseIdentifier: NewsWithPhotoTableViewCell.reuseIdentifier)
-        //tableView.register(UINib(nibName: "NewsPhotoUpdateTableViewCell", bundle: nil), forCellReuseIdentifier: NewsPhotoUpdateTableViewCell.reuseIdentifier)
+        tableView.register(UINib(nibName: "NewsWithoutPhotoTableViewCell", bundle: nil), forCellReuseIdentifier: NewsWithoutPhotoTableViewCell.reuseIdentifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,12 +58,21 @@ class NewsTableViewController: UITableViewController, AlertShower {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let items = items,
-            let newsCell = tableView.dequeueReusableCell(withIdentifier: NewsWithPhotoTableViewCell.reuseIdentifier, for: indexPath) as? NewsWithPhotoTableViewCell else {
+        guard let items = items else {
             return UITableViewCell()
         }
-        
+        let anyNwesCell:UITableViewCell?
         let item = items[indexPath.row]
+        
+        if item.attachments?.first?.photo?.src_big != nil {
+            anyNwesCell = tableView.dequeueReusableCell(withIdentifier: NewsWithPhotoTableViewCell.reuseIdentifier, for: indexPath) as? NewsWithPhotoTableViewCell
+        } else {
+            anyNwesCell = tableView.dequeueReusableCell(withIdentifier: NewsWithoutPhotoTableViewCell.reuseIdentifier, for: indexPath) as? NewsWithoutPhotoTableViewCell
+        }
+        
+        guard var newsCell = anyNwesCell as? NewsCell else {
+            return UITableViewCell()
+        }
         if item.source_id < 0 {
             let sourceProfile = newsResponse?.groups?.first() {$0.gid == (-item.source_id)}
             newsCell.group = sourceProfile
@@ -73,6 +82,6 @@ class NewsTableViewController: UITableViewController, AlertShower {
         }
         newsCell.confugurateCell(news: item)
         
-        return newsCell
+        return newsCell as! UITableViewCell
     }
 }

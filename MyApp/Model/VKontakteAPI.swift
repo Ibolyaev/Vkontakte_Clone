@@ -61,7 +61,7 @@ class VKontakteAPI {
             URLQueryItem(name: "scope", value:"email,offline,friends,wall"),
             URLQueryItem(name: "redirect_uri", value:"vk\(VK.appId)://authorize"),
             URLQueryItem(name: "client_id", value:VK.appId),
-            URLQueryItem(name: "sdk_version", value:"1.4.6")
+            //URLQueryItem(name: "sdk_version", value:"5.69")
         ]
         
       return urlComponents.url!
@@ -131,7 +131,7 @@ class VKontakteAPI {
         if finalParameters["access_token"] == nil {
            finalParameters.updateValue(token, forKey: "access_token")
         }
-        
+        //finalParameters.updateValue("5.69", forKey: "version")
         Alamofire.request(url, method: .get, parameters: finalParameters, encoding: URLEncoding.default, headers: nil).responseData(queue:DispatchQueue.global(qos: .userInitiated)) {(response) in
             
             if response.result.isSuccess, let data = response.data {
