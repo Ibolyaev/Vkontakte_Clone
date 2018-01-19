@@ -13,6 +13,16 @@ struct VKResponse<T:Decodable>:Decodable {
     let response:T
 }
 
+struct UserFriendsResponse: Codable {
+    let items:[Int]
+    let count:Int
+}
+
+struct UserGroupsResponse:Decodable {
+    let count:Int
+    let items: [Group]
+}
+
 class VKontakteAPI {
     
     let appToken = VKConstants.accessToken
@@ -40,27 +50,9 @@ class VKontakteAPI {
         print("VKontakteAPI deinit")
     }
     
-    static func getUser(userToken:String, completionHandler:@escaping  (_ user:User?, _ error:Error?)->()) {
-        let parameters = ["access_token":userToken,
-                      "fields":"photo_100"]
-        Alamofire.request(VKConstants.users, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseData(queue:DispatchQueue.global(qos: .userInitiated)) {[userToken] (response) in
-            
-            if response.result.isSuccess, let data = response.data {
-                var result:VKResponse<[User]>?
-                do {
-                    result = try JSONDecoder().decode(VKResponse<[User]>.self, from: data)
-                } catch let error {
-                    completionHandler(nil, error)
-                }
-                if let users = result?.response {
-                    AppState.shared.token = userToken
-                    AppState.shared.userLoggedIn = true
-                    completionHandler(users[0], nil)
-                }
-            } else {
-                completionHandler(nil, response.result.error)
-            }
-        }
+    func getUser(userToken:String, completionHandler:@escaping  (_ user:[User]?, _ error:Error?)->()) {
+        let parameters = ["fields":"photo_100"]
+        VKontakteAPI().getResourse(VKConstants.users, parameters: parameters, type: [User].self, completionHandler: completionHandler)
     }
     
     func getGroupMembers(groupId:Int, completionHandler:@escaping (_ membersCount:Int,_ groupId:Int,_ error:Error?)->()) {
@@ -76,12 +68,24 @@ class VKontakteAPI {
     
     func getGroups(_ searchText:String,userToken:String, completionHandler:@escaping (_ groups:[Group]?,_ error:Error?)->() ) {
         let parameters = ["q":searchText]
-        getResourse(VKConstants.groupsSearch, parameters: parameters, type: [Group].self, completionHandler: completionHandler)
+        getResourse(VKConstants.groupsSearch, parameters: parameters, type: UserGroupsResponse.self) {(userGroups, error) in
+            if let userGroups = userGroups {
+                completionHandler(userGroups.items,error)
+            } else {
+                completionHandler(nil,error)
+            }
+        }
     }
     
     func getUserGroups(_ completionHandler:@escaping (_ groups:[Group]?,_ error:Error?)->() ) {
         let parameters = ["extended":"1"] as [String : Any]
-        getResourse(VKConstants.groups, parameters: parameters, type: [Group].self, completionHandler: completionHandler)
+        getResourse(VKConstants.groups, parameters: parameters, type: UserGroupsResponse.self) {(userGroups, error) in
+            if let userGroups = userGroups {
+                completionHandler(userGroups.items,error)
+            } else {
+                completionHandler(nil,error)
+            }
+        }
     }
     
     func getPhotos(ownerId:Int, completionHandler:@escaping (_ groups:[AlbumPhoto]?,_ error:Error?)->()) {
@@ -102,7 +106,7 @@ class VKontakteAPI {
         if finalParameters["access_token"] == nil {
            finalParameters.updateValue(token, forKey: "access_token")
         }
-        //finalParameters.updateValue("5.69", forKey: "v")
+        finalParameters.updateValue("5.69", forKey: "v")
         Alamofire.request(url, method: .get, parameters: finalParameters, encoding: URLEncoding.default, headers: nil).responseData(queue:DispatchQueue.global(qos: .userInitiated)) {(response) in
             
             if response.result.isSuccess, let data = response.data {
@@ -124,10 +128,9 @@ class VKontakteAPI {
     
     func getUserFriends(_ completionHandler: @escaping (_ friends:[User]?,_ error:Error?)->() ) {
         let parameters = [String:Any]()
-        getResourse(VKConstants.friends, parameters: parameters, type: [Int].self) {(userIds, error) in
-            
+        getResourse(VKConstants.friends, parameters: parameters, type: UserFriendsResponse.self) {(userIds, error) in
             if let userIds = userIds {
-                VKontakteAPI().loadFriendsWithIds(userIds: userIds, completionHandler: completionHandler)
+                VKontakteAPI().loadFriendsWithIds(userIds: userIds.items, completionHandler: completionHandler)
             } else {
                 completionHandler(nil,error)
             }

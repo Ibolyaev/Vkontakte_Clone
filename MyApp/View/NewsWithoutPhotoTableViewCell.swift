@@ -25,7 +25,7 @@ class NewsWithoutPhotoTableViewCell: UITableViewCell, NewsCell {
     var profile:Profiles? {
         didSet {
             profileName.text = profile?.screen_name
-            if let urlString = profile?.photo_medium_rec, let url = URL(string:urlString) {
+            if let urlString = profile?.photo_100, let url = URL(string:urlString) {
                 loadImage(url, imageView: profileImageView)
             }
         }
@@ -33,16 +33,6 @@ class NewsWithoutPhotoTableViewCell: UITableViewCell, NewsCell {
     
     func loadImage(_ url:URL, imageView:UIImageView) {
         imageView.sd_setImage(with: url, placeholderImage: nil, options: SDWebImageOptions.highPriority, completed: nil)
-    }
-    
-    private func loadFooterFrom(_ news:News) {
-        likesLabel?.text = "\(news.likes?.count ?? 0)"
-        commentsLabel?.text = "\(news.comments?.count ?? 0)"
-        repostsLabel.text = "\(news.reposts?.count ?? 0)"
-    }
-    private func loadTextFrom(_ news:News) {
-        let text = news.text ?? ""
-        textView?.text = text.replacingOccurrences(of: "<br>", with: "")
     }
     
     func confugurateCell(news:News) {

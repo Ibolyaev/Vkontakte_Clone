@@ -13,7 +13,7 @@ final class Group:Object, Decodable {
         
     @objc dynamic var name:String = ""
     @objc dynamic var screenName:String = ""
-    @objc dynamic var gid:Int = 0
+    @objc dynamic var id:Int = 0
     @objc dynamic var usersCount = 0
     @objc dynamic var currentUserInGroup = false
     @objc dynamic var photo:Photo?
@@ -21,12 +21,12 @@ final class Group:Object, Decodable {
     
     public enum CodingKeys: String, CodingKey {
         case name
-        case gid
+        case id
         case screenName = "screen_name"
-        case photo = "photo_medium"
+        case photo = "photo_100"
     }
     override static func primaryKey() -> String? {
-        return "gid"
+        return "id"
     }
     convenience init(from decoder: Decoder) throws {
         self.init()
@@ -34,7 +34,7 @@ final class Group:Object, Decodable {
         // пытаемся распарсить группу, если не получилось, значит это первый элемент с количеством групп
         if let values = try? decoder.container(keyedBy: CodingKeys.self) {
             name = try values.decode(String.self, forKey: .name)
-            gid = try values.decode(Int.self, forKey: .gid)
+            id = try values.decode(Int.self, forKey: .id)
             screenName = try values.decode(String.self, forKey: .screenName)
             photo = try values.decode(Photo.self, forKey: .photo)
         } else {

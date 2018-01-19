@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class GroupTableViewCell: UITableViewCell {
     
@@ -15,7 +16,10 @@ class GroupTableViewCell: UITableViewCell {
     var group:Group? {
         didSet {
             nameLabel?.text = group?.name
-            userCountLabel?.text = "\(group?.usersCount ?? 0) people"
+            userCountLabel?.text = "\(group?.usersCount.formatUsingAbbrevation() ?? "0") people"
+            if let urlString = group?.photo?.url, let url = URL(string:urlString) {
+               groupImageView?.sd_setImage(with: url, completed: nil)
+            }            
         }
     }
     

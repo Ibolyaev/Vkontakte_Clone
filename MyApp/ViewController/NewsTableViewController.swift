@@ -72,10 +72,10 @@ class NewsTableViewController: UITableViewController, AlertShower {
         guard var newsCell = anyNewsCell else { return UITableViewCell() }
         
         if item.source_id < 0 {
-            let sourceProfile = newsResponse?.groups?.first() {$0.gid == (-item.source_id)}
+            let sourceProfile = newsResponse?.groups?.first() {$0.id == (-item.source_id)}
             newsCell.group = sourceProfile
         } else {
-            let sourceProfile = newsResponse?.profiles?.first() {$0.uid == item.source_id}
+            let sourceProfile = newsResponse?.profiles?.first() {$0.id == item.source_id}
             newsCell.profile = sourceProfile
         }
         

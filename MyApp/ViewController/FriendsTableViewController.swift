@@ -46,7 +46,6 @@ class FriendsTableViewController: UITableViewController, AlertShower {
     
     deinit {
         notificationToken?.invalidate()
-        print("deinit FriendsTableViewController")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,7 +55,7 @@ class FriendsTableViewController: UITableViewController, AlertShower {
     func loadLocalData() {
         do {
             let realm = try Realm()
-            friends = realm.objects(User.self).sorted(byKeyPath: "uid", ascending: true)
+            friends = realm.objects(User.self)
         } catch let error {
             showError(with: error.localizedDescription)
         }

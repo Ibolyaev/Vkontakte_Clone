@@ -53,7 +53,7 @@ class UserGroupsTableViewController: UITableViewController, AlertShower {
     func loadLocalData() {
         do {
             let realm = try Realm()
-            userGroups = realm.objects(Group.self).sorted(byKeyPath: "gid", ascending: true)
+            userGroups = realm.objects(Group.self)
         } catch let error {
             showError(with:error.localizedDescription)
         }
@@ -62,7 +62,7 @@ class UserGroupsTableViewController: UITableViewController, AlertShower {
     func loadNetworkData() {
         VKontakteAPI().getUserGroups() {[weak self](groups, error) in
             if error == nil {
-                if let loadedGroups = groups?.filter({$0.gid != 0}) {
+                if let loadedGroups = groups?.filter({$0.id != 0}) {
                     do {
                         let realm = try Realm()
                         try realm.write {

@@ -32,8 +32,10 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
         VKontakteAPI().getGroups(" ", userToken: token) {[weak self] (groups, error) in
             if error == nil {
                 if let loadedGroups = groups {
-                    self?.filteredGroups = loadedGroups
-                    self?.tableView.reloadData()
+                    DispatchQueue.main.async {
+                        self?.filteredGroups = loadedGroups
+                        self?.tableView.reloadData()
+                    }
                 }
             }
         }
@@ -56,9 +58,11 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
         VKontakteAPI().getGroups(searchText, userToken: token) {[weak self] (groups, error) in
             if error == nil {
                 if let loadedGroups = groups {
-                    self?.filteredGroups = loadedGroups
-                    self?.groups = loadedGroups
-                    self?.tableView.reloadData()
+                    DispatchQueue.main.async {
+                        self?.filteredGroups = loadedGroups
+                        self?.groups = loadedGroups
+                        self?.tableView.reloadData()
+                    }
                 }
             }
         }
@@ -99,9 +103,11 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
         }
         groupCell.group = group
         
-        VKontakteAPI().getGroupMembers(groupId: group.gid, completionHandler: {[weak groupCell] (membersCount, groupId, error) in
-            if groupCell?.group?.gid == groupId {
-                groupCell?.userCountLabel.text = "\(membersCount) people"
+        VKontakteAPI().getGroupMembers(groupId: group.id, completionHandler: {[weak groupCell] (membersCount, groupId, error) in
+            if groupCell?.group?.id == groupId {
+                DispatchQueue.main.async {
+                    groupCell?.userCountLabel.text = "\(membersCount.formatUsingAbbrevation())"
+                } 
             }
         })
         

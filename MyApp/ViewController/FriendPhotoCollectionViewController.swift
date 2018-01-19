@@ -25,7 +25,7 @@ class FriendPhotoCollectionViewController: UICollectionViewController, AlertShow
     }
     
     func loadNetworkData() {
-        if let ownerId = friend?.uid {
+        if let ownerId = friend?.id {
             VKontakteAPI().getPhotos(ownerId: ownerId) {[weak self] (photos, error) in
                 if let photos = photos {
                     self?.photos = photos

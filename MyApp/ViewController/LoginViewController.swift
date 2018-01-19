@@ -24,7 +24,7 @@ class LoginViewController: UIViewController, AlertShower {
             performSegue(withIdentifier: Constants.SegueIdentifiers.mainScreen, sender: nil)
         } else {
             showError(title: "Login error", with: error?.localizedDescription)
-        }
+        }        
     }
     @IBAction func unwindToLogin(segue:UIStoryboardSegue) {
         let a = 1

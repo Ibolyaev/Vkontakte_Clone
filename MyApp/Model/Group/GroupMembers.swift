@@ -10,5 +10,5 @@ import Foundation
 
 struct GroupMembers:Codable {
     let count:Int
-    let users: [Int]
+    let items: [Int]
 }

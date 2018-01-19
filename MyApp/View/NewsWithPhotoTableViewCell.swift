@@ -25,7 +25,7 @@ class NewsWithPhotoTableViewCell: UITableViewCell, NewsCell {
     var profile:Profiles? {
         didSet {
             profileName.text = profile?.screen_name
-            if let urlString = profile?.photo_medium_rec, let url = URL(string:urlString) {
+            if let urlString = profile?.photo_100, let url = URL(string:urlString) {
                 loadImage(url, imageView: profileImageView)
             }
         }
@@ -50,7 +50,7 @@ class NewsWithPhotoTableViewCell: UITableViewCell, NewsCell {
         var urlString:String?
         if let attachment = news.attachments?.first {
             switch attachment.type {
-            case "photo" : urlString = attachment.photo?.src_big
+            case "photo" : urlString = attachment.photo?.photo_604
             case "video" : urlString = attachment.video?.image
             default :
                 break
@@ -61,15 +61,6 @@ class NewsWithPhotoTableViewCell: UITableViewCell, NewsCell {
         } else {
             print("No picture")
         }
-    }
-    private func loadFooterFrom(_ news:News) {
-        likesLabel?.text = "\(news.likes?.count ?? 0)"
-        commentsLabel?.text = "\(news.comments?.count ?? 0)"
-        repostsLabel.text = "\(news.reposts?.count ?? 0)"
-    }
-    private func loadTextFrom(_ news:News) {
-        let text = news.text ?? ""
-        textView?.text = text.replacingOccurrences(of: "<br>", with: "")
     }
     
     func confugurateCell(news:News) {

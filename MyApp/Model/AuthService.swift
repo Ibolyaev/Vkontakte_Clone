@@ -50,18 +50,15 @@ class AuthService {
             else { return }
         
         let parameters = parseURLParameters(from: url)
-        guard
-            let token = parameters?["token"]
-            else { return }
-        
-        VKontakteAPI.getUser(userToken: token) { (user, error) in
-            DispatchQueue.main.async {
-                if let error = error {
-                    loginCompletion(nil, error)
-                } else {
-                    loginCompletion(user, error)
-                }
-            }  
+        guard let token = parameters?["token"] else { return }
+        AppState.shared.token = token
+        VKontakteAPI().getUser(userToken: token) { (users, error) in
+            if let error = error {
+                loginCompletion(nil, error)
+            } else {
+                AppState.shared.userLoggedIn = true
+                loginCompletion(users?.first, nil)
+            }
         }
     }
     

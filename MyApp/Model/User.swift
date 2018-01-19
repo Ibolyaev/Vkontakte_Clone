@@ -17,17 +17,21 @@ final class User:Object, Decodable {
     }
     @objc dynamic var lastName: String = ""
     @objc dynamic var firstName: String = ""
-    @objc dynamic var uid:Int = 0
+    @objc dynamic var id:Int = 0
     @objc dynamic var photo:Photo?
     
     override static func primaryKey() -> String? {
-        return "uid"
+        return "id"
     }
     
     public enum CodingKeys: String, CodingKey {
         case lastName = "last_name"
         case firstName = "first_name"
-        case uid
+        case id = "id"
         case photo = "photo_100"
-    }
+    }    
 }
+
+
+
+
