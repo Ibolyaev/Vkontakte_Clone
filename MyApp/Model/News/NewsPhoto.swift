@@ -47,8 +47,8 @@ struct NewsPhoto : Decodable {
 		case access_key = "access_key"
 	}
 	init(from decoder: Decoder) throws {
-        // ВКонтакте передает массив групп в ответе, но первый элемент массива, это количество групп,
-        // пытаемся распарсить группу, если не получилось, значит это первый элемент с количеством групп
+        // ВКонтакте передает массив в ответе, но первый элемент массива, это количество,
+        // пытаемся распарсить, если не получилось, значит это первый элемент с количеством
         if let values = try? decoder.container(keyedBy: CodingKeys.self) {
             pid = try values.decodeIfPresent(Int.self, forKey: .pid)
             aid = try values.decodeIfPresent(Int.self, forKey: .aid)

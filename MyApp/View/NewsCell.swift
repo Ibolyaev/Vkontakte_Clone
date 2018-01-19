@@ -8,9 +8,9 @@
 
 import UIKit
 
-protocol NewsCell where Self:UITableViewCell {
+protocol NewsCell  {
     func confugurateCell(news:News)
-    var group:NewsGroups? { get set }
+    var group:Group? { get set }
     var profile:Profiles? { get set }
 }
 

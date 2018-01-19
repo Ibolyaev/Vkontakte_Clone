@@ -58,21 +58,19 @@ class NewsTableViewController: UITableViewController, AlertShower {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let items = items else {
-            return UITableViewCell()
-        }
-        let anyNwesCell:UITableViewCell?
+        guard let items = items else { return UITableViewCell() }
+        
+        var anyNewsCell:NewsCell?
         let item = items[indexPath.row]
         
-        if item.attachments?.first?.photo?.src_big != nil {
-            anyNwesCell = tableView.dequeueReusableCell(withIdentifier: NewsWithPhotoTableViewCell.reuseIdentifier, for: indexPath) as? NewsWithPhotoTableViewCell
+        if (item.attachments?.first() {$0.type == "photo" || $0.type == "video"} ) != nil {
+           anyNewsCell = tableView.dequeueReusableCell(withIdentifier: NewsWithPhotoTableViewCell.reuseIdentifier, for: indexPath) as? NewsWithPhotoTableViewCell
         } else {
-            anyNwesCell = tableView.dequeueReusableCell(withIdentifier: NewsWithoutPhotoTableViewCell.reuseIdentifier, for: indexPath) as? NewsWithoutPhotoTableViewCell
+           anyNewsCell = tableView.dequeueReusableCell(withIdentifier: NewsWithoutPhotoTableViewCell.reuseIdentifier, for: indexPath) as? NewsWithoutPhotoTableViewCell
         }
         
-        guard var newsCell = anyNwesCell as? NewsCell else {
-            return UITableViewCell()
-        }
+        guard var newsCell = anyNewsCell else { return UITableViewCell() }
+        
         if item.source_id < 0 {
             let sourceProfile = newsResponse?.groups?.first() {$0.gid == (-item.source_id)}
             newsCell.group = sourceProfile
@@ -80,6 +78,7 @@ class NewsTableViewController: UITableViewController, AlertShower {
             let sourceProfile = newsResponse?.profiles?.first() {$0.uid == item.source_id}
             newsCell.profile = sourceProfile
         }
+        
         newsCell.confugurateCell(news: item)
         
         return newsCell as! UITableViewCell
