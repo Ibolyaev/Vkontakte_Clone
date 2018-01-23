@@ -17,14 +17,32 @@ class GroupTableViewCell: UITableViewCell {
         didSet {
             nameLabel?.text = group?.name
             userCountLabel?.text = "\(group?.usersCount.formatUsingAbbrevation() ?? "0") people"
-            if let urlString = group?.photo?.url, let url = URL(string:urlString) {
-               groupImageView?.sd_setImage(with: url, completed: nil)
-            }            
+            loadMembersCount()
+            loadImage()
         }
     }
     
     @IBOutlet weak var groupImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var userCountLabel: UILabel!
+    
+    private func loadImage() {
+        groupImageView?.image = nil
+        if let urlString = group?.photo?.url, let url = URL(string:urlString) {
+            groupImageView?.sd_setImage(with: url, completed: nil)
+        }
+    }
+    
+    private func loadMembersCount() {
+        guard let group = group else { return }
+        
+        VKontakteAPI().getGroupMembers(groupId: group.id, completionHandler: {[weak self] (membersCount, groupId, error) in
+            if group.id == groupId {
+                DispatchQueue.main.async {
+                    self?.userCountLabel?.text = "\(membersCount.formatUsingAbbrevation())"
+                }
+            }
+        })
+    }
 
 }

@@ -94,19 +94,8 @@ class FriendsTableViewController: UITableViewController, AlertShower {
         guard let friendCell = cell, let friends = friends else { return UITableViewCell() }
         
         let friend = friends[indexPath.row]
-        friendCell.friend = friend
+        friendCell.friend = friend        
         
-        if let url = friend.photo?.url {
-            Alamofire.request(url).responseData {[weak friendCell] (response) in
-                if response.result.isSuccess,
-                    let data = response.result.value,
-                    let image = UIImage(data: data) {
-                    if friendCell?.friend?.photo?.url == response.request?.url?.absoluteString {
-                        friendCell?.profileImageView?.image = image
-                    }
-                }
-            }
-        }
         return friendCell
     }
     

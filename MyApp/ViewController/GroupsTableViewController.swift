@@ -103,14 +103,6 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
         }
         groupCell.group = group
         
-        VKontakteAPI().getGroupMembers(groupId: group.id, completionHandler: {[weak groupCell] (membersCount, groupId, error) in
-            if groupCell?.group?.id == groupId {
-                DispatchQueue.main.async {
-                    groupCell?.userCountLabel.text = "\(membersCount.formatUsingAbbrevation())"
-                } 
-            }
-        })
-        
         return groupCell
     }
     

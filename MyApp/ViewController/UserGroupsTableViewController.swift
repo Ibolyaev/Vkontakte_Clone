@@ -96,22 +96,12 @@ class UserGroupsTableViewController: UITableViewController, AlertShower {
         
         let group = userGroups[indexPath.row]
         
-        guard let userGroupCell = cell, let url = group.photo?.url else {
+        guard let userGroupCell = cell else {
             return UITableViewCell()
         }
         
-        userGroupCell.group = group
+        userGroupCell.group = group        
         
-        Alamofire.request(url).responseData {[weak userGroupCell] (response) in
-            if response.result.isSuccess {
-                if let data = response.result.value,
-                    let image = UIImage(data: data) {
-                    if userGroupCell?.group?.photo?.url == response.request?.url?.absoluteString {
-                        userGroupCell?.groupImageView?.image = image
-                    }
-                }
-            }
-        }
         return userGroupCell
     }
  
