@@ -33,3 +33,6 @@ class FriendTableViewCell: UITableViewCell {
     }
     
 }
+/*
+ class FriendTableViewCell: UITableViewCell {
+ */
