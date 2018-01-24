@@ -21,7 +21,7 @@ class GroupTableViewCell: UITableViewCell {
             loadImage()
         }
     }
-    
+    let clientVK = VKontakteAPI()
     @IBOutlet weak var groupImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var userCountLabel: UILabel!
@@ -36,7 +36,7 @@ class GroupTableViewCell: UITableViewCell {
     private func loadMembersCount() {
         guard let group = group else { return }
         
-        VKontakteAPI().getGroupMembers(groupId: group.id, completionHandler: {[weak self] (membersCount, groupId, error) in
+        clientVK.getGroupMembers(groupId: group.id, completionHandler: {[weak self] (membersCount, groupId, error) in
             if group.id == groupId {
                 DispatchQueue.main.async {
                     self?.userCountLabel?.text = "\(membersCount.formatUsingAbbrevation())"

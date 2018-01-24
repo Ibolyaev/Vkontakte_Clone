@@ -10,8 +10,9 @@ import UIKit
 
 protocol NewsCell  {
     func confugurateCell(news:News)
-    var group:Group? { get set }
-    var profile:Profiles? { get set }
+    var profile:Profilable? { get set }
+    var profileName: UILabel! { get set }
+    var profileImageView: UIImageView! { get set }
     var repostsLabel: UILabel! { get set }
     var viewedLabel: UILabel! { get set }
     var commentsLabel: UILabel! { get set }
@@ -28,6 +29,13 @@ extension NewsCell {
     func loadTextFrom(_ news:News) {
         let text = news.text ?? ""
         textView?.text = text.replacingOccurrences(of: "<br>", with: "")
+    }
+    func loadProfile() {
+        profileName?.text = profile?.title
+        profileImageView.image = nil
+        if let urlString = profile?.profilePhotoURL, let url = URL(string:urlString) {
+            profileImageView.sd_setImage(with: url, completed: nil)
+        }
     }
 }
 

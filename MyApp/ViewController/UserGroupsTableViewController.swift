@@ -13,6 +13,7 @@ import RealmSwift
 class UserGroupsTableViewController: UITableViewController, AlertShower {
 
     var userGroups:Results<Group>?
+    let clientVk = VKontakteAPI()
     var userToken:String?
     var userId:String?
     var notificationToken: NotificationToken? = nil
@@ -50,6 +51,10 @@ class UserGroupsTableViewController: UITableViewController, AlertShower {
         loadNetworkData()
     }
     
+    @IBAction func quiteTouchUpInside(_ sender: UIBarButtonItem) {
+        AppState.shared.quit(self)
+    }
+    
     func loadLocalData() {
         do {
             let realm = try Realm()
@@ -60,7 +65,7 @@ class UserGroupsTableViewController: UITableViewController, AlertShower {
     }
     
     func loadNetworkData() {
-        VKontakteAPI().getUserGroups() {[weak self](groups, error) in
+        clientVk.getUserGroups() {[weak self](groups, error) in
             if error == nil {
                 if let loadedGroups = groups?.filter({$0.id != 0}) {
                     do {
@@ -92,14 +97,9 @@ class UserGroupsTableViewController: UITableViewController, AlertShower {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UserGroupTableViewCell.reuseIdentifier, for: indexPath) as? UserGroupTableViewCell
         
-        guard let userGroups = userGroups else { return UITableViewCell() }
+        guard let userGroups = userGroups, let userGroupCell = cell else { return UITableViewCell() }
         
-        let group = userGroups[indexPath.row]
-        
-        guard let userGroupCell = cell else {
-            return UITableViewCell()
-        }
-        
+        let group = userGroups[indexPath.row]        
         userGroupCell.group = group        
         
         return userGroupCell

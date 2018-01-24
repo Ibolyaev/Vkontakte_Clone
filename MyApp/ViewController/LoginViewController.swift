@@ -19,6 +19,10 @@ class LoginViewController: UIViewController, AlertShower {
         AppState.shared.token = nil
     }
     
+    deinit {
+        print("LoginViewController deinit")
+    }
+    
     func loginCompletion(user:User?, error:Error?) {
         if user != nil {
             performSegue(withIdentifier: Constants.SegueIdentifiers.mainScreen, sender: nil)

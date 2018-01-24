@@ -14,22 +14,7 @@ class NewsWithPhotoTableViewCell: UITableViewCell, NewsCell {
 
     static let reuseIdentifier = "newsWithPhoto"
     var news:News?
-    var group:Group? {
-        didSet {
-            profileName.text = group?.name
-            if let urlString = group?.photo?.url, let url = URL(string:urlString) {
-               loadImage(url, imageView: profileImageView)
-            }  
-        }
-    }
-    var profile:Profiles? {
-        didSet {
-            profileName.text = profile?.screen_name
-            if let urlString = profile?.photo_100, let url = URL(string:urlString) {
-                loadImage(url, imageView: profileImageView)
-            }
-        }
-    }
+    var profile:Profilable?
     
     @IBOutlet var textView: UITextView!
     @IBOutlet var profileImageView: UIImageView!
@@ -58,17 +43,15 @@ class NewsWithPhotoTableViewCell: UITableViewCell, NewsCell {
         }
         if let url = URL(string:urlString ?? "")  {
             mainNewsPicture?.sd_setImage(with: url, placeholderImage: nil, options: SDWebImageOptions.highPriority, completed: nil)
-        } else {
-            print("No picture")
         }
     }
     
     func confugurateCell(news:News) {
         self.news = news
         loadTextFrom(news)
+        loadProfile()
         loadFooterFrom(news)
         loadImagesFrom(news)
     }
-    
     
 }

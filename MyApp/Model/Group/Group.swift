@@ -9,8 +9,11 @@
 import Foundation
 import RealmSwift
 
-final class Group:Object, Decodable {
-        
+final class Group:Object, Decodable, Profilable {
+    
+    var title: String { return screenName }
+    var profilePhotoURL: String? { return photo?.url }
+    
     @objc dynamic var name:String = ""
     @objc dynamic var screenName:String = ""
     @objc dynamic var id:Int = 0

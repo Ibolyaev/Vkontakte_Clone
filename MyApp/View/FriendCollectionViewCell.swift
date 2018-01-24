@@ -11,7 +11,17 @@ import UIKit
 class FriendCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "friendCollectionCell"
-    var photo:AlbumPhoto?
+    var photo:AlbumPhoto? {
+        didSet {
+            loadImage()
+        }
+    }
     @IBOutlet weak var friendImageView: UIImageView!
     
+    private func loadImage() {
+        friendImageView?.image = nil
+        if let url = photo?.URL {
+            friendImageView?.sd_setImage(with: url, completed: nil)
+        }
+    }
 }

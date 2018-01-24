@@ -140,10 +140,13 @@
                     <navigationItem key="navigationItem" title="Friends" id="RcR-b1-jaE">
                         <barButtonItem key="leftBarButtonItem" title="Выйти" id="ZK6-7W-tTE">
                             <connections>
-                                <segue destination="QuS-no-EbC" kind="unwind" unwindAction="unwindToLoginWithSegue:" id="pC9-lD-rNe"/>
+                                <action selector="quitTouchUpInside:" destination="n6b-mT-6Uh" id="rEx-Vj-c0C"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="QuS-no-EbC" kind="unwind" identifier="unwindToLogin" unwindAction="unwindToLoginWithSegue:" id="CYs-sp-S9F"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fU3-T1-UVn" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="QuS-no-EbC" userLabel="Exit" sceneMemberID="exit"/>
@@ -270,7 +273,7 @@
                     <navigationItem key="navigationItem" title="User groups" id="FZR-PG-fTD">
                         <barButtonItem key="leftBarButtonItem" title="Выйти" id="Xtn-mX-lS9">
                             <connections>
-                                <segue destination="3fk-W3-ZKy" kind="unwind" unwindAction="unwindToLoginWithSegue:" id="sae-zc-4zw"/>
+                                <action selector="quiteTouchUpInside:" destination="vkd-MW-YdU" id="Mse-Zh-qpR"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="tee-l7-KOD">
@@ -279,6 +282,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="3fk-W3-ZKy" kind="unwind" identifier="unwindToLogin" unwindAction="unwindToLoginWithSegue:" id="TGD-9e-N5G"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QFB-DX-p7x" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="3fk-W3-ZKy" userLabel="Exit" sceneMemberID="exit"/>
@@ -301,10 +307,13 @@
                     <navigationItem key="navigationItem" title="News" id="uvl-fh-v5P">
                         <barButtonItem key="leftBarButtonItem" title="Выйти" id="8zj-K2-X3w">
                             <connections>
-                                <segue destination="hd6-BK-Ute" kind="unwind" unwindAction="unwindToLoginWithSegue:" id="3Ew-OH-mRN"/>
+                                <action selector="quitTouchUpInside:" destination="C9C-P8-l1f" id="nbd-ki-m4a"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="hd6-BK-Ute" kind="unwind" identifier="unwindToLogin" unwindAction="unwindToLoginWithSegue:" id="YS9-aR-ePv"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jLE-5D-kDM" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="hd6-BK-Ute" userLabel="Exit" sceneMemberID="exit"/>

@@ -14,6 +14,7 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
     var groups: [Group] = [Group]()
     var filteredGroups: [Group] = [Group]()
     var selectedGroup:Group?
+    let clientVk = VKontakteAPI()
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -29,7 +30,7 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
         definesPresentationContext = true
         guard let token = AppState.shared.token else { return }
         
-        VKontakteAPI().getGroups(" ", userToken: token) {[weak self] (groups, error) in
+        clientVk.getGroups(" ", userToken: token) {[weak self] (groups, error) in
             if error == nil {
                 if let loadedGroups = groups {
                     DispatchQueue.main.async {
@@ -55,7 +56,7 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
         
         guard let token = AppState.shared.token, searchText != "" else { return }
         
-        VKontakteAPI().getGroups(searchText, userToken: token) {[weak self] (groups, error) in
+        clientVk.getGroups(searchText, userToken: token) {[weak self] (groups, error) in
             if error == nil {
                 if let loadedGroups = groups {
                     DispatchQueue.main.async {
