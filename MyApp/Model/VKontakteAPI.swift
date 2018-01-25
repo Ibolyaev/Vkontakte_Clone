@@ -51,10 +51,6 @@ class VKontakteAPI {
         
     }
     
-    deinit {
-        print("VKontakteAPI deinit")
-    }
-    
     func getUser(userToken:String, completionHandler:@escaping  (_ user:[User]?, _ error:Error?)->()) {
         let parameters = ["fields":"photo_100"]
         VKontakteAPI().getResourse(VKConstants.users, parameters: parameters, type: [User].self, completionHandler: completionHandler)
