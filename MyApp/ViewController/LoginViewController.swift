@@ -26,8 +26,7 @@ class LoginViewController: UIViewController, AlertShower {
             showError(title: "Login error", with: error?.localizedDescription)
         }        
     }
-    @IBAction func unwindToLogin(segue:UIStoryboardSegue) {
-        let a = 1
+    @IBAction func unwindToLogin(segue:UIStoryboardSegue) {        
     }
     
     @IBAction func sighInTouchUpInside(_ sender: UIButton) {

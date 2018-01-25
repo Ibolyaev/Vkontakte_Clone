@@ -12,7 +12,8 @@ import RealmSwift
 
 class FriendsTableViewController: UITableViewController, AlertShower {
 
-    private var friends:Results<User>?
+    private var friends: Results<User>?
+    let clientVk = VKontakteAPI()
     var notificationToken: NotificationToken? = nil
     
     override func viewDidLoad() {
@@ -52,6 +53,9 @@ class FriendsTableViewController: UITableViewController, AlertShower {
         loadNetworkData()
     }
     
+    @IBAction func quitTouchUpInside(_ sender: UIBarButtonItem) {
+        AppState.shared.quit(self)
+    }
     func loadLocalData() {
         do {
             let realm = try Realm()
@@ -62,7 +66,7 @@ class FriendsTableViewController: UITableViewController, AlertShower {
     }
     
     func loadNetworkData() {
-        VKontakteAPI().getUserFriends() {[weak self](friends, error) in
+        clientVk.getUserFriends() {[weak self](friends, error) in
             if let loadedFriends = friends {
                 do {
                     let realm = try Realm()
@@ -106,9 +110,9 @@ class FriendsTableViewController: UITableViewController, AlertShower {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showFriendPictures",
+        if segue.identifier == Constants.SegueIdentifiers.showFriendPictures,
             let friend = (sender as? FriendTableViewCell)?.friend,
-        let friendPhotoCollectionView = segue.destination as? FriendPhotoCollectionViewController {
+            let friendPhotoCollectionView = segue.destination as? FriendPhotoCollectionViewController {
             friendPhotoCollectionView.friend = friend
         }
     }

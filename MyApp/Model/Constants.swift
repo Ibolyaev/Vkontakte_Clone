@@ -11,5 +11,11 @@ import Foundation
 struct Constants {
     struct SegueIdentifiers {
         static let mainScreen = "mainScreen"
-    }  
+        static let showFriendPictures = "showFriendPictures"
+        static let unwindToLogin = "unwindToLogin"
+    }
+    struct ViewControllerIdentifiers {
+        static let loginViewController = "LoginViewController"
+        static let mainTabBarController = "MainTabBarController"
+    }
 }

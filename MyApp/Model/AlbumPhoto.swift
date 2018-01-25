@@ -7,15 +7,15 @@
 //
 
 import Foundation
-struct AlbumPhoto:Decodable {
+struct AlbumPhoto:Codable {
     
-    let pid:Int
+    let id:Int
     let ownerId:Int
     let URL:URL
     
     public enum CodingKeys: String, CodingKey {
-        case pid
+        case id
         case ownerId = "owner_id"
-        case URL = "src"
+        case URL = "photo_130"
     }
 }

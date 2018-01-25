@@ -13,7 +13,12 @@ private let reuseIdentifier = FriendCollectionViewCell.reuseIdentifier
 
 class FriendPhotoCollectionViewController: UICollectionViewController, AlertShower {
     
-    var photos = [AlbumPhoto]()
+    var photos = [AlbumPhoto]() {
+        didSet {
+            collectionView?.reloadData()
+        }
+    }
+    let clientVk = VKontakteAPI()
     var friend: User?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,10 +31,11 @@ class FriendPhotoCollectionViewController: UICollectionViewController, AlertShow
     
     func loadNetworkData() {
         if let ownerId = friend?.id {
-            VKontakteAPI().getPhotos(ownerId: ownerId) {[weak self] (photos, error) in
+            clientVk.getPhotos(ownerId: ownerId) {[weak self] (photos, error) in
                 if let photos = photos {
-                    self?.photos = photos
-                    self?.collectionView?.reloadData()
+                    DispatchQueue.main.async {
+                        self?.photos = photos
+                    }                    
                 } else {
                     self?.showError(title: "Failed to load photos", with: error?.localizedDescription)
                 }
@@ -53,20 +59,7 @@ class FriendPhotoCollectionViewController: UICollectionViewController, AlertShow
         
         guard let friendPhotoCell = cell else { return UICollectionViewCell() }
         let photo = photos[indexPath.row]
-        
         friendPhotoCell.photo = photo
-        
-        Alamofire.request(photo.URL).responseData {[weak friendPhotoCell] (response) in
-            if response.result.isSuccess {
-                
-                if let data = response.result.value,
-                    let image = UIImage(data: data) {
-                    if friendPhotoCell?.photo?.URL == response.request?.url {
-                        friendPhotoCell?.friendImageView?.image = image
-                    }
-                }
-            }
-        }
         
         return friendPhotoCell
     }

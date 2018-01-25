@@ -1,4 +1,3 @@
-
 import Foundation
 struct News : Decodable {
     let type : String?
@@ -14,4 +13,7 @@ struct News : Decodable {
     let likes : Likes?
     let reposts : Reposts?
     let views : Views?
+    lazy var havePhoto:Bool = {
+        return attachments?.first() {$0.type == "photo" || $0.type == "video"} != nil
+    }()
 }

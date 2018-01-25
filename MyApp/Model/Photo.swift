@@ -11,7 +11,8 @@ import RealmSwift
 
 final class Photo:Object, Decodable {
     
-    @objc dynamic var url:String = ""
+    @objc dynamic var url: String = ""
+    
     convenience init(from decoder: Decoder) throws {
         self.init()
         url = try decoder.singleValueContainer().decode(String.self)

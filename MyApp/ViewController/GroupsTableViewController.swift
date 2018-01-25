@@ -9,11 +9,12 @@
 import UIKit
 import Alamofire
 
-class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
+class GroupsTableViewController: UITableViewController, UISearchBarDelegate, AlertShower {
 
     var groups: [Group] = [Group]()
     var filteredGroups: [Group] = [Group]()
-    var selectedGroup:Group?
+    var selectedGroup: Group?
+    let clientVk = VKontakteAPI()
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -27,18 +28,6 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
         
         navigationItem.searchController = searchController
         definesPresentationContext = true
-        guard let token = AppState.shared.token else { return }
-        
-        VKontakteAPI().getGroups(" ", userToken: token) {[weak self] (groups, error) in
-            if error == nil {
-                if let loadedGroups = groups {
-                    DispatchQueue.main.async {
-                        self?.filteredGroups = loadedGroups
-                        self?.tableView.reloadData()
-                    }
-                }
-            }
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,18 +44,34 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate {
         
         guard let token = AppState.shared.token, searchText != "" else { return }
         
-        VKontakteAPI().getGroups(searchText, userToken: token) {[weak self] (groups, error) in
-            if error == nil {
-                if let loadedGroups = groups {
-                    DispatchQueue.main.async {
-                        self?.filteredGroups = loadedGroups
-                        self?.groups = loadedGroups
-                        self?.tableView.reloadData()
-                    }
+        clientVk.getGroups(searchText, userToken: token) {[weak self] (groups, error) in
+            if error == nil, let loadedGroups = groups {
+                DispatchQueue.main.async {
+                    self?.filteredGroups = loadedGroups
+                    self?.groups = loadedGroups
+                    self?.loadMembersCount()
+                    self?.tableView.reloadData()
                 }
+            } else {
+                self?.showError(with: error?.localizedDescription)
             }
         }
+    }
+    
+    func loadMembersCount() {
         
+        for group in groups {
+            clientVk.getGroupMembers(groupId: group.id, completionHandler: {[weak self] (usersCount, groupId, error) in
+                if group.id == groupId {
+                    group.usersCount = usersCount
+                    if let index = self?.groups.index(of: group) {
+                        DispatchQueue.main.async {
+                            self?.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: UITableViewRowAnimation.automatic)
+                        }
+                    }                    
+                }
+            })
+        }
     }
     
     func isFiltering() -> Bool {

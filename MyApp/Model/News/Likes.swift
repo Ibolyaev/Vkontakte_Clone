@@ -5,5 +5,4 @@ struct Likes : Codable {
 	let user_likes : Int?
 	let can_like : Int?
 	let can_publish : Int?
-
 }

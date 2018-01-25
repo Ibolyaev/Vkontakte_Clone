@@ -12,15 +12,15 @@ import RealmSwift
 
 class NewsTableViewController: UITableViewController, AlertShower {
     
-    var newsResponse:NewsResponse? {
+    var newsResponse: NewsResponse? {
         didSet {
             items = newsResponse?.items?.filter({ (news) -> Bool in
                 return news.type != "wall_photo"
             })
         }
     }
-    
-    var items:[News]? {
+    let clientVk = VKontakteAPI()
+    var items: [News]? {
         didSet {
             tableView.reloadData()
         }
@@ -29,7 +29,7 @@ class NewsTableViewController: UITableViewController, AlertShower {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 500
+        tableView.estimatedRowHeight = 250
         
         tableView.register(UINib(nibName: "NewsWithPhotoTableViewCell", bundle: nil), forCellReuseIdentifier: NewsWithPhotoTableViewCell.reuseIdentifier)
         tableView.register(UINib(nibName: "NewsWithoutPhotoTableViewCell", bundle: nil), forCellReuseIdentifier: NewsWithoutPhotoTableViewCell.reuseIdentifier)
@@ -40,8 +40,11 @@ class NewsTableViewController: UITableViewController, AlertShower {
         loadNews()
     }
     
+    @IBAction func quitTouchUpInside(_ sender: UIBarButtonItem) {
+        AppState.shared.quit(self)
+    }
     private func loadNews() {
-        VKontakteAPI().getUserNewsFeed() {[weak self](news, error) in
+        clientVk.getUserNewsFeed() {[weak self](news, error) in
             if let loadedNews = news {
                 DispatchQueue.main.async {
                     self?.newsResponse = loadedNews
@@ -61,9 +64,9 @@ class NewsTableViewController: UITableViewController, AlertShower {
         guard let items = items else { return UITableViewCell() }
         
         var anyNewsCell:NewsCell?
-        let item = items[indexPath.row]
+        var item = items[indexPath.row]
         
-        if (item.attachments?.first() {$0.type == "photo" || $0.type == "video"} ) != nil {
+        if item.havePhoto {
            anyNewsCell = tableView.dequeueReusableCell(withIdentifier: NewsWithPhotoTableViewCell.reuseIdentifier, for: indexPath) as? NewsWithPhotoTableViewCell
         } else {
            anyNewsCell = tableView.dequeueReusableCell(withIdentifier: NewsWithoutPhotoTableViewCell.reuseIdentifier, for: indexPath) as? NewsWithoutPhotoTableViewCell
@@ -71,14 +74,7 @@ class NewsTableViewController: UITableViewController, AlertShower {
         
         guard var newsCell = anyNewsCell else { return UITableViewCell() }
         
-        if item.source_id < 0 {
-            let sourceProfile = newsResponse?.groups?.first() {$0.id == (-item.source_id)}
-            newsCell.group = sourceProfile
-        } else {
-            let sourceProfile = newsResponse?.profiles?.first() {$0.id == item.source_id}
-            newsCell.profile = sourceProfile
-        }
-        
+        newsCell.profile = newsResponse?.groups?.first() {$0.id == (item.source_id < 0 ? -item.source_id: item.source_id)}        
         newsCell.confugurateCell(news: item)
         
         return newsCell as! UITableViewCell

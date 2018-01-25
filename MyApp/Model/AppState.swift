@@ -27,4 +27,14 @@ class AppState {
         userLoggedIn = UserDefaults.standard.bool(forKey: "userLoggedIn")
         token = KeychainWrapper.standard.string(forKey: "token") ?? nil
     }
+    
+    func quit(_ sender: UIViewController) {
+        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController,
+            !rootViewController.isKind(of: LoginViewController.self) {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            UIApplication.shared.keyWindow?.rootViewController = storyBoard.instantiateViewController(controller: LoginViewController.self)
+        } else {
+            sender.performSegue(withIdentifier: Constants.SegueIdentifiers.unwindToLogin, sender: sender)
+        }        
+    }
 }
