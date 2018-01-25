@@ -17,7 +17,7 @@ class GroupTableViewCell: UITableViewCell {
         didSet {
             nameLabel?.text = group?.name
             userCountLabel?.text = "\(group?.usersCount.formatUsingAbbrevation() ?? "0") people"
-            loadMembersCount()
+            //loadMembersCount()
             loadImage()
         }
     }
@@ -33,7 +33,7 @@ class GroupTableViewCell: UITableViewCell {
         }
     }
     
-    private func loadMembersCount() {
+    /*private func loadMembersCount() {
         guard let group = group else { return }
         
         clientVK.getGroupMembers(groupId: group.id, completionHandler: {[weak self] (membersCount, groupId, error) in
@@ -43,6 +43,6 @@ class GroupTableViewCell: UITableViewCell {
                 }
             }
         })
-    }
+    }*/
 
 }

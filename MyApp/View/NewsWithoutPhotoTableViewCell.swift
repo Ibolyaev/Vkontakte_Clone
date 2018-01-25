@@ -13,14 +13,14 @@ import SDWebImage
 class NewsWithoutPhotoTableViewCell: UITableViewCell, NewsCell {
 
     static let reuseIdentifier = "newsWithoutPhoto"
-    var news:News?
-    var profile:Profilable?
+    var news: News?
+    var profile: Profilable?
     
-    func loadImage(_ url:URL, imageView:UIImageView) {
+    func loadImage(_ url: URL, imageView: UIImageView) {
         imageView.sd_setImage(with: url, placeholderImage: nil, options: SDWebImageOptions.highPriority, completed: nil)
     }
     
-    func confugurateCell(news:News) {
+    func confugurateCell(news: News) {
         self.news = news
         loadProfile()
         loadTextFrom(news)

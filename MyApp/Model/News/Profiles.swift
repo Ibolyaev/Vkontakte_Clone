@@ -3,8 +3,7 @@ import Foundation
 struct Profiles : Codable, Profilable {
    
     var title: String { return screen_name }    
-    var profilePhotoURL: String? { return photo_100 }
-    
+    var profilePhotoURL: String? { return photo_100 }    
     let id : Int
     let first_name : String?
     let last_name : String?

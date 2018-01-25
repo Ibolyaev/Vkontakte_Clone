@@ -19,10 +19,6 @@ class LoginViewController: UIViewController, AlertShower {
         AppState.shared.token = nil
     }
     
-    deinit {
-        print("LoginViewController deinit")
-    }
-    
     func loginCompletion(user:User?, error:Error?) {
         if user != nil {
             performSegue(withIdentifier: Constants.SegueIdentifiers.mainScreen, sender: nil)
@@ -30,8 +26,7 @@ class LoginViewController: UIViewController, AlertShower {
             showError(title: "Login error", with: error?.localizedDescription)
         }        
     }
-    @IBAction func unwindToLogin(segue:UIStoryboardSegue) {
-        let a = 1
+    @IBAction func unwindToLogin(segue:UIStoryboardSegue) {        
     }
     
     @IBAction func sighInTouchUpInside(_ sender: UIButton) {

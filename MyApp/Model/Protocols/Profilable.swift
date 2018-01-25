@@ -9,6 +9,6 @@
 import Foundation
 
 protocol Profilable {
-    var title:String { get }
-    var profilePhotoURL:String? { get }
+    var title: String { get }
+    var profilePhotoURL: String? { get }
 }

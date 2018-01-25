@@ -18,6 +18,11 @@ struct UserFriendsResponse: Codable {
     let count:Int
 }
 
+struct UserPhotosResponse: Codable {
+    let items:[AlbumPhoto]
+    let count:Int
+}
+
 struct UserGroupsResponse:Decodable {
     let count:Int
     let items: [Group]
@@ -68,9 +73,9 @@ class VKontakteAPI {
     
     func getGroups(_ searchText:String,userToken:String, completionHandler:@escaping (_ groups:[Group]?,_ error:Error?)->() ) {
         let parameters = ["q":searchText]
-        getResourse(VKConstants.groupsSearch, parameters: parameters, type: UserGroupsResponse.self) {(userGroups, error) in
-            if let userGroups = userGroups {
-                completionHandler(userGroups.items,error)
+        getResourse(VKConstants.groupsSearch, parameters: parameters, type: UserGroupsResponse.self) {(response, error) in
+            if let response = response {
+                completionHandler(response.items,error)
             } else {
                 completionHandler(nil,error)
             }
@@ -79,9 +84,9 @@ class VKontakteAPI {
     
     func getUserGroups(_ completionHandler:@escaping (_ groups:[Group]?,_ error:Error?)->() ) {
         let parameters = ["extended":"1"] as [String : Any]
-        getResourse(VKConstants.groups, parameters: parameters, type: UserGroupsResponse.self) {(userGroups, error) in
-            if let userGroups = userGroups {
-                completionHandler(userGroups.items,error)
+        getResourse(VKConstants.groups, parameters: parameters, type: UserGroupsResponse.self) {(response, error) in
+            if let response = response {
+                completionHandler(response.items,error)
             } else {
                 completionHandler(nil,error)
             }
@@ -91,7 +96,13 @@ class VKontakteAPI {
     func getPhotos(ownerId:Int, completionHandler:@escaping (_ groups:[AlbumPhoto]?,_ error:Error?)->()) {
         let parameters = ["album_id":"profile",
                       "owner_id":ownerId] as [String : Any]
-        getResourse(VKConstants.photosURL, parameters: parameters, type: [AlbumPhoto].self, completionHandler: completionHandler)
+        getResourse(VKConstants.photosURL, parameters: parameters, type: UserPhotosResponse.self) {(_ response, error) in
+            if let response = response {
+                completionHandler(response.items,error)
+            } else {
+                completionHandler(nil,error)
+            }
+        }
     }
     
     func getUserNewsFeed(_ completionHandler:@escaping (_ response:NewsResponse?,_ error:Error?)->()) {

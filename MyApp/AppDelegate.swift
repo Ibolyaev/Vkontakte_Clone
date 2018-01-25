@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if AppState.shared.userLoggedIn {
             self.window?.rootViewController = storyBoard.instantiateViewController(withIdentifier: Constants.ViewControllerIdentifiers.mainTabBarController)
         } else {
-            self.window?.rootViewController = storyBoard.instantiateViewController(withIdentifier: Constants.ViewControllerIdentifiers.loginViewController)
+            self.window?.rootViewController = storyBoard.instantiateViewController(controller: LoginViewController.self)
         }
         
         return true

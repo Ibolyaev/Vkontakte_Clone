@@ -12,10 +12,10 @@ import RealmSwift
 
 class UserGroupsTableViewController: UITableViewController, AlertShower {
 
-    var userGroups:Results<Group>?
+    var userGroups: Results<Group>?
     let clientVk = VKontakteAPI()
-    var userToken:String?
-    var userId:String?
+    var userToken: String?
+    var userId: String?
     var notificationToken: NotificationToken? = nil
  
     override func viewDidLoad() {

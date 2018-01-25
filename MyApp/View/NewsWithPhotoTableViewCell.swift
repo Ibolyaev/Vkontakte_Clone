@@ -13,8 +13,8 @@ import SDWebImage
 class NewsWithPhotoTableViewCell: UITableViewCell, NewsCell {
 
     static let reuseIdentifier = "newsWithPhoto"
-    var news:News?
-    var profile:Profilable?
+    var news: News?
+    var profile: Profilable?
     
     @IBOutlet var textView: UITextView!
     @IBOutlet var profileImageView: UIImageView!
@@ -26,7 +26,7 @@ class NewsWithPhotoTableViewCell: UITableViewCell, NewsCell {
     @IBOutlet var commentsLabel: UILabel!
     @IBOutlet var likesLabel: UILabel!
     
-    func loadImage(_ url:URL, imageView:UIImageView) {
+    func loadImage(_ url: URL, imageView: UIImageView) {
         imageView.sd_setImage(with: url, placeholderImage: nil, options: SDWebImageOptions.highPriority, completed: nil)
     }
     
@@ -46,7 +46,7 @@ class NewsWithPhotoTableViewCell: UITableViewCell, NewsCell {
         }
     }
     
-    func confugurateCell(news:News) {
+    func confugurateCell(news: News) {
         self.news = news
         loadTextFrom(news)
         loadProfile()

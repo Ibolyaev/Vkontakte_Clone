@@ -12,7 +12,7 @@ import RealmSwift
 
 class FriendsTableViewController: UITableViewController, AlertShower {
 
-    private var friends:Results<User>?
+    private var friends: Results<User>?
     let clientVk = VKontakteAPI()
     var notificationToken: NotificationToken? = nil
     

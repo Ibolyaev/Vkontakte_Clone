@@ -1,4 +1,3 @@
-
 import Foundation
 struct News : Decodable {
     let type : String?

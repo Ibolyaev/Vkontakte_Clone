@@ -12,7 +12,7 @@ import RealmSwift
 
 class NewsTableViewController: UITableViewController, AlertShower {
     
-    var newsResponse:NewsResponse? {
+    var newsResponse: NewsResponse? {
         didSet {
             items = newsResponse?.items?.filter({ (news) -> Bool in
                 return news.type != "wall_photo"
@@ -20,7 +20,7 @@ class NewsTableViewController: UITableViewController, AlertShower {
         }
     }
     let clientVk = VKontakteAPI()
-    var items:[News]? {
+    var items: [News]? {
         didSet {
             tableView.reloadData()
         }
