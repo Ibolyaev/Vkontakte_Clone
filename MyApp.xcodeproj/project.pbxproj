@@ -41,6 +41,7 @@
 		30FFAD1A1F9F37110026FFF9 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FFAD191F9F37110026FFF9 /* Group.swift */; };
 		6ADE517EAB70770D3430778B /* Pods_MyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00A959F99CCDF6A5D5A1B7AC /* Pods_MyApp.framework */; };
 		BD1AF5281FD8579A00C83EBE /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1AF5271FD8579A00C83EBE /* AppState.swift */; };
+		BD2A37EF201A4CBA00141053 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A37EE201A4CBA00141053 /* MainTabBarController.swift */; };
 		BD2A4E911FE5AE300067CFAE /* AlbumPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A4E901FE5AE300067CFAE /* AlbumPhoto.swift */; };
 		BD2A4EB1200D516F0067CFAE /* Post_source.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A4EA7200D516C0067CFAE /* Post_source.swift */; };
 		BD2A4EB2200D516F0067CFAE /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A4EA8200D516D0067CFAE /* Attachment.swift */; };
@@ -91,6 +92,7 @@
 		30FFAD191F9F37110026FFF9 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		A4C2CC9912F16CF570D3672D /* Pods-MyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyApp/Pods-MyApp.release.xcconfig"; sourceTree = "<group>"; };
 		BD1AF5271FD8579A00C83EBE /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		BD2A37EE201A4CBA00141053 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		BD2A4E901FE5AE300067CFAE /* AlbumPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPhoto.swift; sourceTree = "<group>"; };
 		BD2A4EA7200D516C0067CFAE /* Post_source.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post_source.swift; sourceTree = "<group>"; };
 		BD2A4EA8200D516D0067CFAE /* Attachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 		30E6149E1FA1BD4B0091BD87 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				BD2A37EE201A4CBA00141053 /* MainTabBarController.swift */,
 				3099BC652003A78100511A5E /* NewsTableViewController.swift */,
 				30CAFB1D1F9F3F68002D0BB1 /* FriendPhotoCollectionViewController.swift */,
 				30E8D7AB1F949AD300B57F00 /* LoginViewController.swift */,
@@ -425,6 +428,7 @@
 				30113CE51FD6E39100309742 /* AuthService.swift in Sources */,
 				30CAFB281F9F4E00002D0BB1 /* GroupsTableViewController.swift in Sources */,
 				30CAFB201F9F49A8002D0BB1 /* UserGroupsTableViewController.swift in Sources */,
+				BD2A37EF201A4CBA00141053 /* MainTabBarController.swift in Sources */,
 				30CAFB261F9F4C25002D0BB1 /* GroupTableViewCell.swift in Sources */,
 				30CAFB241F9F4C13002D0BB1 /* UserGroupTableViewCell.swift in Sources */,
 				BD2A4EB9200D516F0067CFAE /* NewsPhoto.swift in Sources */,

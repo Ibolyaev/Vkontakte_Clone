@@ -32,7 +32,7 @@ class AppState {
         if let rootViewController = UIApplication.shared.keyWindow?.rootViewController,
             !rootViewController.isKind(of: LoginViewController.self) {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            UIApplication.shared.keyWindow?.rootViewController = storyBoard.instantiateViewController(withIdentifier: Constants.ViewControllerIdentifiers.loginViewController)
+            UIApplication.shared.keyWindow?.rootViewController = storyBoard.instantiateViewController(controller: LoginViewController.self)
         } else {
             sender.performSegue(withIdentifier: Constants.SegueIdentifiers.unwindToLogin, sender: sender)
         }        
