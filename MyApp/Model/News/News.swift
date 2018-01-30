@@ -16,4 +16,5 @@ struct News : Decodable {
     lazy var havePhoto:Bool = {
         return attachments?.first() {$0.type == "photo" || $0.type == "video"} != nil
     }()
+    var profile: Profile?
 }

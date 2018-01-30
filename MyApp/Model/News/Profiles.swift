@@ -1,7 +1,6 @@
 
 import Foundation
-struct Profiles : Codable, Profilable {
-   
+struct Profiles : Codable {   
     var title: String { return screen_name }    
     var profilePhotoURL: String? { return photo_100 }    
     let id : Int

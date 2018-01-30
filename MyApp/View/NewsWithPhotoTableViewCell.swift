@@ -13,8 +13,12 @@ import SDWebImage
 class NewsWithPhotoTableViewCell: UITableViewCell, NewsCell {
 
     static let reuseIdentifier = "newsWithPhoto"
-    var news: News?
-    var profile: Profilable?
+    var news: News? {
+        didSet {
+            profile = news?.profile
+        }
+    }
+    var profile: Profile?
     
     @IBOutlet var textView: UITextView!
     @IBOutlet var profileImageView: UIImageView!

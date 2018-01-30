@@ -14,9 +14,12 @@ class NewsTableViewController: UITableViewController, AlertShower {
     
     var newsResponse: NewsResponse? {
         didSet {
-            items = newsResponse?.items?.filter({ (news) -> Bool in
+            let filteredItems = newsResponse?.items?.filter({ (news) -> Bool in
                 return news.type != "wall_photo"
             })
+            // Update profile for every News
+            updateProfiles(filteredItems)
+            
         }
     }
     let clientVk = VKontakteAPI()
@@ -43,6 +46,22 @@ class NewsTableViewController: UITableViewController, AlertShower {
     @IBAction func quitTouchUpInside(_ sender: UIBarButtonItem) {
         AppState.shared.quit(self)
     }
+    private func updateProfiles(_ news:[News]?) {
+        items = news?.map({ (item) -> News in
+            var tempItem = item
+            
+            if item.source_id > 0 {
+                guard let userProfile = (newsResponse?.profiles?.first() {$0.id == item.source_id}) else { return item }
+                tempItem.profile = Profile(userProfile)
+            } else {
+                guard let groupProfile = (newsResponse?.groups?.first() {$0.id == -item.source_id}) else { return item }
+                tempItem.profile = Profile(groupProfile)
+            }
+            
+            return tempItem
+        })
+    }
+    
     private func loadNews() {
         clientVk.getUserNewsFeed() {[weak self](news, error) in
             if let loadedNews = news {
@@ -72,9 +91,7 @@ class NewsTableViewController: UITableViewController, AlertShower {
            anyNewsCell = tableView.dequeueReusableCell(withIdentifier: NewsWithoutPhotoTableViewCell.reuseIdentifier, for: indexPath) as? NewsWithoutPhotoTableViewCell
         }
         
-        guard var newsCell = anyNewsCell else { return UITableViewCell() }
-        
-        newsCell.profile = newsResponse?.groups?.first() {$0.id == (item.source_id < 0 ? -item.source_id: item.source_id)}        
+        guard let newsCell = anyNewsCell else { return UITableViewCell() }
         newsCell.confugurateCell(news: item)
         
         return newsCell as! UITableViewCell

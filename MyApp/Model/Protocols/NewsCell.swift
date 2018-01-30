@@ -10,7 +10,7 @@ import UIKit
 
 protocol NewsCell  {
     func confugurateCell(news: News)
-    var profile: Profilable? { get set }
+    var profile: Profile? { get set }
     var profileName: UILabel! { get set }
     var profileImageView: UIImageView! { get set }
     var repostsLabel: UILabel! { get set }
