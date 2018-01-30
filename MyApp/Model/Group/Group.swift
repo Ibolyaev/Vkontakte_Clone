@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-final class Group:Object, Decodable, Profilable {
+final class Group: Object, Decodable {
     
     var title: String { return screenName }
     var profilePhotoURL: String? { return photo?.url }

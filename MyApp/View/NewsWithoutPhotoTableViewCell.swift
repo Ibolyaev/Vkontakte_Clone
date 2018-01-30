@@ -13,8 +13,12 @@ import SDWebImage
 class NewsWithoutPhotoTableViewCell: UITableViewCell, NewsCell {
 
     static let reuseIdentifier = "newsWithoutPhoto"
-    var news: News?
-    var profile: Profilable?
+    var news: News? {
+        didSet {
+            profile = news?.profile
+        }
+    }
+    var profile: Profile?
     
     func loadImage(_ url: URL, imageView: UIImageView) {
         imageView.sd_setImage(with: url, placeholderImage: nil, options: SDWebImageOptions.highPriority, completed: nil)
