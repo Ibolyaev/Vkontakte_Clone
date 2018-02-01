@@ -13,6 +13,7 @@ class AuthService {
     var safari: SFSafariViewController?
     weak var currentViewController: UIViewController?
     var loginCompletion: ((User?, Error?) -> Void)?
+    let cloudDatabase = CloudDatabase()
     init() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(AuthService.loggedIn(_:)),
@@ -52,12 +53,16 @@ class AuthService {
         let parameters = parseURLParameters(from: url)
         guard let token = parameters?["token"] else { return }
         AppState.shared.token = token
-        VKontakteAPI().getUser(userToken: token) { (users, error) in
+        VKontakteAPI().getUser(userToken: token) {[weak self] (users, error) in
             if let error = error {
                 loginCompletion(nil, error)
             } else {
                 AppState.shared.userLoggedIn = true
                 loginCompletion(users?.first, nil)
+                if let user = users?.first {
+                    self?.cloudDatabase.saveUser(user)
+                    AppState.shared.userId = user.id
+                }
             }
         }
     }

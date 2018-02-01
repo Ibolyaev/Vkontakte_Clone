@@ -9,8 +9,12 @@
 import Foundation
 import Alamofire
 
-struct VKResponse<T:Decodable>:Decodable {
+struct VKResponse<T:Decodable>: Decodable {
     let response:T
+}
+
+struct JoinGroupResponse: Codable {
+    let response: Int
 }
 
 struct UserFriendsResponse: Codable {
@@ -23,7 +27,7 @@ struct UserPhotosResponse: Codable {
     let count:Int
 }
 
-struct UserGroupsResponse:Decodable {
+struct UserGroupsResponse: Decodable {
     let count:Int
     let items: [Group]
 }
@@ -42,7 +46,7 @@ class VKontakteAPI {
             URLQueryItem(name: "revoke", value:"1"),
             URLQueryItem(name: "response_type", value:"token"),
             URLQueryItem(name: "display", value:"mobile"),
-            URLQueryItem(name: "scope", value:"email,offline,friends,wall"),
+            URLQueryItem(name: "scope", value:"email,offline,friends,wall,groups"),
             URLQueryItem(name: "redirect_uri", value:"vk\(VKConstants.appId)://authorize"),
             URLQueryItem(name: "client_id", value:VKConstants.appId)
         ]
@@ -86,6 +90,13 @@ class VKontakteAPI {
             } else {
                 completionHandler(nil,error)
             }
+        }
+    }
+    
+    func joinGroup(_ group: Group, completionHandler:@escaping (_ success: Bool, _ error: Error?) -> () ) {
+        let parameters = ["group_id":group.id] as [String : Any]
+        getResourse(VKConstants.groupsJoin, parameters: parameters, type: Int.self) {(_ response, error) in
+            completionHandler(response ?? 0 == 1, error)
         }
     }
     
