@@ -17,9 +17,6 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate, Ale
     let clientVk = VKontakteAPI()
     let cloudDatabase = CloudDatabase()
     var currentSearchWorkItem: DispatchWorkItem?
-    let searchGropusQueue = DispatchQueue(label: "com.myApp.searchGroups", qos: .userInitiated)
-    
-    
     let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
@@ -69,8 +66,8 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate, Ale
             }
         }
         if let currentSearchWorkItem = currentSearchWorkItem {
-            searchGropusQueue.asyncAfter(deadline: .now() + .seconds(3), execute: currentSearchWorkItem)
-        } 
+            DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + .seconds(3), execute: currentSearchWorkItem)
+        }
     }
     
     func loadMembersCount() {
