@@ -10,4 +10,6 @@ pod 'Alamofire', '~> 4.5'
 pod 'RealmSwift', '~> 3.0'
 pod 'SwiftKeychainWrapper'
 pod 'SDWebImage', '~> 4.0'
+pod 'Firebase/Core'
+pod 'Firebase/Database'
 end

@@ -29,12 +29,14 @@
 		30CAFB241F9F4C13002D0BB1 /* UserGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CAFB231F9F4C13002D0BB1 /* UserGroupTableViewCell.swift */; };
 		30CAFB261F9F4C25002D0BB1 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CAFB251F9F4C25002D0BB1 /* GroupTableViewCell.swift */; };
 		30CAFB281F9F4E00002D0BB1 /* GroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CAFB271F9F4E00002D0BB1 /* GroupsTableViewController.swift */; };
+		30D5C8F42022F31D00025D66 /* CloudDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D5C8F32022F31D00025D66 /* CloudDatabase.swift */; };
 		30E8D7AA1F949AD200B57F00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E8D7A91F949AD200B57F00 /* AppDelegate.swift */; };
 		30E8D7AC1F949AD300B57F00 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E8D7AB1F949AD300B57F00 /* LoginViewController.swift */; };
 		30E8D7AF1F949AD300B57F00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30E8D7AD1F949AD300B57F00 /* Main.storyboard */; };
 		30E8D7B11F949AD300B57F00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30E8D7B01F949AD300B57F00 /* Assets.xcassets */; };
 		30E8D7B41F949AD300B57F00 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30E8D7B21F949AD300B57F00 /* LaunchScreen.storyboard */; };
 		30EDBB30202061EC0007200A /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EDBB2F202061EC0007200A /* Profile.swift */; };
+		30EDBB3C2022E76F0007200A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30EDBB3B2022E76E0007200A /* GoogleService-Info.plist */; };
 		30FFAD141F9F23B80026FFF9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FFAD131F9F23B80026FFF9 /* User.swift */; };
 		30FFAD161F9F29550026FFF9 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FFAD151F9F29550026FFF9 /* FriendTableViewCell.swift */; };
 		30FFAD181F9F29750026FFF9 /* FriendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FFAD171F9F29750026FFF9 /* FriendCollectionViewCell.swift */; };
@@ -78,6 +80,7 @@
 		30CAFB231F9F4C13002D0BB1 /* UserGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGroupTableViewCell.swift; sourceTree = "<group>"; };
 		30CAFB251F9F4C25002D0BB1 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
 		30CAFB271F9F4E00002D0BB1 /* GroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTableViewController.swift; sourceTree = "<group>"; };
+		30D5C8F32022F31D00025D66 /* CloudDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudDatabase.swift; sourceTree = "<group>"; };
 		30E8D7A61F949AD200B57F00 /* MyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30E8D7A91F949AD200B57F00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30E8D7AB1F949AD300B57F00 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +89,7 @@
 		30E8D7B31F949AD300B57F00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		30E8D7B51F949AD300B57F00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30EDBB2F202061EC0007200A /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		30EDBB3B2022E76E0007200A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		30FFAD131F9F23B80026FFF9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		30FFAD151F9F29550026FFF9 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
 		30FFAD171F9F29750026FFF9 /* FriendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -202,6 +206,7 @@
 				303A7CB82010EED300F34E2B /* VKConstants.swift */,
 				BD2A4E901FE5AE300067CFAE /* AlbumPhoto.swift */,
 				30113CE41FD6E39100309742 /* AuthService.swift */,
+				30D5C8F32022F31D00025D66 /* CloudDatabase.swift */,
 				301C4EEE1FA85C7300E54F47 /* Photo.swift */,
 				304458371F977A4C00D694BA /* Constants.swift */,
 				30FFAD131F9F23B80026FFF9 /* User.swift */,
@@ -216,6 +221,7 @@
 				30E8D7AD1F949AD300B57F00 /* Main.storyboard */,
 				30E8D7B01F949AD300B57F00 /* Assets.xcassets */,
 				30E8D7B21F949AD300B57F00 /* LaunchScreen.storyboard */,
+				30EDBB3B2022E76E0007200A /* GoogleService-Info.plist */,
 				30E8D7B51F949AD300B57F00 /* Info.plist */,
 			);
 			path = "Supporting files";
@@ -336,6 +342,7 @@
 				303A7CB2200F758800F34E2B /* NewsWithoutPhotoTableViewCell.xib in Resources */,
 				30E8D7B11F949AD300B57F00 /* Assets.xcassets in Resources */,
 				30E8D7AF1F949AD300B57F00 /* Main.storyboard in Resources */,
+				30EDBB3C2022E76F0007200A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,18 +357,24 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MyApp/Pods-MyApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -426,6 +439,7 @@
 				30E8D7AC1F949AD300B57F00 /* LoginViewController.swift in Sources */,
 				3099BC742003C65300511A5E /* NewsCell.swift in Sources */,
 				30113CE51FD6E39100309742 /* AuthService.swift in Sources */,
+				30D5C8F42022F31D00025D66 /* CloudDatabase.swift in Sources */,
 				30CAFB281F9F4E00002D0BB1 /* GroupsTableViewController.swift in Sources */,
 				30CAFB201F9F49A8002D0BB1 /* UserGroupsTableViewController.swift in Sources */,
 				BD2A37EF201A4CBA00141053 /* MainTabBarController.swift in Sources */,

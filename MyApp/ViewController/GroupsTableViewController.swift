@@ -11,11 +11,12 @@ import Alamofire
 
 class GroupsTableViewController: UITableViewController, UISearchBarDelegate, AlertShower {
 
-    var groups: [Group] = [Group]()
-    var filteredGroups: [Group] = [Group]()
+    var groups = [Group]()
+    var filteredGroups = [Group]()
     var selectedGroup: Group?
     let clientVk = VKontakteAPI()
-    
+    let cloudDatabase = CloudDatabase()
+    var currentSearchWorkItem: DispatchWorkItem?
     let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
@@ -28,6 +29,8 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate, Ale
         
         navigationItem.searchController = searchController
         definesPresentationContext = true
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,17 +47,26 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate, Ale
         
         guard let token = AppState.shared.token, searchText != "" else { return }
         
-        clientVk.getGroups(searchText, userToken: token) {[weak self] (groups, error) in
-            if error == nil, let loadedGroups = groups {
-                DispatchQueue.main.async {
-                    self?.filteredGroups = loadedGroups
-                    self?.groups = loadedGroups
-                    self?.loadMembersCount()
-                    self?.tableView.reloadData()
+        if currentSearchWorkItem != nil {
+            currentSearchWorkItem?.cancel()
+        }
+        
+        currentSearchWorkItem = DispatchWorkItem { [weak self] in
+            self?.clientVk.getGroups(searchText, userToken: token) {[weak self] (groups, error) in
+                if error == nil, let loadedGroups = groups  {
+                    DispatchQueue.main.async {
+                        self?.filteredGroups = loadedGroups
+                        self?.groups = loadedGroups
+                        self?.loadMembersCount()
+                        self?.tableView.reloadData()
+                    }
+                } else {
+                    self?.showError(with: error?.localizedDescription)
                 }
-            } else {
-                self?.showError(with: error?.localizedDescription)
             }
+        }
+        if let currentSearchWorkItem = currentSearchWorkItem {
+            DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + .seconds(3), execute: currentSearchWorkItem)
         }
     }
     
@@ -121,9 +133,40 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate, Ale
             selectedGroup = filteredGroups[indexPath.row]
         } else {
             selectedGroup = groups[indexPath.row]
-            performSegue(withIdentifier: "unwindToUserGroup", sender: self)
         }
+        
+        if let group = selectedGroup, !isFiltering() {
+            askJoinGroup(group)
+        }
+        
         searchController.isActive = false
+    }
+    
+    func joinGroup(_ group: Group) {
+        clientVk.joinGroup(group) {[weak self] (success, error) in
+            if success {
+                self?.cloudDatabase.userDidJoinGroup(group)
+                DispatchQueue.main.async {
+                    self?.performSegue(withIdentifier: "unwindToUserGroup", sender: self)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.showError(with: error?.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func askJoinGroup(_ group: Group) {
+        let alert = UIAlertController(title: group.name, message: "Would you like to join ?", preferredStyle: .alert)        
+        alert.addAction(UIAlertAction(title: "Join", style: .default, handler: {[weak self] (_) in
+            self?.joinGroup(group)
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: {[weak self] (_) in
+            self?.selectedGroup = nil
+        }))
+        
+        present(alert, animated: true, completion: nil)
     }
     
 }
@@ -131,8 +174,8 @@ class GroupsTableViewController: UITableViewController, UISearchBarDelegate, Ale
 
 extension GroupsTableViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
-        if selectedGroup != nil {
-            performSegue(withIdentifier: "unwindToUserGroup", sender: self)
+        if let group = selectedGroup {
+            askJoinGroup(group)
         }
     }
 }
