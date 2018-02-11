@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Baseline standard spacing" minToolsVersion="9.0"/>
@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="Ka2-Zp-7dn">
-                                <rect key="frame" x="128.5" y="166" width="62" height="32"/>
+                                <rect key="frame" x="128.5" y="165.5" width="62" height="32"/>
                                 <color key="backgroundColor" red="0.27058823529411763" green="0.40000000000000002" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                 <state key="normal" title="Войти">
@@ -138,7 +138,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Friends" id="RcR-b1-jaE">
-                        <barButtonItem key="leftBarButtonItem" title="Выйти" id="ZK6-7W-tTE">
+                        <barButtonItem key="leftBarButtonItem" title="Quit" id="ZK6-7W-tTE">
                             <connections>
                                 <action selector="quitTouchUpInside:" destination="n6b-mT-6Uh" id="rEx-Vj-c0C"/>
                             </connections>
@@ -271,7 +271,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="User groups" id="FZR-PG-fTD">
-                        <barButtonItem key="leftBarButtonItem" title="Выйти" id="Xtn-mX-lS9">
+                        <barButtonItem key="leftBarButtonItem" title="Quit" id="Xtn-mX-lS9">
                             <connections>
                                 <action selector="quiteTouchUpInside:" destination="vkd-MW-YdU" id="Mse-Zh-qpR"/>
                             </connections>
@@ -305,9 +305,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="News" id="uvl-fh-v5P">
-                        <barButtonItem key="leftBarButtonItem" title="Выйти" id="8zj-K2-X3w">
+                        <barButtonItem key="leftBarButtonItem" title="Quit" id="8zj-K2-X3w">
                             <connections>
                                 <action selector="quitTouchUpInside:" destination="C9C-P8-l1f" id="nbd-ki-m4a"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="zIx-9Y-MLo">
+                            <connections>
+                                <segue destination="XKQ-VH-e29" kind="show" id="jPb-t7-c6W"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -319,6 +324,58 @@
                 <exit id="hd6-BK-Ute" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3047" y="1111"/>
+        </scene>
+        <!--New post-->
+        <scene sceneID="BZM-cM-hqV">
+            <objects>
+                <viewController title="New post" id="XKQ-VH-e29" customClass="NewPostViewController" customModule="MyApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PiW-A3-73p">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="prf-Qm-ZsI">
+                                <rect key="frame" x="0.0" y="64" width="320" height="114"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="q1f-jR-hKf">
+                                <rect key="frame" x="0.0" y="189" width="320" height="320"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="q1f-jR-hKf" secondAttribute="height" multiplier="1:1" id="dk5-Id-W8J"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="XKQ-VH-e29" id="Fcv-P2-X6Z"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="prf-Qm-ZsI" firstAttribute="top" secondItem="tI6-yT-Biy" secondAttribute="top" id="8JB-eV-d15"/>
+                            <constraint firstItem="q1f-jR-hKf" firstAttribute="firstBaseline" secondItem="prf-Qm-ZsI" secondAttribute="baseline" constant="11" symbolType="layoutAnchor" id="DDG-a4-xs6"/>
+                            <constraint firstItem="prf-Qm-ZsI" firstAttribute="height" secondItem="tI6-yT-Biy" secondAttribute="height" multiplier="1:4" id="OtX-mq-4Th"/>
+                            <constraint firstItem="tI6-yT-Biy" firstAttribute="trailing" secondItem="prf-Qm-ZsI" secondAttribute="trailing" id="ZI1-GB-Kg6"/>
+                            <constraint firstItem="prf-Qm-ZsI" firstAttribute="leading" secondItem="tI6-yT-Biy" secondAttribute="leading" id="glB-q3-XBn"/>
+                            <constraint firstItem="tI6-yT-Biy" firstAttribute="trailing" secondItem="q1f-jR-hKf" secondAttribute="trailing" id="iVE-bJ-GuA"/>
+                            <constraint firstItem="q1f-jR-hKf" firstAttribute="leading" secondItem="tI6-yT-Biy" secondAttribute="leading" id="pLh-Vy-Qrx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="tI6-yT-Biy"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="New post" id="C1s-xW-DDD">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Hd3-77-BpP">
+                            <connections>
+                                <action selector="postOnWall:" destination="XKQ-VH-e29" id="f7V-ez-Dod"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="q1f-jR-hKf" id="rYz-Ve-k9A"/>
+                        <outlet property="textView" destination="prf-Qm-ZsI" id="iNN-fV-VmN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cNn-9c-sUp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3834" y="1111"/>
         </scene>
         <!--News-->
         <scene sceneID="PHt-q3-gbU">

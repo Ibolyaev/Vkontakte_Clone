@@ -13,6 +13,14 @@ struct VKResponse<T:Decodable>: Decodable {
     let response:T
 }
 
+struct PostResponse: Decodable {
+    let postId: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case postId = "post_id"
+    }
+}
+
 struct JoinGroupResponse: Codable {
     let response: Int
 }
@@ -54,7 +62,7 @@ class VKontakteAPI {
       return urlComponents.url!
         
     }
-    
+
     func getUser(userToken:String, completionHandler:@escaping  (_ user:[User]?, _ error:Error?)->()) {
         let parameters = ["fields":"photo_100"]
         VKontakteAPI().getResourse(VKConstants.users, parameters: parameters, type: [User].self, completionHandler: completionHandler)
@@ -160,6 +168,25 @@ class VKontakteAPI {
                       "access_token":appToken,
                       "fields":["photo_100"]] as [String : Any]
         getResourse(VKConstants.users, parameters: parameters, type: [User].self, completionHandler: completionHandler)
+    }
+    
+    func postOnWall(_ message: String, completionHandler:@escaping (Bool, Error?)->()) {
+        let parameters = ["owner_id": AppState.shared.userId ?? "",
+                          "friends_only": 1,
+                          "message": message,
+                          "access_token": AppState.shared.token ?? ""] as [String : Any]
+        Alamofire.request(VKConstants.wallPost, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+            if response.result.isSuccess, let data = response.data {
+                do {
+                    _ = try JSONDecoder().decode(VKResponse<PostResponse>.self, from: data)
+                    completionHandler(true, nil)
+                } catch let error {
+                    completionHandler(false, error)
+                }
+            } else {
+                completionHandler(false, response.result.error)
+            }
+        }
     }
 }
 

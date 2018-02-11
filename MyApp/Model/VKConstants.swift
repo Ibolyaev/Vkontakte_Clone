@@ -21,4 +21,5 @@ struct VKConstants {
     static let groupMembers = "https://api.vk.com/method/groups.getMembers"
     static let photosURL = "https://api.vk.com/method/photos.get"
     static let newsFeed = "https://api.vk.com/method/newsfeed.get"
+    static let wallPost = "https://api.vk.com/method/wall.post"
 }
