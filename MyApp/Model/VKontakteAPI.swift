@@ -21,6 +21,22 @@ struct PostResponse: Decodable {
     }
 }
 
+struct UploadServer: Decodable {
+    let uploadUrl: URL
+    let albumId: Int
+    let userid: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case uploadUrl = "upload_url"
+        case albumId = "album_id"
+        case userid = "user_id"
+    }
+}
+struct UploadedPhotoResponse: Codable {
+    let hash: String
+    let photo: String
+    let server: Int
+}
 struct JoinGroupResponse: Codable {
     let response: Int
 }
@@ -54,7 +70,7 @@ class VKontakteAPI {
             URLQueryItem(name: "revoke", value:"1"),
             URLQueryItem(name: "response_type", value:"token"),
             URLQueryItem(name: "display", value:"mobile"),
-            URLQueryItem(name: "scope", value:"email,offline,friends,wall,groups"),
+            URLQueryItem(name: "scope", value:"email,offline,friends,wall,groups,photos"),
             URLQueryItem(name: "redirect_uri", value:"vk\(VKConstants.appId)://authorize"),
             URLQueryItem(name: "client_id", value:VKConstants.appId)
         ]
@@ -120,6 +136,55 @@ class VKontakteAPI {
         }
     }
     
+    func uploadPhoto(_ photo: UIImage, completionHandler:@escaping (_ success:Bool,_ error:Error?)->()) {
+        let parameters = ["access_token": AppState.shared.token ?? ""] as [String : Any]
+        getResourse(VKConstants.wallUploadServer, parameters: parameters, type: UploadServer.self) { (uploadServer, error) in
+            if let uploadServer = uploadServer {
+                /*Передача файла
+                Передайте файл на адрес upload_url, полученный в предыдущем пункте, сформировав POST-запрос с полем photo. Это поле должно содержать изображение в формате multipart/form-data.*/
+                /*[body appendData:[[NSString stringWithFormat:@"--%@\r\n",stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
+                [body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"photo\"; filename=\"photo.jpg\"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+                [body appendData:[@"Content-Type: image/jpg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+                [body appendData:imageData];
+                [body appendData:[[NSString stringWithFormat:@"%@",endItemBoundary] dataUsingEncoding:NSUTF8StringEncoding]];*/
+                guard let urlRequest = try? URLRequest(url: uploadServer.uploadUrl, method: .post) else {
+                    completionHandler(false,error)
+                    return
+                }
+                
+                Alamofire.upload(multipartFormData: { (multipartFormData) in
+                    if let imageData = UIImageJPEGRepresentation(photo, 1.0) {
+                        multipartFormData.append(imageData, withName: "photo", fileName: "photo", mimeType: "image/jpeg")
+                    }
+                }, with: urlRequest, encodingCompletion: { (encodingResult) in
+                    switch encodingResult {
+                    case .success(let upload, _, _):
+                        upload.responseData { response in
+                            //debugPrint(response)
+                            guard let data = response.data else {
+                                completionHandler(false,error)
+                                return
+                            }
+                            if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any]{
+                                print(json?.values)
+                            }
+                            
+                            }
+                            .uploadProgress { progress in // main queue by default
+                                print("Upload Progress: \(progress.fractionCompleted)")
+                        }
+                        return
+                    case .failure(let encodingError):
+                        
+                        debugPrint(encodingError)
+                    }
+                })
+            } else {
+                completionHandler(false,error)
+            }
+        }
+    }
+    
     func getUserNewsFeed(_ completionHandler:@escaping (_ response:NewsResponse?,_ error:Error?)->()) {
         let parameters = ["count":50] as [String : Any]
         getResourse(VKConstants.newsFeed, parameters: parameters, type: NewsResponse.self, completionHandler: completionHandler)
@@ -140,6 +205,10 @@ class VKontakteAPI {
                 do {
                     result = try JSONDecoder().decode(VKResponse<T>.self, from: data)
                 } catch let error {
+                    if let errorJson = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any]{
+                        print(errorJson?.values)
+                    }
+                    
                     completionHandler(nil, error)
                 }
                 if let objects = result?.response {

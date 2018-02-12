@@ -32,14 +32,17 @@ class NewPostViewController: UIViewController, AlertShower {
         mapView.addGestureRecognizer(tapGesture)
     }
     @IBAction func postOnWall(_ sender: UIBarButtonItem) {
-        clientVk.postOnWall(textView.text) {[weak self] (success, error) in
+        clientVk.uploadPhoto(UIImage(named: "Vk")!) { (success, error) in
+            //
+        }
+        /*clientVk.postOnWall(textView.text) {[weak self] (success, error) in
             if success {
                 self?.resetUI()
                 self?.showSuccessAlert()
             } else {
                 self?.showError(with: error?.localizedDescription)
             }
-        }
+        }*/
     }
     @objc func didTapOnMap(sender: UITapGestureRecognizer) {
         let point = sender.location(in: mapView)
