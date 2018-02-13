@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="Ka2-Zp-7dn">
-                                <rect key="frame" x="128.5" y="165.5" width="62" height="32"/>
+                                <rect key="frame" x="128.5" y="166" width="62" height="32"/>
                                 <color key="backgroundColor" red="0.27058823529411763" green="0.40000000000000002" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                 <state key="normal" title="Войти">
@@ -333,14 +333,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="prf-Qm-ZsI">
-                                <rect key="frame" x="0.0" y="64" width="320" height="114"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="q1f-jR-hKf">
-                                <rect key="frame" x="0.0" y="189" width="320" height="320"/>
+                                <rect key="frame" x="0.0" y="194" width="320" height="320"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="q1f-jR-hKf" secondAttribute="height" multiplier="1:1" id="dk5-Id-W8J"/>
                                 </constraints>
@@ -348,16 +342,31 @@
                                     <outlet property="delegate" destination="XKQ-VH-e29" id="Fcv-P2-X6Z"/>
                                 </connections>
                             </mapView>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vk" translatesAutoresizingMaskIntoConstraints="NO" id="ejp-V9-mgC">
+                                <rect key="frame" x="0.0" y="69" width="114" height="114"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ejp-V9-mgC" secondAttribute="height" multiplier="1:1" id="1RY-lf-wjI"/>
+                                </constraints>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="prf-Qm-ZsI">
+                                <rect key="frame" x="122" y="69" width="193" height="114"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="prf-Qm-ZsI" firstAttribute="top" secondItem="tI6-yT-Biy" secondAttribute="top" id="8JB-eV-d15"/>
+                            <constraint firstItem="prf-Qm-ZsI" firstAttribute="top" secondItem="tI6-yT-Biy" secondAttribute="top" constant="5" id="8JB-eV-d15"/>
+                            <constraint firstItem="ejp-V9-mgC" firstAttribute="height" secondItem="prf-Qm-ZsI" secondAttribute="height" id="Bum-Xb-adb"/>
                             <constraint firstItem="q1f-jR-hKf" firstAttribute="firstBaseline" secondItem="prf-Qm-ZsI" secondAttribute="baseline" constant="11" symbolType="layoutAnchor" id="DDG-a4-xs6"/>
+                            <constraint firstItem="prf-Qm-ZsI" firstAttribute="leading" secondItem="ejp-V9-mgC" secondAttribute="trailing" constant="8" symbolic="YES" id="Fbb-t8-Ccs"/>
                             <constraint firstItem="prf-Qm-ZsI" firstAttribute="height" secondItem="tI6-yT-Biy" secondAttribute="height" multiplier="1:4" id="OtX-mq-4Th"/>
-                            <constraint firstItem="tI6-yT-Biy" firstAttribute="trailing" secondItem="prf-Qm-ZsI" secondAttribute="trailing" id="ZI1-GB-Kg6"/>
-                            <constraint firstItem="prf-Qm-ZsI" firstAttribute="leading" secondItem="tI6-yT-Biy" secondAttribute="leading" id="glB-q3-XBn"/>
+                            <constraint firstItem="ejp-V9-mgC" firstAttribute="leading" secondItem="tI6-yT-Biy" secondAttribute="leading" id="Yu5-Sv-Obq"/>
+                            <constraint firstItem="tI6-yT-Biy" firstAttribute="trailing" secondItem="prf-Qm-ZsI" secondAttribute="trailing" constant="5" id="ZI1-GB-Kg6"/>
                             <constraint firstItem="tI6-yT-Biy" firstAttribute="trailing" secondItem="q1f-jR-hKf" secondAttribute="trailing" id="iVE-bJ-GuA"/>
                             <constraint firstItem="q1f-jR-hKf" firstAttribute="leading" secondItem="tI6-yT-Biy" secondAttribute="leading" id="pLh-Vy-Qrx"/>
+                            <constraint firstItem="ejp-V9-mgC" firstAttribute="top" secondItem="tI6-yT-Biy" secondAttribute="top" constant="5" id="w52-Qa-igr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tI6-yT-Biy"/>
                     </view>
@@ -370,12 +379,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="q1f-jR-hKf" id="rYz-Ve-k9A"/>
+                        <outlet property="postImageView" destination="ejp-V9-mgC" id="zDz-5K-2t7"/>
                         <outlet property="textView" destination="prf-Qm-ZsI" id="iNN-fV-VmN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cNn-9c-sUp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3834" y="1111"/>
+            <point key="canvasLocation" x="3832.5" y="1110.2112676056338"/>
         </scene>
         <!--News-->
         <scene sceneID="PHt-q3-gbU">
