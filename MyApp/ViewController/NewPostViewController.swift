@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Contacts
 
 class NewPostViewController: UIViewController, AlertShower {
 
@@ -17,13 +18,13 @@ class NewPostViewController: UIViewController, AlertShower {
     let geoCoder = CLGeocoder()
     let clientVk = VKontakteAPI()
     private let imagePicker = UIImagePickerController()
-    private var currentPlacemark: CLPlacemark?
     private var selectedPlacemark: CLPlacemark? {
-        didSet {
-            if let currentPlace = currentPlacemark, let name = currentPlace.name {
-                textView?.text = textView?.text.replacingOccurrences(of: name, with: "")
+        willSet {
+            if let currentPlace = selectedPlacemark {
+                textView?.text = textView?.text.replacingOccurrences(of: nameForPlaceMark(currentPlace), with: "")
             }
-            currentPlacemark = selectedPlacemark
+        }
+        didSet {
             updatePostText(with: selectedPlacemark)
         }
     }
@@ -105,11 +106,21 @@ class NewPostViewController: UIViewController, AlertShower {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    private func nameForPlaceMark(_ placemark: CLPlacemark) -> String {
+        var placeMarkName = ""
+        if let postalAdress = placemark.postalAddress {
+            placeMarkName = "\(postalAdress.city) \(postalAdress.street) \(postalAdress.subLocality)"
+        } else {
+            placeMarkName = placemark.name ?? ""
+        }
+        
+        return placeMarkName
+    }
     func updatePostText(with placemark: CLPlacemark?) {
         guard let textView = textView, let placemark = placemark else {
             return
         }
-        textView.text? += placemark.name ?? ""
+        textView.text? += nameForPlaceMark(placemark)
     }
 }
 
