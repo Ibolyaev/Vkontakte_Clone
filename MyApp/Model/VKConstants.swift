@@ -15,6 +15,7 @@ struct VKConstants {
     static let authorize = "https://oauth.vk.com/authorize"
     static let users = "https://api.vk.com/method/users.get"
     static let friends = "https://api.vk.com/method/friends.get"
+    static let friendsRequests = "https://api.vk.com/method/friends.getRequests"
     static let groups = "https://api.vk.com/method/groups.get"
     static let groupsJoin = "https://api.vk.com/method/groups.join"
     static let groupsSearch = "https://api.vk.com/method/groups.search"

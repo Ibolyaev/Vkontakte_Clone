@@ -25,6 +25,7 @@ class FriendsTableViewController: UITableViewController, AlertShower {
         // Observe Results Notifications
         notificationToken = friends.observe { [weak self] (changes: RealmCollectionChange) in
             guard let tableView = self?.tableView else { return }
+            self?.updateBadge()
             switch changes {
             case .initial:
                 // Results are now populated and can be accessed without blocking the UI
@@ -65,21 +66,42 @@ class FriendsTableViewController: UITableViewController, AlertShower {
         }
     }
     
+    func updateBadge() {
+        if let tabBarItems = tabBarController?.tabBar.items, let item = tabBarItems.first {
+            let onlyNewFriendsPredicate = NSPredicate(format: "friendshipReuqest == %@", NSNumber(value: true))
+            let newFriends = friends?.filter(onlyNewFriendsPredicate)
+            if let newFriendsCount = newFriends?.count, newFriendsCount > 0 {
+                item.badgeValue = "\(newFriendsCount)"
+            } else {
+                item.badgeValue = nil
+            }
+        }        
+    }
+    
     func loadNetworkData() {
-        clientVk.getUserFriends() {[weak self](friends, error) in
+        clientVk.getUserFriends() {[weak self] (friends, error) in
             if let loadedFriends = friends {
                 do {
                     let realm = try Realm()
                     try realm.write {
                         realm.add(loadedFriends, update: true)
                     }
+                    let usersInDataBaseToDelete = NSPredicate(format: "NOT id IN %@ AND friendshipReuqest == %@", loadedFriends.map {$0.id}, NSNumber(value: false))
+                    let usersToDelete = realm.objects(User.self).filter(usersInDataBaseToDelete)
+                    try realm.write {
+                        realm.delete(usersToDelete)
+                    }
                 } catch let error {
-                    self?.showError(with: error.localizedDescription)
+                    DispatchQueue.main.async {
+                        self?.showError(with: error.localizedDescription)
+                    }
                 }
             } else {
-                self?.showError(with: error?.localizedDescription)
+                DispatchQueue.main.async {
+                    self?.showError(with: error?.localizedDescription)
+                }
             }
-        }
+        }        
     }
     
     // MARK: - Table view data source

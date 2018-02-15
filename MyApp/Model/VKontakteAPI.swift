@@ -60,6 +60,17 @@ class VKontakteAPI {
         VKontakteAPI().getResourse(VKConstants.users, parameters: parameters, type: [User].self, completionHandler: completionHandler)
     }
     
+    func getFriendsRequests(_ completionHandler:@escaping  (_ userFriendsRequests: [User]?, _ error: Error?)->()) {
+        let parameters: Parameters = [:]
+        getResourse(VKConstants.friendsRequests, parameters: parameters, type: UserFriendsResponse.self) {(userIds, error) in
+            if let userIds = userIds {
+                VKontakteAPI().loadFriendsWithIds(userIds: userIds.items, completionHandler: completionHandler)
+            } else {
+                completionHandler(nil,error)
+            }
+        }
+    }
+    
     func getGroupMembers(groupId:Int, completionHandler:@escaping (_ membersCount:Int,_ groupId:Int,_ error:Error?)->()) {
         let parameters = ["group_id":groupId] as [String : Any]
         getResourse(VKConstants.groupMembers, parameters: parameters, type: GroupMembers.self) {(groupMembers, error) in
