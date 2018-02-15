@@ -54,6 +54,7 @@
 		BD2A4EB9200D516F0067CFAE /* NewsPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A4EAF200D516F0067CFAE /* NewsPhoto.swift */; };
 		BD2A4EBB200D52810067CFAE /* NewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A4EBA200D52810067CFAE /* NewsResponse.swift */; };
 		BD2A4EBF200D5C370067CFAE /* Profiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A4EBE200D5C370067CFAE /* Profiles.swift */; };
+		BDC0BA18202FA975003131E9 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC0BA17202FA975003131E9 /* NewPostViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +108,7 @@
 		BD2A4EAF200D516F0067CFAE /* NewsPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsPhoto.swift; sourceTree = "<group>"; };
 		BD2A4EBA200D52810067CFAE /* NewsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsResponse.swift; sourceTree = "<group>"; };
 		BD2A4EBE200D5C370067CFAE /* Profiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profiles.swift; sourceTree = "<group>"; };
+		BDC0BA17202FA975003131E9 /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
 		D071CC447F63337086E7CD3B /* Pods-MyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyApp/Pods-MyApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -184,6 +186,7 @@
 		30E6149E1FA1BD4B0091BD87 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				BDC0BA17202FA975003131E9 /* NewPostViewController.swift */,
 				BD2A37EE201A4CBA00141053 /* MainTabBarController.swift */,
 				3099BC652003A78100511A5E /* NewsTableViewController.swift */,
 				30CAFB1D1F9F3F68002D0BB1 /* FriendPhotoCollectionViewController.swift */,
@@ -428,6 +431,7 @@
 			files = (
 				303A7CAE200F3ADC00F34E2B /* AlertShower.swift in Sources */,
 				30EDBB30202061EC0007200A /* Profile.swift in Sources */,
+				BDC0BA18202FA975003131E9 /* NewPostViewController.swift in Sources */,
 				301C4EEF1FA85C7300E54F47 /* Photo.swift in Sources */,
 				BD2A4EB6200D516F0067CFAE /* News.swift in Sources */,
 				304458361F97794700D694BA /* FriendsTableViewController.swift in Sources */,

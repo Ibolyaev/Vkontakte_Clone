@@ -10,11 +10,21 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyApp/Model/VKontakteAPI.swift"
+<<<<<<< HEAD
             timestampString = "540396645.7487659"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "177"
             endingLineNumber = "177">
+=======
+            timestampString = "540286446.2667201"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
+            landmarkName = "getResourse(_:parameters:type:completionHandler:)"
+            landmarkType = "7">
+>>>>>>> master
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
