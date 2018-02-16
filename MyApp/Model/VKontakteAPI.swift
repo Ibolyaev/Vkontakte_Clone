@@ -85,7 +85,6 @@ class VKontakteAPI {
         VKontakteAPI().getResourse(VKConstants.users, parameters: parameters, type: [User].self, completionHandler: completionHandler)
     }
     
-<<<<<<< HEAD
     func getFriendsRequests(_ completionHandler:@escaping  (_ userFriendsRequests: [User]?, _ error: Error?)->()) {
         let parameters: Parameters = [:]
         getResourse(VKConstants.friendsRequests, parameters: parameters, type: UserFriendsResponse.self) {(userIds, error) in
@@ -97,12 +96,9 @@ class VKontakteAPI {
         }
     }
     
-    func getGroupMembers(groupId:Int, completionHandler:@escaping (_ membersCount:Int,_ groupId:Int,_ error:Error?)->()) {
-        let parameters = ["group_id":groupId] as [String : Any]
-=======
+
     func getGroupMembers(groupId: Int, completionHandler:@escaping (_ membersCount: Int,_ groupId: Int,_ error: Error?)->()) {
         let parameters: Parameters = ["group_id": groupId]
->>>>>>> master
         getResourse(VKConstants.groupMembers, parameters: parameters, type: GroupMembers.self) {(groupMembers, error) in
             if let groupMembers = groupMembers {
                 completionHandler(groupMembers.count, groupId, nil)
@@ -171,7 +167,6 @@ class VKontakteAPI {
                         do {
                             result = try JSONDecoder().decode(UploadedPhotoResponse.self, from: data)
                         } catch let error {
-                            print(response.debugDescription)
                             completionHandler(nil, error)
                         }
                         if let photo = result {

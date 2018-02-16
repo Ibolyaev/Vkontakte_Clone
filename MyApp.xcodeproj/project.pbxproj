@@ -609,7 +609,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WV5TZM5ZFN;
+				DEVELOPMENT_TEAM = M5WRXU7FEB;
 				INFOPLIST_FILE = "$(SRCROOT)/MyApp/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ibo.MyApp;
@@ -626,7 +626,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WV5TZM5ZFN;
+				DEVELOPMENT_TEAM = M5WRXU7FEB;
 				INFOPLIST_FILE = "$(SRCROOT)/MyApp/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ibo.MyApp;
