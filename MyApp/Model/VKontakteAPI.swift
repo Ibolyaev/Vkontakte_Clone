@@ -71,7 +71,7 @@ class VKontakteAPI {
             URLQueryItem(name: "revoke", value: "1"),
             URLQueryItem(name: "response_type", value: "token"),
             URLQueryItem(name: "display", value: "mobile"),
-            URLQueryItem(name: "scope", value: "email, offline, friends, wall, groups, photos"),
+            URLQueryItem(name: "scope", value: "email, offline, friends, wall, groups, photos, messages"),
             URLQueryItem(name: "redirect_uri", value: "vk\(VKConstants.appId)://authorize"),
             URLQueryItem(name: "client_id", value: VKConstants.appId)
         ]
@@ -95,7 +95,10 @@ class VKontakteAPI {
             }
         }
     }
-    
+
+    func getMessageHistroryWith(user: User) {
+        let parameters: Parameters = ["user_id":user.id]
+    }
 
     func getGroupMembers(groupId: Int, completionHandler:@escaping (_ membersCount: Int,_ groupId: Int,_ error: Error?)->()) {
         let parameters: Parameters = ["group_id": groupId]

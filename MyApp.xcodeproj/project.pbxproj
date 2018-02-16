@@ -17,6 +17,9 @@
 		303A7CB92010EED300F34E2B /* VKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303A7CB82010EED300F34E2B /* VKConstants.swift */; };
 		304458361F97794700D694BA /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304458351F97794700D694BA /* FriendsTableViewController.swift */; };
 		304458381F977A4C00D694BA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304458371F977A4C00D694BA /* Constants.swift */; };
+		30726DEC2036B79600E2AE73 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30726DEB2036B79600E2AE73 /* ChatViewController.swift */; };
+		30726DEF2036B9BA00E2AE73 /* SenderChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30726DED2036B9BA00E2AE73 /* SenderChatTableViewCell.swift */; };
+		30726DF02036B9BA00E2AE73 /* SenderChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30726DEE2036B9BA00E2AE73 /* SenderChatTableViewCell.xib */; };
 		3099BC662003A78100511A5E /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3099BC652003A78100511A5E /* NewsTableViewController.swift */; };
 		3099BC6D2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3099BC6B2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift */; };
 		3099BC6E2003AF8E00511A5E /* NewsWithPhotoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3099BC6C2003AF8E00511A5E /* NewsWithPhotoTableViewCell.xib */; };
@@ -69,6 +72,9 @@
 		303A7CB82010EED300F34E2B /* VKConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKConstants.swift; sourceTree = "<group>"; };
 		304458351F97794700D694BA /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		304458371F977A4C00D694BA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		30726DEB2036B79600E2AE73 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		30726DED2036B9BA00E2AE73 /* SenderChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderChatTableViewCell.swift; sourceTree = "<group>"; };
+		30726DEE2036B9BA00E2AE73 /* SenderChatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SenderChatTableViewCell.xib; sourceTree = "<group>"; };
 		3099BC652003A78100511A5E /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		3099BC6B2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWithPhotoTableViewCell.swift; sourceTree = "<group>"; };
 		3099BC6C2003AF8E00511A5E /* NewsWithPhotoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsWithPhotoTableViewCell.xib; sourceTree = "<group>"; };
@@ -171,6 +177,8 @@
 		30E6149D1FA1BD340091BD87 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				30726DED2036B9BA00E2AE73 /* SenderChatTableViewCell.swift */,
+				30726DEE2036B9BA00E2AE73 /* SenderChatTableViewCell.xib */,
 				303A7CAF200F758700F34E2B /* NewsWithoutPhotoTableViewCell.swift */,
 				303A7CB0200F758800F34E2B /* NewsWithoutPhotoTableViewCell.xib */,
 				3099BC6B2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift */,
@@ -186,6 +194,7 @@
 		30E6149E1FA1BD4B0091BD87 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				30726DEB2036B79600E2AE73 /* ChatViewController.swift */,
 				BDC0BA17202FA975003131E9 /* NewPostViewController.swift */,
 				BD2A37EE201A4CBA00141053 /* MainTabBarController.swift */,
 				3099BC652003A78100511A5E /* NewsTableViewController.swift */,
@@ -350,6 +359,7 @@
 				303A7CB2200F758800F34E2B /* NewsWithoutPhotoTableViewCell.xib in Resources */,
 				30E8D7B11F949AD300B57F00 /* Assets.xcassets in Resources */,
 				30E8D7AF1F949AD300B57F00 /* Main.storyboard in Resources */,
+				30726DF02036B9BA00E2AE73 /* SenderChatTableViewCell.xib in Resources */,
 				30EDBB3C2022E76F0007200A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,6 +449,7 @@
 				30A3C57D20123BD000B36F78 /* IntExtension.swift in Sources */,
 				303A7CB1200F758800F34E2B /* NewsWithoutPhotoTableViewCell.swift in Sources */,
 				BD2A4EBF200D5C370067CFAE /* Profiles.swift in Sources */,
+				30726DEC2036B79600E2AE73 /* ChatViewController.swift in Sources */,
 				BD2A4EB5200D516F0067CFAE /* Reposts.swift in Sources */,
 				303A7CB72010EE5D00F34E2B /* GroupMembers.swift in Sources */,
 				BD2A4EB3200D516F0067CFAE /* Likes.swift in Sources */,
@@ -470,6 +481,7 @@
 				301C4EED1FA849CB00E54F47 /* VKontakteAPI.swift in Sources */,
 				30E8D7AA1F949AD200B57F00 /* AppDelegate.swift in Sources */,
 				304458381F977A4C00D694BA /* Constants.swift in Sources */,
+				30726DEF2036B9BA00E2AE73 /* SenderChatTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

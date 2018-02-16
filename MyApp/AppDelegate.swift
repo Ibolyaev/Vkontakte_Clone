@@ -18,12 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
        
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        /*let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         if AppState.shared.userLoggedIn {
             self.window?.rootViewController = storyBoard.instantiateViewController(controller: MainTabBarController.self)
         } else {
             self.window?.rootViewController = storyBoard.instantiateViewController(controller: LoginViewController.self)
-        }
+        }*/
         UIApplication.shared.setMinimumBackgroundFetchInterval(TimeInterval(30))
         return true
     }
