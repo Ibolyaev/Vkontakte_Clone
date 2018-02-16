@@ -96,8 +96,15 @@ class VKontakteAPI {
         }
     }
 
-    func getMessageHistroryWith(user: User) {
+    func getMessageHistroryWith(user: User, completionHandler:@escaping  (_ message: [Message]?, _ error: Error?)->()) {
         let parameters: Parameters = ["user_id":user.id]
+        getResourse(VKConstants.getMessageHistory, parameters: parameters, type: MessageResponse.self) {(responseMessages, error) in
+            if let response = responseMessages {
+               completionHandler(response.items,error)
+            } else {
+                completionHandler(nil,error)
+            }
+        }
     }
 
     func getGroupMembers(groupId: Int, completionHandler:@escaping (_ membersCount: Int,_ groupId: Int,_ error: Error?)->()) {

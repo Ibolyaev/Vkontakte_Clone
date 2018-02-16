@@ -8,18 +8,19 @@
 
 import UIKit
 
-class SenderChatTableViewCell: UITableViewCell, ChatCell {    
+class ReceiverChatTableViewCell: UITableViewCell, ChatCell {
+    
     @IBOutlet var messageTextView: UILabel! {
         didSet {
-            messageTextView?.textColor = UIColor(named: "chat_text_color_received")
-        }
+           messageTextView?.textColor = UIColor(named: "chat_text_color_sent")
+        }       
     }
     @IBOutlet var timeStemp: UILabel!
-    static let reuseIdentifier = "SenderChatTableViewCell"
+    static let reuseIdentifier = "ReceiverChatTableViewCell"
     @IBOutlet var bubbleImageView: UIImageView! {
         didSet {
-            changeImage("chat_bubble_received")
-            bubbleImageView.tintColor = UIColor(named: "chat_bubble_color_received")
+            changeImage("chat_bubble_sent")
+            bubbleImageView.tintColor = UIColor(named: "chat_bubble_color_sent")
         }
     }
     

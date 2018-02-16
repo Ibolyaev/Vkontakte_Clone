@@ -8,9 +8,19 @@
 
 import UIKit
 
-class ChatViewController: UIViewController {
+class ChatViewController: UIViewController, AlertShower {
 
-    let messages = ["Hello","How are you", "Im good", "I was going to say bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla....."]
+    var messages = [Message]() {
+        didSet {
+            tableView?.reloadData()
+        }
+    }
+    var friend: User? {
+        didSet {
+            loadMessages()
+        }
+    }
+    let clientVk = VKontakteAPI()
     
     @IBOutlet var tableView: UITableView!
     override func viewDidLoad() {
@@ -18,6 +28,21 @@ class ChatViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 250
         tableView.register(UINib(nibName: "SenderChatTableViewCell", bundle: nil), forCellReuseIdentifier: SenderChatTableViewCell.reuseIdentifier)
+        tableView.register(UINib(nibName: "ReceiverChatTableViewCell", bundle: nil), forCellReuseIdentifier: ReceiverChatTableViewCell.reuseIdentifier)
+        
+    }
+    private func loadMessages() {
+        guard let friend = friend else { return }
+        
+        clientVk.getMessageHistroryWith(user: friend) {[weak self] (messages, error) in
+            if let messages = messages {
+                DispatchQueue.main.async {
+                    self?.messages = messages
+                }
+            } else {
+                self?.showError(with: error?.localizedDescription)
+            }
+        }
     }
 }
 
@@ -26,12 +51,18 @@ extension ChatViewController: UITableViewDataSource {
         return messages.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChatTableViewCell", for: indexPath) as? SenderChatTableViewCell else {
-            return UITableViewCell()
+        var message = messages[indexPath.row]
+        var chatCell:ChatCell?
+        if message.userID == message.fromID {
+            chatCell = tableView.dequeueReusableCell(withIdentifier: "SenderChatTableViewCell", for: indexPath) as? SenderChatTableViewCell
+        } else {
+            chatCell = tableView.dequeueReusableCell(withIdentifier: "ReceiverChatTableViewCell", for: indexPath) as? ReceiverChatTableViewCell
         }
-        cell.messageTextView?.text = messages[indexPath.row]
-        cell.timeStemp?.text = "11:14"
-        cell.changeImage("chat_bubble_received")
-        return cell
+        guard let cell = chatCell else { return UITableViewCell() }
+        
+        cell.messageTextView?.text = message.body
+        cell.timeStemp?.text = message.fromattedDate
+        
+        return cell as! UITableViewCell
     }
 }

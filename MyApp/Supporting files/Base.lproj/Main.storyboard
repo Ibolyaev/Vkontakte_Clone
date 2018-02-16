@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ERC-7m-5gb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -153,7 +153,7 @@
             </objects>
             <point key="canvasLocation" x="3046.875" y="-300"/>
         </scene>
-        <!--Friend Photo Collection View Controller-->
+        <!--Photos-->
         <scene sceneID="8ep-CB-wnM">
             <objects>
                 <collectionViewController id="nZ4-7i-FXc" customClass="FriendPhotoCollectionViewController" customModule="MyApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -196,6 +196,13 @@
                             <outlet property="delegate" destination="nZ4-7i-FXc" id="aJB-J1-NA9"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" title="Photos" id="BG5-hY-k2Y">
+                        <barButtonItem key="rightBarButtonItem" title="Chat" id="PgM-jn-Qip">
+                            <connections>
+                                <segue destination="ERC-7m-5gb" kind="show" identifier="showChatWithUser" id="Kd1-1c-CKF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jeM-7C-Ime" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -396,13 +403,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fic-Jj-uqQ">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="499"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChatTableViewCell" id="CrJ-KG-Iwy" customClass="SenderChatTableViewCell" customModule="MyApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SenderChatTableViewCell" id="CrJ-KG-Iwy" customClass="SenderChatTableViewCell" customModule="MyApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CrJ-KG-Iwy" id="ixi-sv-eH2">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="KnM-KC-EeO" customClass="ReceiverChatTableViewCell" customModule="MyApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KnM-KC-EeO" id="Kel-al-ZxI">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
@@ -429,7 +444,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EsU-qT-4u3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4646.25" y="924.29577464788736"/>
+            <point key="canvasLocation" x="4583" y="-300"/>
         </scene>
         <!--News-->
         <scene sceneID="PHt-q3-gbU">

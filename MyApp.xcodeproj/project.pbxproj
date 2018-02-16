@@ -20,6 +20,10 @@
 		30726DEC2036B79600E2AE73 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30726DEB2036B79600E2AE73 /* ChatViewController.swift */; };
 		30726DEF2036B9BA00E2AE73 /* SenderChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30726DED2036B9BA00E2AE73 /* SenderChatTableViewCell.swift */; };
 		30726DF02036B9BA00E2AE73 /* SenderChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30726DEE2036B9BA00E2AE73 /* SenderChatTableViewCell.xib */; };
+		30726DF22036FCEC00E2AE73 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30726DF12036FCEC00E2AE73 /* Message.swift */; };
+		30726DF5203708F000E2AE73 /* ReceiverChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30726DF3203708EF00E2AE73 /* ReceiverChatTableViewCell.swift */; };
+		30726DF6203708F000E2AE73 /* ReceiverChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30726DF4203708F000E2AE73 /* ReceiverChatTableViewCell.xib */; };
+		30726DF820370C7D00E2AE73 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30726DF720370C7D00E2AE73 /* ChatCell.swift */; };
 		3099BC662003A78100511A5E /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3099BC652003A78100511A5E /* NewsTableViewController.swift */; };
 		3099BC6D2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3099BC6B2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift */; };
 		3099BC6E2003AF8E00511A5E /* NewsWithPhotoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3099BC6C2003AF8E00511A5E /* NewsWithPhotoTableViewCell.xib */; };
@@ -75,6 +79,10 @@
 		30726DEB2036B79600E2AE73 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		30726DED2036B9BA00E2AE73 /* SenderChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderChatTableViewCell.swift; sourceTree = "<group>"; };
 		30726DEE2036B9BA00E2AE73 /* SenderChatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SenderChatTableViewCell.xib; sourceTree = "<group>"; };
+		30726DF12036FCEC00E2AE73 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		30726DF3203708EF00E2AE73 /* ReceiverChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiverChatTableViewCell.swift; sourceTree = "<group>"; };
+		30726DF4203708F000E2AE73 /* ReceiverChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiverChatTableViewCell.xib; sourceTree = "<group>"; };
+		30726DF720370C7D00E2AE73 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		3099BC652003A78100511A5E /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		3099BC6B2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWithPhotoTableViewCell.swift; sourceTree = "<group>"; };
 		3099BC6C2003AF8E00511A5E /* NewsWithPhotoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsWithPhotoTableViewCell.xib; sourceTree = "<group>"; };
@@ -169,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				3099BC732003C65300511A5E /* NewsCell.swift */,
+				30726DF720370C7D00E2AE73 /* ChatCell.swift */,
 				303A7CAD200F3ADC00F34E2B /* AlertShower.swift */,
 			);
 			path = Protocols;
@@ -177,6 +186,8 @@
 		30E6149D1FA1BD340091BD87 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				30726DF3203708EF00E2AE73 /* ReceiverChatTableViewCell.swift */,
+				30726DF4203708F000E2AE73 /* ReceiverChatTableViewCell.xib */,
 				30726DED2036B9BA00E2AE73 /* SenderChatTableViewCell.swift */,
 				30726DEE2036B9BA00E2AE73 /* SenderChatTableViewCell.xib */,
 				303A7CAF200F758700F34E2B /* NewsWithoutPhotoTableViewCell.swift */,
@@ -210,6 +221,7 @@
 		30E6149F1FA1BD750091BD87 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				30726DF12036FCEC00E2AE73 /* Message.swift */,
 				303A7CB32010EDE900F34E2B /* Group */,
 				303A7C9C200C953C00F34E2B /* News */,
 				30A3C58020189DD700B36F78 /* Protocols */,
@@ -360,6 +372,7 @@
 				30E8D7B11F949AD300B57F00 /* Assets.xcassets in Resources */,
 				30E8D7AF1F949AD300B57F00 /* Main.storyboard in Resources */,
 				30726DF02036B9BA00E2AE73 /* SenderChatTableViewCell.xib in Resources */,
+				30726DF6203708F000E2AE73 /* ReceiverChatTableViewCell.xib in Resources */,
 				30EDBB3C2022E76F0007200A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -448,6 +461,7 @@
 				BD1AF5281FD8579A00C83EBE /* AppState.swift in Sources */,
 				30A3C57D20123BD000B36F78 /* IntExtension.swift in Sources */,
 				303A7CB1200F758800F34E2B /* NewsWithoutPhotoTableViewCell.swift in Sources */,
+				30726DF820370C7D00E2AE73 /* ChatCell.swift in Sources */,
 				BD2A4EBF200D5C370067CFAE /* Profiles.swift in Sources */,
 				30726DEC2036B79600E2AE73 /* ChatViewController.swift in Sources */,
 				BD2A4EB5200D516F0067CFAE /* Reposts.swift in Sources */,
@@ -456,6 +470,7 @@
 				BD2A4EB8200D516F0067CFAE /* Comments.swift in Sources */,
 				BD2A4EB2200D516F0067CFAE /* Attachment.swift in Sources */,
 				303A7CB92010EED300F34E2B /* VKConstants.swift in Sources */,
+				30726DF22036FCEC00E2AE73 /* Message.swift in Sources */,
 				30E8D7AC1F949AD300B57F00 /* LoginViewController.swift in Sources */,
 				3099BC742003C65300511A5E /* NewsCell.swift in Sources */,
 				30113CE51FD6E39100309742 /* AuthService.swift in Sources */,
@@ -468,6 +483,7 @@
 				BD2A4EB9200D516F0067CFAE /* NewsPhoto.swift in Sources */,
 				30FFAD141F9F23B80026FFF9 /* User.swift in Sources */,
 				3099BC662003A78100511A5E /* NewsTableViewController.swift in Sources */,
+				30726DF5203708F000E2AE73 /* ReceiverChatTableViewCell.swift in Sources */,
 				30FFAD1A1F9F37110026FFF9 /* Group.swift in Sources */,
 				30A3C57A2011F17700B36F78 /* Views.swift in Sources */,
 				30CAFB1E1F9F3F68002D0BB1 /* FriendPhotoCollectionViewController.swift in Sources */,
