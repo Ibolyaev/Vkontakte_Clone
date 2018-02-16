@@ -9,11 +9,13 @@
 import UIKit
 import Firebase
 import RealmSwift
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var shouldUpdateBadge = false
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
@@ -25,6 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = storyBoard.instantiateViewController(controller: LoginViewController.self)
         }
         UIApplication.shared.setMinimumBackgroundFetchInterval(TimeInterval(30))
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.badge]) {[weak self] (granted, error) in
+            self?.shouldUpdateBadge = granted
+        }
         return true
     }
 
@@ -35,9 +41,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         let clientVk = VKontakteAPI()
-        clientVk.getFriendsRequests {(friends, error) in
+        clientVk.getFriendsRequests {[weak self] (friends, error) in
             if var loadedFriends = friends {
                 loadedFriends = loadedFriends.map {$0.friendshipReuqest = true; return $0}
+                if self?.shouldUpdateBadge ?? false {
+                    DispatchQueue.main.async {
+                        UIApplication.shared.applicationIconBadgeNumber = loadedFriends.count
+                    }
+                }
+                
                 do {
                     let realm = try Realm()
                     try realm.write {
