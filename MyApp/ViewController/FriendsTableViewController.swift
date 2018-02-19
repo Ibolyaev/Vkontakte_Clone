@@ -67,15 +67,14 @@ class FriendsTableViewController: UITableViewController, AlertShower {
     }
     
     func updateBadge() {
-        if let tabBarItems = tabBarController?.tabBar.items, let item = tabBarItems.first {
-            let onlyNewFriendsPredicate = NSPredicate(format: "friendshipReuqest == %@", NSNumber(value: true))
-            let newFriends = friends?.filter(onlyNewFriendsPredicate)
-            if let newFriendsCount = newFriends?.count, newFriendsCount > 0 {
-                item.badgeValue = "\(newFriendsCount)"
-            } else {
-                item.badgeValue = nil
-            }
-        }        
+        guard let tabBarItems = tabBarController?.tabBar.items, let item = tabBarItems.first else { return }
+        let onlyNewFriendsPredicate = NSPredicate(format: "friendshipReuqest == %@", NSNumber(value: true))
+        let newFriends = friends?.filter(onlyNewFriendsPredicate)
+        if let newFriendsCount = newFriends?.count, newFriendsCount > 0 {
+            item.badgeValue = "\(newFriendsCount)"
+        } else {
+            item.badgeValue = nil
+        }
     }
     
     func loadNetworkData() {

@@ -42,37 +42,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         let clientVk = VKontakteAPI()
         clientVk.getFriendsRequests {[weak self] (friends, error) in
-            if var loadedFriends = friends {
-                loadedFriends = loadedFriends.map {$0.friendshipReuqest = true; return $0}
-                if self?.shouldUpdateBadge ?? false {
-                    DispatchQueue.main.async {
-                        UIApplication.shared.applicationIconBadgeNumber = loadedFriends.count
-                    }
+            guard var loadedFriends = friends else {
+                completionHandler(.failed)
+                return
+            }
+            loadedFriends = loadedFriends.map {$0.friendshipReuqest = true; return $0}
+            if self?.shouldUpdateBadge ?? false {
+                DispatchQueue.main.async {
+                    UIApplication.shared.applicationIconBadgeNumber = loadedFriends.count
+                }
+            }            
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    realm.add(loadedFriends, update: true)
+                }
+                let usersInDataBaseToDelete = NSPredicate(format: "NOT id IN %@ AND friendshipReuqest == %@", loadedFriends.map {$0.id}, NSNumber(value: true))
+                let usersToDelete = realm.objects(User.self).filter(usersInDataBaseToDelete)
+                try realm.write {
+                    realm.delete(usersToDelete)
+                }
+                if loadedFriends.count == 0 && usersToDelete.count == 0 {
+                    completionHandler(.noData)
+                } else {
+                    completionHandler(.newData)
                 }
                 
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        realm.add(loadedFriends, update: true)
-                    }
-                    let usersInDataBaseToDelete = NSPredicate(format: "NOT id IN %@ AND friendshipReuqest == %@", loadedFriends.map {$0.id}, NSNumber(value: true))
-                    let usersToDelete = realm.objects(User.self).filter(usersInDataBaseToDelete)
-                    try realm.write {
-                        realm.delete(usersToDelete)
-                    }
-                    if loadedFriends.count == 0 && usersToDelete.count == 0 {
-                        completionHandler(.noData)
-                    } else {
-                        completionHandler(.newData)
-                    }
-                    
-                } catch {
-                    completionHandler(.failed)
-                }
-                
-            } else {
+            } catch {
                 completionHandler(.failed)
             }
+            
+            
         }
     }
 }
