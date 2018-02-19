@@ -17,8 +17,9 @@ final class User:Object, Decodable {
     }
     @objc dynamic var lastName: String = ""
     @objc dynamic var firstName: String = ""
-    @objc dynamic var id:Int = 0
-    @objc dynamic var photo:Photo?
+    @objc dynamic var id: Int = 0
+    @objc dynamic var photo: Photo?
+    @objc dynamic var friendshipReuqest = false
     
     override static func primaryKey() -> String? {
         return "id"

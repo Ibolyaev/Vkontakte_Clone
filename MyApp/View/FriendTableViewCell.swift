@@ -13,6 +13,11 @@ class FriendTableViewCell: UITableViewCell {
     var friend:User? {
         didSet {            
             nameLabel?.text = friend?.name
+            if friend?.friendshipReuqest ?? false {
+                self.backgroundColor = .lightGray
+            } else {
+                self.backgroundColor = .white
+            }
             loadImage()
         }
     }
