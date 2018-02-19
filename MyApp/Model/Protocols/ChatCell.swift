@@ -10,20 +10,6 @@ import Foundation
 import UIKit
 
 protocol ChatCell {
-    var messageTextView: UILabel! {get set}
-    var timeStemp: UILabel! {get set}
-    var bubbleImageView: UIImageView! {get set}
-}
-
-extension ChatCell {
-    func changeImage(_ name: String) {
-        guard let image = UIImage(named: name) else { return }
-        bubbleImageView.image = image
-            .withRenderingMode(.alwaysTemplate)
-        /*bubbleImageView.image = image
-         .resizableImage(withCapInsets:
-         UIEdgeInsetsMake(17, 21, 17, 21),
-         resizingMode: .stretch)
-         .withRenderingMode(.alwaysTemplate)*/
-    }
+    var timeStemp: UILabel! { get set }
+    var messageTextView: UITextView! { get set }
 }

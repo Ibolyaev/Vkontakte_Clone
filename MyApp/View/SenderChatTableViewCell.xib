@@ -19,46 +19,44 @@
                 <rect key="frame" x="0.0" y="0.0" width="712" height="124.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vmm-GK-sOV">
-                        <rect key="frame" x="20" y="20" width="77" height="84.5"/>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCo-ds-uhL">
-                        <rect key="frame" x="40" y="35" width="42" height="54.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wxj-bK-RSC">
+                        <rect key="frame" x="20" y="20" width="597.5" height="84.5"/>
+                        <color key="backgroundColor" name="chat_bubble_color_received"/>
+                        <inset key="scrollIndicatorInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                         <color key="textColor" name="chat_text_color_received"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="bottomRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time stemp" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o3u-Ad-t7i">
-                        <rect key="frame" x="105" y="20" width="66.5" height="85"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="bottomRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Time stemp" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o3u-Ad-t7i">
+                        <rect key="frame" x="625.5" y="55" width="66.5" height="14.5"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstItem="o3u-Ad-t7i" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" symbolic="YES" id="4NY-pF-yJk"/>
-                    <constraint firstAttribute="bottom" secondItem="Vmm-GK-sOV" secondAttribute="bottom" constant="20" symbolic="YES" id="4fM-l4-mNP"/>
-                    <constraint firstItem="mCo-ds-uhL" firstAttribute="top" secondItem="Vmm-GK-sOV" secondAttribute="top" constant="15" id="G0h-yK-qqd"/>
-                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="o3u-Ad-t7i" secondAttribute="trailing" constant="20" symbolic="YES" id="K7c-V7-DGA"/>
-                    <constraint firstItem="Vmm-GK-sOV" firstAttribute="trailing" secondItem="mCo-ds-uhL" secondAttribute="trailing" constant="15" id="Ncd-My-HDa"/>
-                    <constraint firstItem="mCo-ds-uhL" firstAttribute="leading" secondItem="Vmm-GK-sOV" secondAttribute="leading" constant="20" id="Oat-1F-afd"/>
-                    <constraint firstItem="Vmm-GK-sOV" firstAttribute="bottom" secondItem="mCo-ds-uhL" secondAttribute="bottom" constant="15" id="Tjn-lx-P59"/>
-                    <constraint firstItem="Vmm-GK-sOV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="ZCS-qB-led"/>
-                    <constraint firstItem="Vmm-GK-sOV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" symbolic="YES" id="w8L-Rd-Ux7"/>
-                    <constraint firstItem="o3u-Ad-t7i" firstAttribute="leading" secondItem="Vmm-GK-sOV" secondAttribute="trailing" constant="8" symbolic="YES" id="wOn-cG-HmV"/>
-                    <constraint firstAttribute="bottom" secondItem="o3u-Ad-t7i" secondAttribute="bottom" constant="20" symbolic="YES" id="xIF-jt-DIA"/>
+                    <constraint firstAttribute="trailing" secondItem="o3u-Ad-t7i" secondAttribute="trailing" constant="20" symbolic="YES" id="7pR-mh-cbB"/>
+                    <constraint firstItem="o3u-Ad-t7i" firstAttribute="leading" secondItem="Wxj-bK-RSC" secondAttribute="trailing" constant="8" symbolic="YES" id="ME4-Ch-9QX"/>
+                    <constraint firstItem="Wxj-bK-RSC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" symbolic="YES" id="NsW-DN-JY0"/>
+                    <constraint firstItem="o3u-Ad-t7i" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="WOn-qE-yrv"/>
+                    <constraint firstAttribute="bottom" secondItem="Wxj-bK-RSC" secondAttribute="bottom" constant="20" symbolic="YES" id="h40-4D-bJu"/>
+                    <constraint firstItem="Wxj-bK-RSC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="uxv-8P-nhL"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="bubbleImageView" destination="Vmm-GK-sOV" id="QuB-xP-cNl"/>
-                <outlet property="messageTextView" destination="mCo-ds-uhL" id="7fd-bS-uEY"/>
+                <outlet property="messageTextView" destination="Wxj-bK-RSC" id="tnO-XC-rmq"/>
                 <outlet property="timeStemp" destination="o3u-Ad-t7i" id="61C-Jg-I4x"/>
             </connections>
             <point key="canvasLocation" x="84" y="-107.5"/>
         </tableViewCell>
     </objects>
     <resources>
+        <namedColor name="chat_bubble_color_received">
+            <color red="0.87800002098083496" green="0.87800002098083496" blue="0.87800002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="chat_text_color_received">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -106,6 +106,19 @@ class VKontakteAPI {
             }
         }
     }
+    
+    func send(message: String, to user: User, completionHandler:@escaping (_ success: Bool,_ error: Error?)->()) {
+        let parameters: Parameters = ["user_id": user.id,
+                                      "message": message]
+        
+        getResourse(VKConstants.sendMessage, parameters: parameters, type: Int.self) { (messageId, error) in
+            if messageId != nil {
+                completionHandler(true, nil)
+            } else {
+                completionHandler(false, error)
+            }
+        }
+    }
 
     func getGroupMembers(groupId: Int, completionHandler:@escaping (_ membersCount: Int,_ groupId: Int,_ error: Error?)->()) {
         let parameters: Parameters = ["group_id": groupId]
