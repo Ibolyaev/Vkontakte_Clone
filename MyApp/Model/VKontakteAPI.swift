@@ -71,7 +71,7 @@ class VKontakteAPI {
             URLQueryItem(name: "revoke", value: "1"),
             URLQueryItem(name: "response_type", value: "token"),
             URLQueryItem(name: "display", value: "mobile"),
-            URLQueryItem(name: "scope", value: "email, offline, friends, wall, groups, photos"),
+            URLQueryItem(name: "scope", value: "email, offline, friends, wall, groups, photos, messages"),
             URLQueryItem(name: "redirect_uri", value: "vk\(VKConstants.appId)://authorize"),
             URLQueryItem(name: "client_id", value: VKConstants.appId)
         ]
@@ -95,7 +95,30 @@ class VKontakteAPI {
             }
         }
     }
+
+    func getMessageHistroryWith(user: User, completionHandler:@escaping  (_ message: [Message]?, _ error: Error?)->()) {
+        let parameters: Parameters = ["user_id":user.id]
+        getResourse(VKConstants.getMessageHistory, parameters: parameters, type: MessageResponse.self) {(responseMessages, error) in
+            if let response = responseMessages {
+               completionHandler(response.items,error)
+            } else {
+                completionHandler(nil,error)
+            }
+        }
+    }
     
+    func send(message: String, to user: User, completionHandler:@escaping (_ success: Bool,_ error: Error?)->()) {
+        let parameters: Parameters = ["user_id": user.id,
+                                      "message": message]
+        
+        getResourse(VKConstants.sendMessage, parameters: parameters, type: Int.self) { (messageId, error) in
+            if messageId != nil {
+                completionHandler(true, nil)
+            } else {
+                completionHandler(false, error)
+            }
+        }
+    }
 
     func getGroupMembers(groupId: Int, completionHandler:@escaping (_ membersCount: Int,_ groupId: Int,_ error: Error?)->()) {
         let parameters: Parameters = ["group_id": groupId]

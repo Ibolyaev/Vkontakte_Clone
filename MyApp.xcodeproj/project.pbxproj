@@ -17,6 +17,13 @@
 		303A7CB92010EED300F34E2B /* VKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303A7CB82010EED300F34E2B /* VKConstants.swift */; };
 		304458361F97794700D694BA /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304458351F97794700D694BA /* FriendsTableViewController.swift */; };
 		304458381F977A4C00D694BA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304458371F977A4C00D694BA /* Constants.swift */; };
+		30726DEC2036B79600E2AE73 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30726DEB2036B79600E2AE73 /* ChatViewController.swift */; };
+		30726DEF2036B9BA00E2AE73 /* SenderChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30726DED2036B9BA00E2AE73 /* SenderChatTableViewCell.swift */; };
+		30726DF02036B9BA00E2AE73 /* SenderChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30726DEE2036B9BA00E2AE73 /* SenderChatTableViewCell.xib */; };
+		30726DF22036FCEC00E2AE73 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30726DF12036FCEC00E2AE73 /* Message.swift */; };
+		30726DF5203708F000E2AE73 /* ReceiverChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30726DF3203708EF00E2AE73 /* ReceiverChatTableViewCell.swift */; };
+		30726DF6203708F000E2AE73 /* ReceiverChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30726DF4203708F000E2AE73 /* ReceiverChatTableViewCell.xib */; };
+		30726DF820370C7D00E2AE73 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30726DF720370C7D00E2AE73 /* ChatCell.swift */; };
 		3099BC662003A78100511A5E /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3099BC652003A78100511A5E /* NewsTableViewController.swift */; };
 		3099BC6D2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3099BC6B2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift */; };
 		3099BC6E2003AF8E00511A5E /* NewsWithPhotoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3099BC6C2003AF8E00511A5E /* NewsWithPhotoTableViewCell.xib */; };
@@ -69,6 +76,13 @@
 		303A7CB82010EED300F34E2B /* VKConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKConstants.swift; sourceTree = "<group>"; };
 		304458351F97794700D694BA /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		304458371F977A4C00D694BA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		30726DEB2036B79600E2AE73 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		30726DED2036B9BA00E2AE73 /* SenderChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderChatTableViewCell.swift; sourceTree = "<group>"; };
+		30726DEE2036B9BA00E2AE73 /* SenderChatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SenderChatTableViewCell.xib; sourceTree = "<group>"; };
+		30726DF12036FCEC00E2AE73 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		30726DF3203708EF00E2AE73 /* ReceiverChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiverChatTableViewCell.swift; sourceTree = "<group>"; };
+		30726DF4203708F000E2AE73 /* ReceiverChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiverChatTableViewCell.xib; sourceTree = "<group>"; };
+		30726DF720370C7D00E2AE73 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		3099BC652003A78100511A5E /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		3099BC6B2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWithPhotoTableViewCell.swift; sourceTree = "<group>"; };
 		3099BC6C2003AF8E00511A5E /* NewsWithPhotoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsWithPhotoTableViewCell.xib; sourceTree = "<group>"; };
@@ -163,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				3099BC732003C65300511A5E /* NewsCell.swift */,
+				30726DF720370C7D00E2AE73 /* ChatCell.swift */,
 				303A7CAD200F3ADC00F34E2B /* AlertShower.swift */,
 			);
 			path = Protocols;
@@ -171,6 +186,10 @@
 		30E6149D1FA1BD340091BD87 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				30726DF3203708EF00E2AE73 /* ReceiverChatTableViewCell.swift */,
+				30726DF4203708F000E2AE73 /* ReceiverChatTableViewCell.xib */,
+				30726DED2036B9BA00E2AE73 /* SenderChatTableViewCell.swift */,
+				30726DEE2036B9BA00E2AE73 /* SenderChatTableViewCell.xib */,
 				303A7CAF200F758700F34E2B /* NewsWithoutPhotoTableViewCell.swift */,
 				303A7CB0200F758800F34E2B /* NewsWithoutPhotoTableViewCell.xib */,
 				3099BC6B2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift */,
@@ -186,6 +205,7 @@
 		30E6149E1FA1BD4B0091BD87 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				30726DEB2036B79600E2AE73 /* ChatViewController.swift */,
 				BDC0BA17202FA975003131E9 /* NewPostViewController.swift */,
 				BD2A37EE201A4CBA00141053 /* MainTabBarController.swift */,
 				3099BC652003A78100511A5E /* NewsTableViewController.swift */,
@@ -201,6 +221,7 @@
 		30E6149F1FA1BD750091BD87 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				30726DF12036FCEC00E2AE73 /* Message.swift */,
 				303A7CB32010EDE900F34E2B /* Group */,
 				303A7C9C200C953C00F34E2B /* News */,
 				30A3C58020189DD700B36F78 /* Protocols */,
@@ -350,6 +371,8 @@
 				303A7CB2200F758800F34E2B /* NewsWithoutPhotoTableViewCell.xib in Resources */,
 				30E8D7B11F949AD300B57F00 /* Assets.xcassets in Resources */,
 				30E8D7AF1F949AD300B57F00 /* Main.storyboard in Resources */,
+				30726DF02036B9BA00E2AE73 /* SenderChatTableViewCell.xib in Resources */,
+				30726DF6203708F000E2AE73 /* ReceiverChatTableViewCell.xib in Resources */,
 				30EDBB3C2022E76F0007200A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -438,13 +461,16 @@
 				BD1AF5281FD8579A00C83EBE /* AppState.swift in Sources */,
 				30A3C57D20123BD000B36F78 /* IntExtension.swift in Sources */,
 				303A7CB1200F758800F34E2B /* NewsWithoutPhotoTableViewCell.swift in Sources */,
+				30726DF820370C7D00E2AE73 /* ChatCell.swift in Sources */,
 				BD2A4EBF200D5C370067CFAE /* Profiles.swift in Sources */,
+				30726DEC2036B79600E2AE73 /* ChatViewController.swift in Sources */,
 				BD2A4EB5200D516F0067CFAE /* Reposts.swift in Sources */,
 				303A7CB72010EE5D00F34E2B /* GroupMembers.swift in Sources */,
 				BD2A4EB3200D516F0067CFAE /* Likes.swift in Sources */,
 				BD2A4EB8200D516F0067CFAE /* Comments.swift in Sources */,
 				BD2A4EB2200D516F0067CFAE /* Attachment.swift in Sources */,
 				303A7CB92010EED300F34E2B /* VKConstants.swift in Sources */,
+				30726DF22036FCEC00E2AE73 /* Message.swift in Sources */,
 				30E8D7AC1F949AD300B57F00 /* LoginViewController.swift in Sources */,
 				3099BC742003C65300511A5E /* NewsCell.swift in Sources */,
 				30113CE51FD6E39100309742 /* AuthService.swift in Sources */,
@@ -457,6 +483,7 @@
 				BD2A4EB9200D516F0067CFAE /* NewsPhoto.swift in Sources */,
 				30FFAD141F9F23B80026FFF9 /* User.swift in Sources */,
 				3099BC662003A78100511A5E /* NewsTableViewController.swift in Sources */,
+				30726DF5203708F000E2AE73 /* ReceiverChatTableViewCell.swift in Sources */,
 				30FFAD1A1F9F37110026FFF9 /* Group.swift in Sources */,
 				30A3C57A2011F17700B36F78 /* Views.swift in Sources */,
 				30CAFB1E1F9F3F68002D0BB1 /* FriendPhotoCollectionViewController.swift in Sources */,
@@ -470,6 +497,7 @@
 				301C4EED1FA849CB00E54F47 /* VKontakteAPI.swift in Sources */,
 				30E8D7AA1F949AD200B57F00 /* AppDelegate.swift in Sources */,
 				304458381F977A4C00D694BA /* Constants.swift in Sources */,
+				30726DEF2036B9BA00E2AE73 /* SenderChatTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

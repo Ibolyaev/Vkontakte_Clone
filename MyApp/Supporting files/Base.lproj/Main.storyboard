@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="Ka2-Zp-7dn">
-                                <rect key="frame" x="128.5" y="165.5" width="62" height="32"/>
+                                <rect key="frame" x="128.5" y="166" width="62" height="32"/>
                                 <color key="backgroundColor" red="0.27058823529411763" green="0.40000000000000002" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                 <state key="normal" title="Войти">
@@ -153,7 +153,7 @@
             </objects>
             <point key="canvasLocation" x="3046.875" y="-300"/>
         </scene>
-        <!--Friend Photo Collection View Controller-->
+        <!--Photos-->
         <scene sceneID="8ep-CB-wnM">
             <objects>
                 <collectionViewController id="nZ4-7i-FXc" customClass="FriendPhotoCollectionViewController" customModule="MyApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -196,6 +196,13 @@
                             <outlet property="delegate" destination="nZ4-7i-FXc" id="aJB-J1-NA9"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" title="Photos" id="BG5-hY-k2Y">
+                        <barButtonItem key="rightBarButtonItem" title="Chat" id="PgM-jn-Qip">
+                            <connections>
+                                <segue destination="ERC-7m-5gb" kind="show" identifier="showChatWithUser" id="Kd1-1c-CKF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jeM-7C-Ime" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -386,6 +393,82 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cNn-9c-sUp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3832.5" y="1110.2112676056338"/>
+        </scene>
+        <!--Chat-->
+        <scene sceneID="sh0-fw-HSO">
+            <objects>
+                <viewController title="Chat" id="ERC-7m-5gb" customClass="ChatViewController" customModule="MyApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TBU-zP-4oh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fic-Jj-uqQ">
+                                <rect key="frame" x="5" y="20" width="315" height="459"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SenderChatTableViewCell" id="CrJ-KG-Iwy" customClass="SenderChatTableViewCell" customModule="MyApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="315" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CrJ-KG-Iwy" id="ixi-sv-eH2">
+                                            <rect key="frame" x="0.0" y="0.0" width="315" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="KnM-KC-EeO" customClass="ReceiverChatTableViewCell" customModule="MyApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="315" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KnM-KC-EeO" id="Kel-al-ZxI">
+                                            <rect key="frame" x="0.0" y="0.0" width="315" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="ERC-7m-5gb" id="UBh-iR-hTj"/>
+                                    <outlet property="delegate" destination="ERC-7m-5gb" id="sKW-2W-2wH"/>
+                                </connections>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2kC-dm-hMc">
+                                <rect key="frame" x="0.0" y="484" width="315" height="30"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type your message" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MtK-07-ejq">
+                                        <rect key="frame" x="0.0" y="0.0" width="271" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0EO-U5-Cge">
+                                        <rect key="frame" x="279" y="0.0" width="36" height="30"/>
+                                        <state key="normal" title="Send"/>
+                                        <connections>
+                                            <action selector="sendTouchUpInside:" destination="ERC-7m-5gb" eventType="touchUpInside" id="1pc-xd-P0V"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fic-Jj-uqQ" firstAttribute="top" secondItem="DcL-gL-cbX" secondAttribute="top" constant="-44" id="FCr-iL-Yir"/>
+                            <constraint firstItem="fic-Jj-uqQ" firstAttribute="trailing" secondItem="DcL-gL-cbX" secondAttribute="trailing" id="Vb2-iO-Evw"/>
+                            <constraint firstItem="fic-Jj-uqQ" firstAttribute="leading" secondItem="DcL-gL-cbX" secondAttribute="leading" constant="5" id="hHU-z8-8sO"/>
+                            <constraint firstItem="MtK-07-ejq" firstAttribute="top" secondItem="fic-Jj-uqQ" secondAttribute="bottom" constant="5" id="jT4-Ei-e5H"/>
+                            <constraint firstItem="DcL-gL-cbX" firstAttribute="trailing" secondItem="2kC-dm-hMc" secondAttribute="trailing" constant="5" id="q69-bS-14t"/>
+                            <constraint firstItem="2kC-dm-hMc" firstAttribute="bottom" secondItem="DcL-gL-cbX" secondAttribute="bottom" constant="-5" id="uft-AF-Xjp"/>
+                            <constraint firstItem="2kC-dm-hMc" firstAttribute="leading" secondItem="DcL-gL-cbX" secondAttribute="leading" id="z2T-EE-d4H"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DcL-gL-cbX"/>
+                    </view>
+                    <connections>
+                        <outlet property="bottomConstraint" destination="uft-AF-Xjp" id="IYQ-1I-Bva"/>
+                        <outlet property="newMessageTextField" destination="MtK-07-ejq" id="grN-lD-JkR"/>
+                        <outlet property="sendButton" destination="0EO-U5-Cge" id="wja-SZ-4vF"/>
+                        <outlet property="tableView" destination="fic-Jj-uqQ" id="bFZ-hc-74B"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EsU-qT-4u3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4582.5" y="-300"/>
         </scene>
         <!--News-->
         <scene sceneID="PHt-q3-gbU">

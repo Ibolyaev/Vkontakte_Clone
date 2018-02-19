@@ -43,6 +43,12 @@ class FriendPhotoCollectionViewController: UICollectionViewController, AlertShow
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showChatWithUser", let chatVC = segue.destination as? ChatViewController {
+            chatVC.friend = friend
+        }
+    }
+    
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
