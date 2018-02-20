@@ -24,6 +24,7 @@
 		30726DF5203708F000E2AE73 /* ReceiverChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30726DF3203708EF00E2AE73 /* ReceiverChatTableViewCell.swift */; };
 		30726DF6203708F000E2AE73 /* ReceiverChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30726DF4203708F000E2AE73 /* ReceiverChatTableViewCell.xib */; };
 		30726DF820370C7D00E2AE73 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30726DF720370C7D00E2AE73 /* ChatCell.swift */; };
+		30726DFB203BF2F600E2AE73 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30726DFA203BF2F600E2AE73 /* CloudKit.framework */; };
 		3099BC662003A78100511A5E /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3099BC652003A78100511A5E /* NewsTableViewController.swift */; };
 		3099BC6D2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3099BC6B2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift */; };
 		3099BC6E2003AF8E00511A5E /* NewsWithPhotoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3099BC6C2003AF8E00511A5E /* NewsWithPhotoTableViewCell.xib */; };
@@ -83,6 +84,8 @@
 		30726DF3203708EF00E2AE73 /* ReceiverChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiverChatTableViewCell.swift; sourceTree = "<group>"; };
 		30726DF4203708F000E2AE73 /* ReceiverChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiverChatTableViewCell.xib; sourceTree = "<group>"; };
 		30726DF720370C7D00E2AE73 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		30726DF9203BF2EC00E2AE73 /* MyApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyApp.entitlements; sourceTree = "<group>"; };
+		30726DFA203BF2F600E2AE73 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		3099BC652003A78100511A5E /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		3099BC6B2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWithPhotoTableViewCell.swift; sourceTree = "<group>"; };
 		3099BC6C2003AF8E00511A5E /* NewsWithPhotoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsWithPhotoTableViewCell.xib; sourceTree = "<group>"; };
@@ -132,6 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6ADE517EAB70770D3430778B /* Pods_MyApp.framework in Frameworks */,
+				30726DFB203BF2F600E2AE73 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +276,7 @@
 		30E8D7A81F949AD200B57F00 /* MyApp */ = {
 			isa = PBXGroup;
 			children = (
+				30726DF9203BF2EC00E2AE73 /* MyApp.entitlements */,
 				30A3C57B20123BB000B36F78 /* Extensions */,
 				30E8D7A91F949AD200B57F00 /* AppDelegate.swift */,
 				30E6149F1FA1BD750091BD87 /* Model */,
@@ -285,6 +290,7 @@
 		4FA64D5B6335DE8292232307 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30726DFA203BF2F600E2AE73 /* CloudKit.framework */,
 				00A959F99CCDF6A5D5A1B7AC /* Pods_MyApp.framework */,
 			);
 			name = Frameworks;
@@ -337,6 +343,12 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
 								enabled = 1;
 							};
 						};
@@ -636,6 +648,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = MyApp/MyApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M5WRXU7FEB;
 				INFOPLIST_FILE = "$(SRCROOT)/MyApp/Supporting files/Info.plist";
@@ -653,6 +666,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = MyApp/MyApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M5WRXU7FEB;
 				INFOPLIST_FILE = "$(SRCROOT)/MyApp/Supporting files/Info.plist";
