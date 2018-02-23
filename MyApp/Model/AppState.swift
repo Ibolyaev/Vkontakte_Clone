@@ -30,10 +30,21 @@ class AppState {
         }
     }
     static let shared = AppState()
+    var defaults = UserDefaults(suiteName: "group.lastFriends")
     private init() {
         userLoggedIn = UserDefaults.standard.bool(forKey: "userLoggedIn")
         token = KeychainWrapper.standard.string(forKey: "token") ?? nil
         userId = KeychainWrapper.standard.integer(forKey: "userId") ?? nil
+    }
+    
+    func saveLastFriendsFrom(_ friends: [User]) {
+        var lastFriends = [[String:String]]()
+        let items = min(5, friends.count)
+        for index in 0..<items {
+            let user = friends[index]
+            lastFriends.append(["name":user.name, "photoURL": user.photo?.url ?? ""])
+        }
+        defaults?.setValue(lastFriends, forKey: "lastFriends")
     }
     
     func quit(_ sender: UIViewController) {

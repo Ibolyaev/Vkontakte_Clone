@@ -90,6 +90,7 @@ class FriendsTableViewController: UITableViewController, AlertShower {
                     try realm.write {
                         realm.delete(usersToDelete)
                     }
+                    AppState.shared.saveLastFriendsFrom(loadedFriends)
                 } catch let error {
                     DispatchQueue.main.async {
                         self?.showError(with: error.localizedDescription)
