@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-final class User:Object, Decodable {
+final class User: Object, Decodable {
     
    var name: String {
         get {

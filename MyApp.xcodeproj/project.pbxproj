@@ -49,6 +49,7 @@
 		30FFAD161F9F29550026FFF9 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FFAD151F9F29550026FFF9 /* FriendTableViewCell.swift */; };
 		30FFAD181F9F29750026FFF9 /* FriendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FFAD171F9F29750026FFF9 /* FriendCollectionViewCell.swift */; };
 		30FFAD1A1F9F37110026FFF9 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FFAD191F9F37110026FFF9 /* Group.swift */; };
+		3D22A6043FE0D68098F145EB /* Pods_FriendsTodayExtenstion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E7848B34A1A8D6B3F3685B /* Pods_FriendsTodayExtenstion.framework */; };
 		6ADE517EAB70770D3430778B /* Pods_MyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00A959F99CCDF6A5D5A1B7AC /* Pods_MyApp.framework */; };
 		BD1AF5281FD8579A00C83EBE /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1AF5271FD8579A00C83EBE /* AppState.swift */; };
 		BD2A37EF201A4CBA00141053 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A37EE201A4CBA00141053 /* MainTabBarController.swift */; };
@@ -63,10 +64,40 @@
 		BD2A4EBB200D52810067CFAE /* NewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A4EBA200D52810067CFAE /* NewsResponse.swift */; };
 		BD2A4EBF200D5C370067CFAE /* Profiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A4EBE200D5C370067CFAE /* Profiles.swift */; };
 		BDC0BA18202FA975003131E9 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC0BA17202FA975003131E9 /* NewPostViewController.swift */; };
+		BDD131C3203F0C7A00B01FBE /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDD131C2203F0C7A00B01FBE /* NotificationCenter.framework */; };
+		BDD131C6203F0C7B00B01FBE /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD131C5203F0C7B00B01FBE /* TodayViewController.swift */; };
+		BDD131C9203F0C7B00B01FBE /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDD131C7203F0C7B00B01FBE /* MainInterface.storyboard */; };
+		BDD131CD203F0C7B00B01FBE /* FriendsTodayExtenstion.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BDD131C1203F0C7A00B01FBE /* FriendsTodayExtenstion.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BDD79B95204028AB00CEA7EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30E8D7B01F949AD300B57F00 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BDD131CB203F0C7B00B01FBE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 30E8D79E1F949AD200B57F00 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BDD131C0203F0C7A00B01FBE;
+			remoteInfo = FriendsTodayExtenstion;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BDD131D1203F0C7B00B01FBE /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BDD131CD203F0C7B00B01FBE /* FriendsTodayExtenstion.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00A959F99CCDF6A5D5A1B7AC /* Pods_MyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		15E7848B34A1A8D6B3F3685B /* Pods_FriendsTodayExtenstion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FriendsTodayExtenstion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30113CE41FD6E39100309742 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		301C4EEC1FA849CB00E54F47 /* VKontakteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKontakteAPI.swift; sourceTree = "<group>"; };
 		301C4EEE1FA85C7300E54F47 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
@@ -113,6 +144,8 @@
 		30FFAD171F9F29750026FFF9 /* FriendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCollectionViewCell.swift; sourceTree = "<group>"; };
 		30FFAD191F9F37110026FFF9 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		A4C2CC9912F16CF570D3672D /* Pods-MyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyApp/Pods-MyApp.release.xcconfig"; sourceTree = "<group>"; };
+		A5525D75092CD717CACA12E4 /* Pods-FriendsTodayExtenstion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendsTodayExtenstion.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FriendsTodayExtenstion/Pods-FriendsTodayExtenstion.debug.xcconfig"; sourceTree = "<group>"; };
+		B70018DEF63ADBA426E64ED9 /* Pods-FriendsTodayExtenstion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendsTodayExtenstion.release.xcconfig"; path = "Pods/Target Support Files/Pods-FriendsTodayExtenstion/Pods-FriendsTodayExtenstion.release.xcconfig"; sourceTree = "<group>"; };
 		BD1AF5271FD8579A00C83EBE /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		BD2A37EE201A4CBA00141053 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		BD2A4E901FE5AE300067CFAE /* AlbumPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPhoto.swift; sourceTree = "<group>"; };
@@ -126,6 +159,13 @@
 		BD2A4EBA200D52810067CFAE /* NewsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsResponse.swift; sourceTree = "<group>"; };
 		BD2A4EBE200D5C370067CFAE /* Profiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profiles.swift; sourceTree = "<group>"; };
 		BDC0BA17202FA975003131E9 /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
+		BDD131C1203F0C7A00B01FBE /* FriendsTodayExtenstion.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FriendsTodayExtenstion.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDD131C2203F0C7A00B01FBE /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		BDD131C5203F0C7B00B01FBE /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		BDD131C8203F0C7B00B01FBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		BDD131CA203F0C7B00B01FBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BDD131D2203F0FE800B01FBE /* FriendsTodayExtenstion.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FriendsTodayExtenstion.entitlements; sourceTree = "<group>"; };
+		BDD79B94204006BB00CEA7EF /* MyApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyApp.entitlements; sourceTree = "<group>"; };
 		D071CC447F63337086E7CD3B /* Pods-MyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyApp/Pods-MyApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +176,15 @@
 			files = (
 				6ADE517EAB70770D3430778B /* Pods_MyApp.framework in Frameworks */,
 				30726DFB203BF2F600E2AE73 /* CloudKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDD131BE203F0C7A00B01FBE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDD131C3203F0C7A00B01FBE /* NotificationCenter.framework in Frameworks */,
+				3D22A6043FE0D68098F145EB /* Pods_FriendsTodayExtenstion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				30E8D7A81F949AD200B57F00 /* MyApp */,
+				BDD131C4203F0C7B00B01FBE /* FriendsTodayExtenstion */,
 				30E8D7A71F949AD200B57F00 /* Products */,
 				E32265A7D07924B8AADB1B9D /* Pods */,
 				4FA64D5B6335DE8292232307 /* Frameworks */,
@@ -269,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				30E8D7A61F949AD200B57F00 /* MyApp.app */,
+				BDD131C1203F0C7A00B01FBE /* FriendsTodayExtenstion.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -276,7 +327,7 @@
 		30E8D7A81F949AD200B57F00 /* MyApp */ = {
 			isa = PBXGroup;
 			children = (
-				30726DF9203BF2EC00E2AE73 /* MyApp.entitlements */,
+				BDD79B94204006BB00CEA7EF /* MyApp.entitlements */,
 				30A3C57B20123BB000B36F78 /* Extensions */,
 				30E8D7A91F949AD200B57F00 /* AppDelegate.swift */,
 				30E6149F1FA1BD750091BD87 /* Model */,
@@ -292,8 +343,21 @@
 			children = (
 				30726DFA203BF2F600E2AE73 /* CloudKit.framework */,
 				00A959F99CCDF6A5D5A1B7AC /* Pods_MyApp.framework */,
+				BDD131C2203F0C7A00B01FBE /* NotificationCenter.framework */,
+				15E7848B34A1A8D6B3F3685B /* Pods_FriendsTodayExtenstion.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BDD131C4203F0C7B00B01FBE /* FriendsTodayExtenstion */ = {
+			isa = PBXGroup;
+			children = (
+				BDD131D2203F0FE800B01FBE /* FriendsTodayExtenstion.entitlements */,
+				BDD131C5203F0C7B00B01FBE /* TodayViewController.swift */,
+				BDD131C7203F0C7B00B01FBE /* MainInterface.storyboard */,
+				BDD131CA203F0C7B00B01FBE /* Info.plist */,
+			);
+			path = FriendsTodayExtenstion;
 			sourceTree = "<group>";
 		};
 		E32265A7D07924B8AADB1B9D /* Pods */ = {
@@ -301,6 +365,8 @@
 			children = (
 				D071CC447F63337086E7CD3B /* Pods-MyApp.debug.xcconfig */,
 				A4C2CC9912F16CF570D3672D /* Pods-MyApp.release.xcconfig */,
+				A5525D75092CD717CACA12E4 /* Pods-FriendsTodayExtenstion.debug.xcconfig */,
+				B70018DEF63ADBA426E64ED9 /* Pods-FriendsTodayExtenstion.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -318,15 +384,36 @@
 				30E8D7A41F949AD200B57F00 /* Resources */,
 				5A6AC10C4F2ECC0DFE3FAA06 /* [CP] Embed Pods Frameworks */,
 				A49716B394B7527E9758215D /* [CP] Copy Pods Resources */,
+				BDD131D1203F0C7B00B01FBE /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				BDD131CC203F0C7B00B01FBE /* PBXTargetDependency */,
 			);
 			name = MyApp;
 			productName = MyApp;
 			productReference = 30E8D7A61F949AD200B57F00 /* MyApp.app */;
 			productType = "com.apple.product-type.application";
+		};
+		BDD131C0203F0C7A00B01FBE /* FriendsTodayExtenstion */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BDD131D0203F0C7B00B01FBE /* Build configuration list for PBXNativeTarget "FriendsTodayExtenstion" */;
+			buildPhases = (
+				31C41BC5EFE8DAB055CE8DC1 /* [CP] Check Pods Manifest.lock */,
+				BDD131BD203F0C7A00B01FBE /* Sources */,
+				BDD131BE203F0C7A00B01FBE /* Frameworks */,
+				BDD131BF203F0C7A00B01FBE /* Resources */,
+				437BB08C2356C0E627849DB3 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FriendsTodayExtenstion;
+			productName = FriendsTodayExtenstion;
+			productReference = BDD131C1203F0C7A00B01FBE /* FriendsTodayExtenstion.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -334,7 +421,7 @@
 		30E8D79E1F949AD200B57F00 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Ronin;
 				TargetAttributes = {
@@ -342,6 +429,9 @@
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
@@ -349,6 +439,15 @@
 								enabled = 1;
 							};
 							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
+					BDD131C0203F0C7A00B01FBE = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
 						};
@@ -369,6 +468,7 @@
 			projectRoot = "";
 			targets = (
 				30E8D7A51F949AD200B57F00 /* MyApp */,
+				BDD131C0203F0C7A00B01FBE /* FriendsTodayExtenstion */,
 			);
 		};
 /* End PBXProject section */
@@ -389,9 +489,51 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BDD131BF203F0C7A00B01FBE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDD79B95204028AB00CEA7EF /* Assets.xcassets in Resources */,
+				BDD131C9203F0C7B00B01FBE /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		31C41BC5EFE8DAB055CE8DC1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FriendsTodayExtenstion-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		437BB08C2356C0E627849DB3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FriendsTodayExtenstion/Pods-FriendsTodayExtenstion-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		5A6AC10C4F2ECC0DFE3FAA06 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -513,7 +655,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BDD131BD203F0C7A00B01FBE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDD131C6203F0C7B00B01FBE /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BDD131CC203F0C7B00B01FBE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BDD131C0203F0C7A00B01FBE /* FriendsTodayExtenstion */;
+			targetProxy = BDD131CB203F0C7B00B01FBE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		30E8D7AD1F949AD300B57F00 /* Main.storyboard */ = {
@@ -530,6 +688,14 @@
 				30E8D7B31F949AD300B57F00 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		BDD131C7203F0C7B00B01FBE /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BDD131C8203F0C7B00B01FBE /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -646,6 +812,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D071CC447F63337086E7CD3B /* Pods-MyApp.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = MyApp/MyApp.entitlements;
@@ -664,6 +831,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A4C2CC9912F16CF570D3672D /* Pods-MyApp.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = MyApp/MyApp.entitlements;
@@ -673,6 +841,44 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ibo.MyApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BDD131CE203F0C7B00B01FBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5525D75092CD717CACA12E4 /* Pods-FriendsTodayExtenstion.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CODE_SIGN_ENTITLEMENTS = FriendsTodayExtenstion/FriendsTodayExtenstion.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M5WRXU7FEB;
+				INFOPLIST_FILE = FriendsTodayExtenstion/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ibo.MyApp.FriendsTodayExtenstion;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BDD131CF203F0C7B00B01FBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B70018DEF63ADBA426E64ED9 /* Pods-FriendsTodayExtenstion.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CODE_SIGN_ENTITLEMENTS = FriendsTodayExtenstion/FriendsTodayExtenstion.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M5WRXU7FEB;
+				INFOPLIST_FILE = FriendsTodayExtenstion/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ibo.MyApp.FriendsTodayExtenstion;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -695,6 +901,15 @@
 			buildConfigurations = (
 				30E8D7B91F949AD300B57F00 /* Debug */,
 				30E8D7BA1F949AD300B57F00 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BDD131D0203F0C7B00B01FBE /* Build configuration list for PBXNativeTarget "FriendsTodayExtenstion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BDD131CE203F0C7B00B01FBE /* Debug */,
+				BDD131CF203F0C7B00B01FBE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
