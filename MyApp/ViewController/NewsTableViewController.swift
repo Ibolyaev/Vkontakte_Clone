@@ -26,6 +26,9 @@ class NewsTableViewController: UITableViewController, AlertShower {
     var items: [News]? {
         didSet {
             tableView.reloadData()
+            if let items = items {
+                AppState.shared.saveLastNewsFrom(items)
+            }
         }
     }
     
