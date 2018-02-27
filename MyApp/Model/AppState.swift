@@ -63,7 +63,7 @@ class AppState {
             let lastNews = LastNews()
             lastNews.text = news.text ?? ""
             lastNews.photoUrl = urlString ?? ""
-            lastNews.title = news.profile?.title ??
+            lastNews.title = news.profile?.title ?? ""
             lastNews.id = news.post_id ?? 0
             return lastNews
         }

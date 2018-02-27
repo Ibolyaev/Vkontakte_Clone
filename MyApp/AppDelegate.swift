@@ -10,15 +10,21 @@ import UIKit
 import Firebase
 import RealmSwift
 import UserNotifications
+import WatchConnectivity
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var shouldUpdateBadge = false
+    var session = WCSession.default
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        
+        if WCSession.isSupported() {
+            session.delegate = self
+        }
        
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         if AppState.shared.userLoggedIn {
@@ -74,6 +80,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             
         }
+    }
+}
+
+extension AppDelegate: WCSessionDelegate {
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+        print("didReceiveApplicationContext")
+    }
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        print(message)
+    }
+    
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        print("sessionDidBecomeInactive")
+    }
+    
+    func sessionDidDeactivate(_ session: WCSession) {
+        print("sessionDidDeactivate")
+    }
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("activationDidCompleteWith")
+        print(error ?? "success")
     }
 }
 
