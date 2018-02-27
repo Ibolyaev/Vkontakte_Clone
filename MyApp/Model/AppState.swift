@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftKeychainWrapper
+import RealmSwift
 
 class AppState {
     var token: String? {
@@ -30,11 +31,13 @@ class AppState {
         }
     }
     static let shared = AppState()
-    var defaults = UserDefaults(suiteName: "group.lastFriends")
+    let defaultsLastFriends = UserDefaults(suiteName: "group.lastFriends")
     private init() {
         userLoggedIn = UserDefaults.standard.bool(forKey: "userLoggedIn")
         token = KeychainWrapper.standard.string(forKey: "token") ?? nil
         userId = KeychainWrapper.standard.integer(forKey: "userId") ?? nil
+        
+        
     }
     
     func saveLastFriendsFrom(_ friends: [User]) {
@@ -44,7 +47,40 @@ class AppState {
             let user = friends[index]
             lastFriends.append(["name":user.name, "photoURL": user.photo?.url ?? ""])
         }
-        defaults?.setValue(lastFriends, forKey: "lastFriends")
+        defaultsLastFriends?.setValue(lastFriends, forKey: "lastFriends")
+    }
+    func saveLastNewsFrom(_ news: [News]) {
+        let lastNews = news.map { (news) -> LastNews in
+            var urlString:String?
+            if let attachment = news.attachments?.first {
+                switch attachment.type {
+                case "photo" : urlString = attachment.photo?.photo_604
+                case "video" : urlString = attachment.video?.image
+                default :
+                    break
+                }
+            }
+            let lastNews = LastNews()
+            lastNews.text = news.text ?? ""
+            lastNews.photoUrl = urlString ?? ""
+            lastNews.title = news.profile?.title ??
+            lastNews.id = news.post_id ?? 0
+            return lastNews
+        }
+        guard let directory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.MyApp.LastNews") else {
+            assert(false, "group.MyApp.LastNews - Shared group must be in App")
+            return
+        }
+        
+        do {
+            let realm = try Realm(fileURL: directory.appendingPathComponent("db.realm"))
+            realm.deleteAll()
+            try realm.write {
+                realm.add(lastNews)
+            }
+        } catch let error {
+            print(error)
+        }
     }
     
     func quit(_ sender: UIViewController) {
