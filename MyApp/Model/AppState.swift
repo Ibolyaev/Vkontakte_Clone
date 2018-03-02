@@ -49,6 +49,20 @@ class AppState {
         }
         defaultsLastFriends?.setValue(lastFriends, forKey: "lastFriends")
     }
+    func getlastNews() -> [LastNews]? {
+        guard let directory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.MyApp.LastNews") else {
+            assert(false, "group.MyApp.LastNews - Shared group must be in App")
+            return nil
+        }
+        do {
+            let realm = try Realm(fileURL: directory.appendingPathComponent("db.realm"))
+            let news = realm.objects(LastNews.self)
+            return news.map {$0}
+        } catch _ {
+            return nil
+        }
+    }
+    
     func saveLastNewsFrom(_ news: [News]) {
         let lastNews = news.map { (news) -> LastNews in
             var urlString:String?
@@ -70,12 +84,12 @@ class AppState {
         guard let directory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.MyApp.LastNews") else {
             assert(false, "group.MyApp.LastNews - Shared group must be in App")
             return
-        }
+        }        
         
         do {
             let realm = try Realm(fileURL: directory.appendingPathComponent("db.realm"))
-            realm.deleteAll()
             try realm.write {
+                realm.deleteAll()
                 realm.add(lastNews)
             }
         } catch let error {

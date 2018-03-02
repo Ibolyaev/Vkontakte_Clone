@@ -13,7 +13,13 @@ import WatchConnectivity
 
 class InterfaceController: WKInterfaceController, WCSessionDelegate {
     
+    @IBOutlet var tableView: WKInterfaceTable!
     let session = WCSession.default
+    var news = [LastNewsWatch]() {
+        didSet {
+            setupTable()
+        }
+    }
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -27,7 +33,9 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         
         if WCSession.isSupported() {
             session.delegate = self
+            session.activate()
         }
+        setupTable()
     }
     
     override func didDeactivate() {
@@ -35,13 +43,39 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         super.didDeactivate()
     }
     
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        if activationState == .activated {
-            session.sendMessage(["foo":"bar"], replyHandler: { (replyData) in
-                print(replyData)
+    func setupTable() {
+        tableView.setNumberOfRows(news.count, withRowType: "News")
+        
+        for (index, news) in news.enumerated() {
+            if let row = tableView.rowController(at: index) as? NewsRow {
+               row.newsTextLabel.setText(news.text)
+                row.titleTextLabel.setText(news.title)
+            }
+        }
+    }
+    
+    private func sendNewsRequestMessage() {
+        session.sendMessage(["LastNews": true], replyHandler: {[weak self] (replyData) in
+            NSKeyedUnarchiver.setClass(LastNewsWatch.self, forClassName: "LastNewsWatch")
+            for replyInfo in replyData {
+                if replyInfo.key == "LastNews",
+                    let newsData = replyInfo.value as? Data,
+                    let news = NSKeyedUnarchiver.unarchiveObject(with: newsData) as? [LastNewsWatch] {
+                    self?.news = news
+                }
+            }
             }, errorHandler: { (error) in
                 print(error)
-            })
+        })
+    }
+    
+    @IBAction func DidTapButton() {
+        sendNewsRequestMessage()
+    }
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        if activationState == .activated {
+            sendNewsRequestMessage()
         }
     }
 

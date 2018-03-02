@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if WCSession.isSupported() {
             session.delegate = self
+            session.activate()
         }
        
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -87,9 +88,22 @@ extension AppDelegate: WCSessionDelegate {
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
         print("didReceiveApplicationContext")
     }
-    
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+        for messageInfo in message {
+            switch messageInfo.key {
+            case "LastNews" :
+                guard let lastNews = AppState.shared.getlastNews() else { break }                
+                let result = lastNews.map {LastNewsWatch($0.title, text: $0.text, photoUrl: $0.photoUrl)}
+                NSKeyedArchiver.setClassName("LastNewsWatch", for: LastNewsWatch.self)                
+                let data = NSKeyedArchiver.archivedData(withRootObject: result)
+                replyHandler(["LastNews": data])
+            default : break
+            }
+        }
+        
+    }
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-        print(message)
+        //print(message)
     }
     
     func sessionDidBecomeInactive(_ session: WCSession) {

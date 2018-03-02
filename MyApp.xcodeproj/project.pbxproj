@@ -17,6 +17,8 @@
 		303A7CB92010EED300F34E2B /* VKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303A7CB82010EED300F34E2B /* VKConstants.swift */; };
 		304458361F97794700D694BA /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304458351F97794700D694BA /* FriendsTableViewController.swift */; };
 		304458381F977A4C00D694BA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304458371F977A4C00D694BA /* Constants.swift */; };
+		305016AF2049321A00367A53 /* LastNewsWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305016AE2049321A00367A53 /* LastNewsWatch.swift */; };
+		305016B0204932D100367A53 /* LastNewsWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305016AE2049321A00367A53 /* LastNewsWatch.swift */; };
 		30726DEC2036B79600E2AE73 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30726DEB2036B79600E2AE73 /* ChatViewController.swift */; };
 		30726DEF2036B9BA00E2AE73 /* SenderChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30726DED2036B9BA00E2AE73 /* SenderChatTableViewCell.swift */; };
 		30726DF02036B9BA00E2AE73 /* SenderChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30726DEE2036B9BA00E2AE73 /* SenderChatTableViewCell.xib */; };
@@ -33,6 +35,8 @@
 		308A6EDC20444C6B00548D73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30E8D7B01F949AD300B57F00 /* Assets.xcassets */; };
 		308A6EDF2045543C00548D73 /* LastNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308A6EDE2045543C00548D73 /* LastNews.swift */; };
 		308A6EE1204563B900548D73 /* LastNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308A6EDE2045543C00548D73 /* LastNews.swift */; };
+		308DB9AC2047FB72008DEE7C /* NewsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308DB9AB2047FB72008DEE7C /* NewsRow.swift */; };
+		308DB9AD204802B3008DEE7C /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDD79BC22045E8B000CEA7EF /* Interface.storyboard */; };
 		3099BC662003A78100511A5E /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3099BC652003A78100511A5E /* NewsTableViewController.swift */; };
 		3099BC6D2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3099BC6B2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift */; };
 		3099BC6E2003AF8E00511A5E /* NewsWithPhotoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3099BC6C2003AF8E00511A5E /* NewsWithPhotoTableViewCell.xib */; };
@@ -159,6 +163,7 @@
 
 /* Begin PBXFileReference section */
 		00A959F99CCDF6A5D5A1B7AC /* Pods_MyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		13F434258B0C8697635C778F /* Pods_Watch_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Watch_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E7848B34A1A8D6B3F3685B /* Pods_FriendsTodayExtenstion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FriendsTodayExtenstion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30113CE41FD6E39100309742 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		301C4EEC1FA849CB00E54F47 /* VKontakteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKontakteAPI.swift; sourceTree = "<group>"; };
@@ -170,6 +175,7 @@
 		303A7CB82010EED300F34E2B /* VKConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKConstants.swift; sourceTree = "<group>"; };
 		304458351F97794700D694BA /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		304458371F977A4C00D694BA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		305016AE2049321A00367A53 /* LastNewsWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastNewsWatch.swift; sourceTree = "<group>"; };
 		30726DEB2036B79600E2AE73 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		30726DED2036B9BA00E2AE73 /* SenderChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderChatTableViewCell.swift; sourceTree = "<group>"; };
 		30726DEE2036B9BA00E2AE73 /* SenderChatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SenderChatTableViewCell.xib; sourceTree = "<group>"; };
@@ -186,6 +192,7 @@
 		308A6EDA2044398600548D73 /* MessageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewCell.swift; sourceTree = "<group>"; };
 		308A6EDD20454FA200548D73 /* iMessageExtensionPost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iMessageExtensionPost.entitlements; sourceTree = "<group>"; };
 		308A6EDE2045543C00548D73 /* LastNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastNews.swift; sourceTree = "<group>"; };
+		308DB9AB2047FB72008DEE7C /* NewsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRow.swift; sourceTree = "<group>"; };
 		3099BC652003A78100511A5E /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		3099BC6B2003AF8E00511A5E /* NewsWithPhotoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWithPhotoTableViewCell.swift; sourceTree = "<group>"; };
 		3099BC6C2003AF8E00511A5E /* NewsWithPhotoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsWithPhotoTableViewCell.xib; sourceTree = "<group>"; };
@@ -215,6 +222,7 @@
 		A4C2CC9912F16CF570D3672D /* Pods-MyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyApp/Pods-MyApp.release.xcconfig"; sourceTree = "<group>"; };
 		A5525D75092CD717CACA12E4 /* Pods-FriendsTodayExtenstion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendsTodayExtenstion.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FriendsTodayExtenstion/Pods-FriendsTodayExtenstion.debug.xcconfig"; sourceTree = "<group>"; };
 		B70018DEF63ADBA426E64ED9 /* Pods-FriendsTodayExtenstion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendsTodayExtenstion.release.xcconfig"; path = "Pods/Target Support Files/Pods-FriendsTodayExtenstion/Pods-FriendsTodayExtenstion.release.xcconfig"; sourceTree = "<group>"; };
+		BB5F1FC171BD65D10F8A7B4B /* Pods_Watch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Watch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB7658669BDB40400BF3CF8E /* Pods-iMessageExtensionPost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMessageExtensionPost.release.xcconfig"; path = "Pods/Target Support Files/Pods-iMessageExtensionPost/Pods-iMessageExtensionPost.release.xcconfig"; sourceTree = "<group>"; };
 		BD1AF5271FD8579A00C83EBE /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		BD2A37EE201A4CBA00141053 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -268,6 +276,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				6ADE517EAB70770D3430778B /* Pods_MyApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73687B85186F1295AFE8081F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +481,8 @@
 				15E7848B34A1A8D6B3F3685B /* Pods_FriendsTodayExtenstion.framework */,
 				308A6EC92044136600548D73 /* Messages.framework */,
 				EEE960E9EE150CF479B26B98 /* Pods_iMessageExtensionPost.framework */,
+				BB5F1FC171BD65D10F8A7B4B /* Pods_Watch.framework */,
+				13F434258B0C8697635C778F /* Pods_Watch_Extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -494,6 +511,8 @@
 		BDD79BD02045E8B000CEA7EF /* Watch Extension */ = {
 			isa = PBXGroup;
 			children = (
+				308DB9AB2047FB72008DEE7C /* NewsRow.swift */,
+				305016AE2049321A00367A53 /* LastNewsWatch.swift */,
 				BDD79BD12045E8B000CEA7EF /* InterfaceController.swift */,
 				BDD79BD32045E8B000CEA7EF /* ExtensionDelegate.swift */,
 				BDD79BD52045E8B000CEA7EF /* NotificationController.swift */,
@@ -597,6 +616,7 @@
 			buildPhases = (
 				BDD79BBE2045E8B000CEA7EF /* Resources */,
 				BDD79BE32045E8B100CEA7EF /* Embed App Extensions */,
+				73687B85186F1295AFE8081F /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -631,7 +651,7 @@
 		30E8D79E1F949AD200B57F00 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 0910;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Ronin;
 				TargetAttributes = {
@@ -751,6 +771,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				308DB9AD204802B3008DEE7C /* Interface.storyboard in Resources */,
 				BDD79BD82045E8B000CEA7EF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -929,6 +950,7 @@
 				30726DF22036FCEC00E2AE73 /* Message.swift in Sources */,
 				30E8D7AC1F949AD300B57F00 /* LoginViewController.swift in Sources */,
 				3099BC742003C65300511A5E /* NewsCell.swift in Sources */,
+				305016B0204932D100367A53 /* LastNewsWatch.swift in Sources */,
 				30113CE51FD6E39100309742 /* AuthService.swift in Sources */,
 				30D5C8F42022F31D00025D66 /* CloudDatabase.swift in Sources */,
 				30CAFB281F9F4E00002D0BB1 /* GroupsTableViewController.swift in Sources */,
@@ -970,8 +992,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDD79BD62045E8B000CEA7EF /* NotificationController.swift in Sources */,
+				308DB9AC2047FB72008DEE7C /* NewsRow.swift in Sources */,
 				BDD79BD42045E8B000CEA7EF /* ExtensionDelegate.swift in Sources */,
 				BDD79BD22045E8B000CEA7EF /* InterfaceController.swift in Sources */,
+				305016AF2049321A00367A53 /* LastNewsWatch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1280,7 +1304,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+				WATCHOS_DEPLOYMENT_TARGET = 4.1;
 			};
 			name = Debug;
 		};
@@ -1299,7 +1323,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+				WATCHOS_DEPLOYMENT_TARGET = 4.1;
 			};
 			name = Release;
 		};
@@ -1308,6 +1332,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M5WRXU7FEB;
 				INFOPLIST_FILE = "Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ibo.MyApp.watchkitapp.watchkitextension;
@@ -1316,7 +1341,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+				WATCHOS_DEPLOYMENT_TARGET = 4.1;
 			};
 			name = Debug;
 		};
@@ -1325,6 +1350,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M5WRXU7FEB;
 				INFOPLIST_FILE = "Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ibo.MyApp.watchkitapp.watchkitextension;
@@ -1333,7 +1359,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+				WATCHOS_DEPLOYMENT_TARGET = 4.1;
 			};
 			name = Release;
 		};

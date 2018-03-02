@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="13771" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="13529" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="13756"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="13507"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
@@ -14,11 +14,44 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Watch" customModuleProvider="target">
                     <items>
-                        <label width="133" height="164" alignment="left" text="Hello world" textAlignment="center" id="m0G-ue-wKl"/>
+                        <table alignment="left" id="fHl-9s-CPs">
+                            <items>
+                                <tableRow identifier="News" id="9pC-g5-gOD" customClass="NewsRow" customModule="Watch" customModuleProvider="target">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="OHu-bL-WIp">
+                                        <items>
+                                            <group width="1" alignment="left" id="glJ-TE-oQX">
+                                                <items>
+                                                    <label height="20" alignment="left" text="Title" id="9tT-HO-wI1">
+                                                        <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                                    </label>
+                                                </items>
+                                            </group>
+                                            <group width="1" alignment="left" id="mPk-Wq-7UB">
+                                                <items>
+                                                    <label alignment="left" verticalAlignment="bottom" text="Text" numberOfLines="0" id="g2l-f4-2Dk"/>
+                                                </items>
+                                            </group>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="newsTextLabel" destination="g2l-f4-2Dk" id="0x4-Um-D9J"/>
+                                        <outlet property="titleTextLabel" destination="9tT-HO-wI1" id="F5n-uR-hr8"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                        <button width="1" alignment="left" verticalAlignment="bottom" title="Refresh" id="YW9-C1-E7M">
+                            <connections>
+                                <action selector="DidTapButton" destination="AgC-eL-Hgc" id="34w-xd-Pgq"/>
+                            </connections>
+                        </button>
                     </items>
+                    <connections>
+                        <outlet property="tableView" destination="fHl-9s-CPs" id="bqm-9r-MUo"/>
+                    </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="220" y="345"/>
+            <point key="canvasLocation" x="220" y="326"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
