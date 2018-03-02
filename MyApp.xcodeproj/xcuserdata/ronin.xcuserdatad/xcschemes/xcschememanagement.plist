@@ -7,19 +7,39 @@
 		<key>FriendsTodayExtenstion.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>13</integer>
+			<integer>2</integer>
 		</dict>
 		<key>MyApp Background fetch.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>12</integer>
+			<integer>1</integer>
 		</dict>
 		<key>MyApp.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>0</integer>
+		</dict>
+		<key>Watch (Notification).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>17</integer>
+		</dict>
+		<key>Watch.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
 		</dict>
 		<key>iMessageExtensionPost.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>test (Notification).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>18</integer>
+		</dict>
+		<key>test.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>15</integer>
@@ -38,6 +58,11 @@
 			<true/>
 		</dict>
 		<key>BDD131C0203F0C7A00B01FBE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BDD79BBF2045E8B000CEA7EF</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -10,15 +10,22 @@ import UIKit
 import Firebase
 import RealmSwift
 import UserNotifications
+import WatchConnectivity
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var shouldUpdateBadge = false
+    var session = WCSession.default
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        
+        if WCSession.isSupported() {
+            session.delegate = self
+            session.activate()
+        }
        
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         if AppState.shared.userLoggedIn {
@@ -74,6 +81,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             
         }
+    }
+}
+
+extension AppDelegate: WCSessionDelegate {
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+        print("didReceiveApplicationContext")
+    }
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+        for messageInfo in message {
+            switch messageInfo.key {
+            case "LastNews" :
+                guard let lastNews = AppState.shared.getlastNews() else { break }                
+                let result = lastNews.map {LastNewsWatch($0.title, text: $0.text, photoUrl: $0.photoUrl)}
+                NSKeyedArchiver.setClassName("LastNewsWatch", for: LastNewsWatch.self)                
+                let data = NSKeyedArchiver.archivedData(withRootObject: result)
+                replyHandler(["LastNews": data])
+            default : break
+            }
+        }
+        
+    }
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        //print(message)
+    }
+    
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        print("sessionDidBecomeInactive")
+    }
+    
+    func sessionDidDeactivate(_ session: WCSession) {
+        print("sessionDidDeactivate")
+    }
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("activationDidCompleteWith")
+        print(error ?? "success")
     }
 }
 
