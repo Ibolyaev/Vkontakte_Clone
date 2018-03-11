@@ -273,8 +273,14 @@ class VKontakteAPI {
         Alamofire.request(url, method: .get, parameters: finalParameters, encoding: URLEncoding.default, headers: nil).responseData(queue:DispatchQueue.global(qos: .userInitiated)) {(response) in
             
             if response.result.isSuccess, let data = response.data {
-                //var result:VKResponse<T>?
-                let result = try? JSONDecoder().decode(VKResponse<T>.self, from: data)
+                var result:VKResponse<T>?
+                //var result = try? JSONDecoder().decode(VKResponse<T>.self, from: data)
+                
+                do {
+                    result = try JSONDecoder().decode(VKResponse<T>.self, from: data)
+                } catch let error {
+                    print(error)
+                }
                 
                 if let objects = result?.response {
                     completionHandler(objects, nil)

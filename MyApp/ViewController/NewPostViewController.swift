@@ -57,8 +57,9 @@ class NewPostViewController: UIViewController, AlertShower {
     }
     
     func choosePhoto(type: UIImagePickerControllerSourceType) {
+        guard UIImagePickerController.isSourceTypeAvailable(type) else { return }
         imagePicker.sourceType = type
-        imagePicker.allowsEditing = true
+        imagePicker.allowsEditing = false
         present(imagePicker, animated: true, completion: nil)
     }
     
