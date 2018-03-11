@@ -169,6 +169,13 @@ class VKontakteAPI {
         }
     }
     
+    func leaveGroup(_ group: Group, completionHandler:@escaping (_ success: Bool, _ error: Error?) -> () ) {
+        let parameters: Parameters = ["group_id": group.id]
+        getResourse(VKConstants.groupsLeave, parameters: parameters, type: Int.self) {(_ response, error) in
+            completionHandler(response ?? 0 == 1, error)
+        }
+    }
+    
     func getPhotos(ownerId: Int, completionHandler:@escaping (_ groups: [AlbumPhoto]?,_ error: Error?)->()) {
         let parameters: Parameters = ["album_id": "profile",
                       "owner_id": ownerId]

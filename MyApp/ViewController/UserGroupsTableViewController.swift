@@ -73,6 +73,11 @@ class UserGroupsTableViewController: UITableViewController, AlertShower {
                         try realm.write {
                             realm.add(loadedGroups, update: true)
                         }
+                        let groupsInDataBaseToDelete = NSPredicate(format: "NOT id IN %@", loadedGroups.map {$0.id}, NSNumber(value: true))
+                        let usersToDelete = realm.objects(Group.self).filter(groupsInDataBaseToDelete)
+                        try realm.write {
+                            realm.delete(usersToDelete)
+                        }
                     } catch let error {
                         self?.showError(with:error.localizedDescription)
                     }
@@ -118,11 +123,17 @@ class UserGroupsTableViewController: UITableViewController, AlertShower {
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
- 
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // TODO: Реализовать отписку от группы
+            guard let group = userGroups?[indexPath.row] else { return }
+            clientVk.leaveGroup(group, completionHandler: {[weak self] (success, error) in
+                if success {
+                    self?.loadNetworkData()
+                } else {
+                    self?.showError(with:error?.localizedDescription)
+                }
+            })
         }
     }
 }
