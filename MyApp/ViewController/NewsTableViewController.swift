@@ -50,14 +50,16 @@ class NewsTableViewController: UITableViewController, AlertShower {
         AppState.shared.quit(self)
     }
     private func updateProfiles(_ news:[News]?) {
-        items = news?.map({ (item) -> News in
+        items = news?.flatMap({ (item) -> News? in
             var tempItem = item
-            
-            if item.source_id > 0 {
+            guard let source_id = item.source_id else {
+                return nil
+            }
+            if source_id > 0 {
                 guard let userProfile = (newsResponse?.profiles?.first() {$0.id == item.source_id}) else { return item }
                 tempItem.profile = Profile(userProfile)
             } else {
-                guard let groupProfile = (newsResponse?.groups?.first() {$0.id == -item.source_id}) else { return item }
+                guard let groupProfile = (newsResponse?.groups?.first() {$0.id == -source_id}) else { return item }
                 tempItem.profile = Profile(groupProfile)
             }
             

@@ -76,6 +76,8 @@
 		BD2A4EB9200D516F0067CFAE /* NewsPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A4EAF200D516F0067CFAE /* NewsPhoto.swift */; };
 		BD2A4EBB200D52810067CFAE /* NewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A4EBA200D52810067CFAE /* NewsResponse.swift */; };
 		BD2A4EBF200D5C370067CFAE /* Profiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2A4EBE200D5C370067CFAE /* Profiles.swift */; };
+		BD5D94A62054140E00B4B142 /* VKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5D94A52054140E00B4B142 /* VKError.swift */; };
+		BD5D94A920554AF400B4B142 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD5D94A820554AF400B4B142 /* CloudKit.framework */; };
 		BDC0BA18202FA975003131E9 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC0BA17202FA975003131E9 /* NewPostViewController.swift */; };
 		BDD131C3203F0C7A00B01FBE /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDD131C2203F0C7A00B01FBE /* NotificationCenter.framework */; };
 		BDD131C6203F0C7B00B01FBE /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD131C5203F0C7B00B01FBE /* TodayViewController.swift */; };
@@ -236,6 +238,8 @@
 		BD2A4EAF200D516F0067CFAE /* NewsPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsPhoto.swift; sourceTree = "<group>"; };
 		BD2A4EBA200D52810067CFAE /* NewsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsResponse.swift; sourceTree = "<group>"; };
 		BD2A4EBE200D5C370067CFAE /* Profiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profiles.swift; sourceTree = "<group>"; };
+		BD5D94A52054140E00B4B142 /* VKError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKError.swift; sourceTree = "<group>"; };
+		BD5D94A820554AF400B4B142 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		BDC0BA17202FA975003131E9 /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
 		BDD131C1203F0C7A00B01FBE /* FriendsTodayExtenstion.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FriendsTodayExtenstion.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDD131C2203F0C7A00B01FBE /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -276,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6ADE517EAB70770D3430778B /* Pods_MyApp.framework in Frameworks */,
+				BD5D94A920554AF400B4B142 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,20 +407,16 @@
 		30E6149F1FA1BD750091BD87 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BD5D94A52054140E00B4B142 /* VKError.swift */,
 				30726DF12036FCEC00E2AE73 /* Message.swift */,
-				303A7CB32010EDE900F34E2B /* Group */,
-				303A7C9C200C953C00F34E2B /* News */,
+				BD5D94A720541E3700B4B142 /* VKModels */,
 				30A3C58020189DD700B36F78 /* Protocols */,
 				301C4EEC1FA849CB00E54F47 /* VKontakteAPI.swift */,
 				BD1AF5271FD8579A00C83EBE /* AppState.swift */,
 				303A7CB82010EED300F34E2B /* VKConstants.swift */,
-				BD2A4E901FE5AE300067CFAE /* AlbumPhoto.swift */,
 				30113CE41FD6E39100309742 /* AuthService.swift */,
 				30D5C8F32022F31D00025D66 /* CloudDatabase.swift */,
-				301C4EEE1FA85C7300E54F47 /* Photo.swift */,
 				304458371F977A4C00D694BA /* Constants.swift */,
-				30FFAD131F9F23B80026FFF9 /* User.swift */,
-				30EDBB2F202061EC0007200A /* Profile.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -476,6 +477,7 @@
 		4FA64D5B6335DE8292232307 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BD5D94A820554AF400B4B142 /* CloudKit.framework */,
 				00A959F99CCDF6A5D5A1B7AC /* Pods_MyApp.framework */,
 				BDD131C2203F0C7A00B01FBE /* NotificationCenter.framework */,
 				15E7848B34A1A8D6B3F3685B /* Pods_FriendsTodayExtenstion.framework */,
@@ -485,6 +487,19 @@
 				13F434258B0C8697635C778F /* Pods_Watch_Extension.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BD5D94A720541E3700B4B142 /* VKModels */ = {
+			isa = PBXGroup;
+			children = (
+				303A7CB32010EDE900F34E2B /* Group */,
+				303A7C9C200C953C00F34E2B /* News */,
+				BD2A4E901FE5AE300067CFAE /* AlbumPhoto.swift */,
+				301C4EEE1FA85C7300E54F47 /* Photo.swift */,
+				30FFAD131F9F23B80026FFF9 /* User.swift */,
+				30EDBB2F202061EC0007200A /* Profile.swift */,
+			);
+			path = VKModels;
 			sourceTree = "<group>";
 		};
 		BDD131C4203F0C7B00B01FBE /* FriendsTodayExtenstion */ = {
@@ -946,6 +961,7 @@
 				BD2A4EB3200D516F0067CFAE /* Likes.swift in Sources */,
 				BD2A4EB8200D516F0067CFAE /* Comments.swift in Sources */,
 				BD2A4EB2200D516F0067CFAE /* Attachment.swift in Sources */,
+				BD5D94A62054140E00B4B142 /* VKError.swift in Sources */,
 				303A7CB92010EED300F34E2B /* VKConstants.swift in Sources */,
 				30726DF22036FCEC00E2AE73 /* Message.swift in Sources */,
 				30E8D7AC1F949AD300B57F00 /* LoginViewController.swift in Sources */,

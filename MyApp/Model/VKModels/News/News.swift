@@ -1,7 +1,7 @@
 import Foundation
 struct News : Decodable {
     let type : String?
-    let source_id : Int
+    let source_id : Int?
     let date : Int?
     let post_id : Int?
     let post_type : String?

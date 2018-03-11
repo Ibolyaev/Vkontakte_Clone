@@ -13,6 +13,15 @@ struct VKResponse<T:Decodable>: Decodable {
     let response: T
 }
 
+struct ResponseErrorMessage : Codable {
+    let error_code : Int?
+    let error_msg : String?
+}
+
+struct ResponseError: Codable {
+    let error: ResponseErrorMessage
+}
+
 struct PostResponse: Decodable {
     let postId: Int
     
@@ -215,8 +224,7 @@ class VKontakteAPI {
                     return
                 }
                 guard let imageData = UIImageJPEGRepresentation(photo, 1.0) else {
-                    // TODO: Make custom error
-                    completionHandler(nil, error)
+                    completionHandler(nil, VKError.JPEGRepresentationFailed)
                     return
                 }
                 self?.uploadImageDataTo(url: urlRequest, data: imageData, name: "photo", fileName: "photo.jpeg", mimeType: "image/jpeg", completionHandler: completionHandler)
@@ -244,9 +252,10 @@ class VKontakteAPI {
         let parameters = ["count":50] as [String : Any]
         getResourse(VKConstants.newsFeed, parameters: parameters, type: NewsResponse.self, completionHandler: completionHandler)
     }
+    
     private func getResourse<T:Decodable>(_ url:String , parameters:[String : Any], type:T.Type, completionHandler: @escaping (_ objects:T?,_ error:Error?)->() ) {
         guard let token = AppState.shared.token else {
-            // TODO: Make custom error
+            completionHandler(nil, VKError.tokenFailed)
             return
         }
         var finalParameters = parameters
@@ -257,18 +266,17 @@ class VKontakteAPI {
         Alamofire.request(url, method: .get, parameters: finalParameters, encoding: URLEncoding.default, headers: nil).responseData(queue:DispatchQueue.global(qos: .userInitiated)) {(response) in
             
             if response.result.isSuccess, let data = response.data {
-                var result:VKResponse<T>?
-                do {
-                    result = try JSONDecoder().decode(VKResponse<T>.self, from: data)
-                } catch let error {
-                    // TODO: Make custom error
-                    if let errorJson = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any]{
-                        print(errorJson?.values)
-                    }
-                    completionHandler(nil, error)
-                }
+                //var result:VKResponse<T>?
+                let result = try? JSONDecoder().decode(VKResponse<T>.self, from: data)
+                
                 if let objects = result?.response {
                     completionHandler(objects, nil)
+                } else {
+                    var error = VKError.readDataError(description: "unkown app error", errorCode: 0)
+                    if let errorResponse = try? JSONDecoder().decode(ResponseError.self, from: data), let errorMessage = errorResponse.error.error_msg {
+                        error = VKError.readDataError(description: errorMessage, errorCode: errorResponse.error.error_code ?? 0)
+                    }
+                    completionHandler(nil, error)
                 }
                 
             } else {
@@ -296,23 +304,28 @@ class VKontakteAPI {
     }
     
     func postOnWall(_ message: String, attachment: NewsPhoto?, completionHandler:@escaping (Bool, Error?)->()) {
-        // TODO: Make custom error if nil
         let userId = AppState.shared.userId ?? 0
-        let token = AppState.shared.token ?? ""
+        guard let token = AppState.shared.token else {
+            completionHandler(false, VKError.tokenFailed)
+            return
+        }
         var parameters: Parameters = ["owner_id": userId,
                           "friends_only": 1,
                           "message": message,
                           "access_token": token]
         if let attachment = attachment, let userId = AppState.shared.userId {
-            /*Вы можете разместить её на стене, опубликовав запись с помощью метода wall.post и указав идентификатор фотографии в формате "photo"+{owner_id}+"_"+{photo_id} (например, photo12345_654321) в параметре attachments*/
             parameters.updateValue("photo\(userId)_\(attachment.id)", forKey: "attachments")
         }
+        parameters.updateValue("5.69", forKey: "v")
         Alamofire.request(VKConstants.wallPost, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
             if response.result.isSuccess, let data = response.data {
-                do {
-                    _ = try JSONDecoder().decode(VKResponse<PostResponse>.self, from: data)
+                if (try? JSONDecoder().decode(VKResponse<PostResponse>.self, from: data)) != nil {
                     completionHandler(true, nil)
-                } catch let error {
+                } else {
+                    var error = VKError.readDataError(description: "unkown app error", errorCode: 0)
+                    if let errorResponse = try? JSONDecoder().decode(ResponseError.self, from: data), let errorMessage = errorResponse.error.error_msg {
+                        error = VKError.readDataError(description: errorMessage, errorCode: errorResponse.error.error_code ?? 0)
+                    }
                     completionHandler(false, error)
                 }
             } else {
